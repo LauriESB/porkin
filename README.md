@@ -30,10 +30,11 @@
 
 ## 📱 Como usar
 
-Para iniciar a gestão, os usuários devem primeiramente criar uma conta e adicionar o contato desejado na rede de amigos do site. O valor a ser dividido e pago posteriormente pode ser determinado logo na página inicial do site e vinculado a uma pessoa da rede, determionando quem deve o que a quem.
+Para começar, é necessário criar um perfil e adicionar os contatos desejados à rede de amigos no site. Na página inicial, o valor a ser dividido pode ser definido e vinculado a uma ou mais pessoas da rede. Em seguida, a conta gerada pode ter seus valores reajustados entre as pessoas selecionadas, caso necessário.
 
-Após essa etapa, a conta adicionada fica pendente com a data da transação e o valor determinado, que pode ser porteriormente editado, excluido ou, quando a dívida for quitada, marcado como pago.
+Essa cobrança permanecerá pendente, exibindo o valor que cada pessoa deve pagar e a data limite para o pagamento. No dia do vencimento, uma notificação será enviada como lembrete para aqueles que ainda não quitaram suas partes.
 
+Os usuários podem marcar suas partes individuais como pagas a qualquer momento e remover a despesa de seu perfil. Contudo, a exclusão permanente da despesa só pode ser realizada pela pessoa que a criou.
 
 ## 🐽✨ Visão geral
 
