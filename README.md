@@ -25,16 +25,19 @@
 
 ## 🐷 Sobre
 
-**porkin!** é um PWA desenvolvido para quem precisa organizar as despesas de um evento com os amigos de maneira simples, rápida e sem complicações. Sabemos que, na correria, é fácil perder o controle de quem pagou o quê e quem deve para quem, especialmente quando as dívidas são quitadas após algum tempo. **porkin!** facilita esse processo, permitindo que todos acompanhem as despesas em tempo real, garantindo transparência e evitando mal-entendidos. Com uma interface intuitiva e funcionalidades pensadas para o dia a dia, ele é a solução perfeita para manter as contas em ordem e focar no que realmente importa: aproveitar os momentos com os amigos.
-
+<p style="text-align: justify;">
+<span style="font-weight: bold;">porkin!</span> é um PWA desenvolvido para quem precisa organizar as despesas de um evento com os amigos de maneira simples, rápida e sem complicações. Sabemos que, na correria, é fácil perder o controle de quem pagou o quê e quem deve para quem, especialmente quando as dívidas são quitadas após algum tempo. <span style="font-weight: bold;">porkin!</span> facilita esse processo, permitindo que todos acompanhem as despesas em tempo real, garantindo transparência e evitando mal-entendidos. Com uma interface intuitiva e funcionalidades pensadas para o dia a dia, ele é a solução perfeita para manter as contas em ordem e focar no que realmente importa: aproveitar os momentos com os amigos.
+</p>
 
 ## 📱 Como usar
 
+<p style="text-align: justify;">
 Para começar, é necessário criar um perfil e adicionar os contatos desejados à rede de amigos no site. Na página inicial, o valor a ser dividido pode ser definido e vinculado a uma ou mais pessoas da rede. Em seguida, a conta gerada pode ter seus valores reajustados entre as pessoas selecionadas, caso necessário.
 
 Essa cobrança permanecerá pendente, exibindo o valor que cada pessoa deve pagar e a data limite para o pagamento. No dia do vencimento, uma notificação será enviada como lembrete para aqueles que ainda não quitaram suas partes.
 
 Os usuários podem marcar suas partes individuais como pagas a qualquer momento e remover a despesa de seu perfil. Contudo, a exclusão permanente da despesa só pode ser realizada pela pessoa que a criou.
+</p>
 
 ## 🐽✨ Visão geral
 
