@@ -1,9 +1,9 @@
  
 <h1 align="center">
   <br>
-  <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="misc/icon-dark.webp" />
-  <source media="(prefers-color-scheme: light)" srcset="misc/icon-light.webp" />
+  <picture> 
+  <source media="(prefers-color-scheme: dark)" srcset="misc/icon-light.webp" />
+  <source media="(prefers-color-scheme: light)" srcset="misc/icon-dark.webp" />
   <img width="12%">
 </picture> 
   <br>
