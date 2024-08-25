@@ -19,7 +19,7 @@
 - [Sobre](#-sobre)
 - [Como usar](#-como-usar)
 - [Screenshots do projeto](#-visão-geral)
-- [Documentação](#-documentação)
+- [Licença](#-licença)
 - [Contato](#-contato)
 
 
