@@ -12,8 +12,16 @@
 </h1>
 
 <h4 align="center">Organize os gastos do rolê sem medo! </h4>
+<br>
+
+<h4 align="right">
+
+![Badge em Desenvolvimento](https://img.shields.io/badge/status%20do%20projeto:-em%20desenvolvimento-purple)
+</h4>
 
 ⭐ Nos dê uma estrela!
+
+
 
 ## Tabela de conteúdos
 - [Sobre](#-sobre)
