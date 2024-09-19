@@ -76,9 +76,7 @@ Os usuários podem marcar suas partes individuais como pagas a qualquer momento 
 
 ## ⚙ Licença
 
-<!-- [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) -->
-
-Este projeto está sob a licença #### - veja o arquivo LICENSE.md para detalhes.
+Este projeto está sob a licença GNU GENERAL PUBLIC LICENSE Version 3 (GPLv3) - veja o arquivo [LICENSE.md](https://github.com/LauriESB/porkin/blob/main/LICENSE) para detalhes.
 
 ## 💌 Contato
 
