@@ -34,32 +34,44 @@ Os usuários podem marcar suas partes individuais como pagas a qualquer momento 
 <summary align="left">Login</summary>
 <br>
 
-![login](misc/projecto-login.png)
+<!-- ![login](misc/projecto-login.png) -->
 
+Ainda não disponível.
+
+<br>
 </details>
 
 <details>
 <summary align="left">Home</summary>
 <br>
 
-![home](misc/projecto-home.png)
+<!-- ![home](misc/projecto-home.png) -->
 
+Ainda não disponível.
+
+<br>
 </details>
 
 <details>
 <summary align="left">Rede de amigos</summary>
 <br>
 
-![rede-de-amigos](misc/projecto-amigos.png)
+<!-- ![rede-de-amigos](misc/projecto-amigos.png) -->
 
+Ainda não disponível.
+
+<br>
 </details>
 
 <details>
 <summary align="left">Transações</summary>
 <br>
 
-![transacoes](misc/projecto-transacoes.png)
+<!-- ![transacoes](misc/projecto-transacoes.png) -->
 
+Ainda não disponível.
+
+<br>
 </details>
 
 ## ⚙ Licença
