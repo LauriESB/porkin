@@ -1,8 +1,10 @@
 package com.porkin.entity;
 
+import com.porkin.dto.DivisaoDTO;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.springframework.beans.BeanUtils;
 
 import java.util.Objects;
 
@@ -21,6 +23,10 @@ public class DivisaoEntity {
   private boolean pago;
 
   // divisaoEntity constructors
+
+  public DivisaoEntity(DivisaoDTO divisaoDTO) {
+    BeanUtils.copyProperties(divisaoDTO, this);
+  }
 
   public DivisaoEntity() {
 

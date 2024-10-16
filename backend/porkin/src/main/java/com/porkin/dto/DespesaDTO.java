@@ -1,46 +1,35 @@
-package com.porkin.entity;
+package com.porkin.dto;
 
-import com.porkin.dto.DespesaDTO;
+import com.porkin.entity.DespesaEntity;
+import com.porkin.entity.PessoaEntity;
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
-@Entity
-@Table(name = "despesa")
-public class DespesaEntity {
+public class DespesaDTO {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false)
   private int valorTotal;
 
-  @Column(nullable = false)
   private String titulo;
 
-  @Column(nullable = false)
   private LocalDate data_criacao;
 
-  @Column(nullable = false)
   private LocalDate dataLimitePgto;
 
-  @Column(nullable = false)
   private boolean situacao;
 
-  @ManyToMany
-  @JoinColumn(name = "usuarioCriador")
-  private PessoaEntity usuarioCriador;
+  private Long usuarioCriador;
 
-  // despesEntity constructors
+  // DespesaDTO constructor
 
-  public DespesaEntity(DespesaDTO despesaDTO) {
-    BeanUtils.copyProperties(despesaDTO, this);
+  public DespesaDTO(DespesaEntity despesaEntity) {
+    BeanUtils.copyProperties(despesaEntity, this);
   }
 
-  public DespesaEntity() {
+  public DespesaDTO() {
 
   }
 
@@ -94,27 +83,12 @@ public class DespesaEntity {
     this.situacao = situacao;
   }
 
-  public PessoaEntity getUsuarioCriador() {
+  public Long getUsuarioCriador() {
     return usuarioCriador;
   }
 
-  public void setUsuarioCriador(PessoaEntity usuarioCriador) {
+  public void setUsuarioCriador(Long usuarioCriador) {
     this.usuarioCriador = usuarioCriador;
-  }
-
-  // hashCode and equals
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    DespesaEntity that = (DespesaEntity) o;
-    return Objects.equals(id, that.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hashCode(id);
   }
 
 }

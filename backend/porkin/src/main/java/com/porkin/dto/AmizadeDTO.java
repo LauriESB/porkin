@@ -1,38 +1,27 @@
-package com.porkin.entity;
+package com.porkin.dto;
 
-import com.porkin.dto.AmizadeDTO;
+import com.porkin.entity.AmizadeEntity;
+import com.porkin.entity.PessoaEntity;
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
 
-import java.util.Objects;
+public class AmizadeDTO {
 
-@Entity
-@Table(name = "amizade")
-public class AmizadeEntity {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long idUsuario;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long idAmigo;
 
-  @ManyToMany
-  @JoinColumn(name = "idUsuario")
   private PessoaEntity fkPessoaUsuario;
 
-  @ManyToMany
-  @JoinColumn(name = "idAmigo")
   private PessoaEntity fkPessoaAmigo;
 
-  // pessoaEntity constructors
+  // AmizadeDTO constructors
 
-  public AmizadeEntity(AmizadeDTO amizadeDTO) {
-    BeanUtils.copyProperties(amizadeDTO, this);
+  public AmizadeDTO(AmizadeEntity amizadeEntity) {
+    BeanUtils.copyProperties(amizadeEntity, this);
   }
 
-  public AmizadeEntity() {
+  public AmizadeDTO() {
 
   }
 
@@ -68,21 +57,6 @@ public class AmizadeEntity {
 
   public void setFkPessoaAmigo(PessoaEntity fkPessoaAmigo) {
     this.fkPessoaAmigo = fkPessoaAmigo;
-  }
-
-  // hashCode and equals
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    AmizadeEntity that = (AmizadeEntity) o;
-    return Objects.equals(idUsuario, that.idUsuario);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hashCode(idUsuario);
   }
 
 }

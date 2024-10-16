@@ -1,7 +1,9 @@
 package com.porkin.entity;
 
+import com.porkin.dto.PessoaDTO;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import org.springframework.beans.BeanUtils;
 
 import java.util.Objects;
 
@@ -26,6 +28,10 @@ public class PessoaEntity {
   private int celular;
 
   // pessoaEntity constructors
+
+  public PessoaEntity(PessoaDTO pessoaDTO) {
+    BeanUtils.copyProperties(pessoaDTO, this);
+  }
 
   public PessoaEntity() {
 
