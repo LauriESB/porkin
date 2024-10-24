@@ -18,4 +18,177 @@
   --box-shadow: rgba(148, 163, 184, 0.25);
   --light-black: rgba(2, 6, 23, 0.25);
   --medium-black: rgba(2, 6, 23, 0.75);
+  --button-light: rgba(2, 6, 23, 0.75);
+}
+
+#content {
+  height: 100vh;
+  background-color: var(--slate-100);
+}
+
+.navbar {
+  width: 100vw;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+}
+
+.navbar > button {
+  flex: 1;
+  border: none;
+  background-color: var(--slate-50);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 12px;
+  color: var(--light-black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .25rem;
+}
+
+.navbar > button > svg {
+  fill: var(--light-black);
+}
+
+.active {
+  color: var(--slate-950) !important;
+}
+
+.active > svg {
+  fill: var(--slate-950) !important;
+}
+
+#home-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--slate-50);
+  margin-bottom: 3rem;
+  align-items: center;
+}
+
+#home-header > h3 {
+  font-family: "Outfit", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#home-header > svg {
+  fill: var(--light-black);
+}
+
+#new-value {
+  background-color: var(--slate-50);
+}
+
+#input-value {
+  display: flex;
+  font-family: "Poiret One", serif;
+  font-weight: 400;
+  font-style: normal;
+  align-items: flex-end;
+  margin-top: .5rem;
+  margin-bottom: 2rem;
+}
+
+#input-value > p {
+  font-size: 32px;
+  margin-bottom: .4rem;
+}
+
+#home-main {
+  background-color: var(--slate-50);
+  width: 100vw;
+  padding: 3rem 2rem;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  box-shadow: 0 4px 4px var(--box-shadow);
+}
+
+#input-value > input {
+  border: none;
+  width: 70vw;
+  font-size: 56px;
+  font-family: "Poiret One", serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: var(--slate-50);
+}
+
+#input-value > input::placeholder {
+  font-family: "Poiret One", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 56px;
+}
+
+#input-value > input:focus {
+  outline: none;
+}
+
+#new-value > label {
+  font-family: "Outfit", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--light-black);
+  font-size: 24px;
+}
+
+#add-participants-button {
+  border: 1px solid var(--medium-black);
+  background-color: var(--slate-50);
+  height: 3rem;
+  width: 3rem;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#add-participants-button > svg {
+  fill: var(--medium-black);
+}
+
+#home-divide-button {
+  width: 100%;
+  height: 4rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 2rem;
+  background: linear-gradient(45deg, var(--button-light), var(--slate-950));
+  border-radius: 8px;
+  color: var(--slate-50);
+  font-family: "Outfit", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  gap: .5rem;
+  box-shadow: 0 4px 4px var(--box-shadow);
+  position: relative;
+  border: 2px solid var(--slate-950);
+}
+
+.transparent-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+#participants {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  display: flex;
+}
+
+.participant-photo {
+  width: 48px;
+  border-radius: 100%;
+  margin-left: -1.2rem;
 }
