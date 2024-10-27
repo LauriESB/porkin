@@ -13,10 +13,10 @@ public class DivisaoController {
   @Autowired
   private DivisaoService divisaoService;
 
-  //@GetMapping
-  //public List<DivisaoDTO> listAll() {
-  //  return divisaoService.listAll();
-  //}
+  @GetMapping
+  public List<DivisaoDTO> listAll() {
+    return divisaoService.listAll();
+  }
 
   @PostMapping
   public void insert(@RequestBody DivisaoDTO divisaoDTO) {

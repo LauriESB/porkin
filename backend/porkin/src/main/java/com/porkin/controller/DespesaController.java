@@ -15,10 +15,10 @@ public class DespesaController {
   @Autowired
   private DespesaService despesaService;
 
-  //@GetMapping
-  //public List<DespesaDTO> listAll() {
-  //  return despesaService.listAll();
-  //}
+  @GetMapping
+  public List<DespesaDTO> listAll() {
+    return despesaService.listAll();
+  }
 
   @PostMapping
   public void insert(@RequestBody DespesaDTO despesaDTO) {

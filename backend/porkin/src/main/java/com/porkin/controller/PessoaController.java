@@ -13,10 +13,10 @@ public class PessoaController {
   @Autowired
   private PessoaService pessoaService;
 
-  //@GetMapping
-  //public List<PessoaDTO> listAll() {
-  //  return pessoaService.listAll();
-  //}
+  @GetMapping
+  public List<PessoaDTO> listAll() {
+    return pessoaService.listAll();
+  }
 
   @PostMapping
   public void insert(@RequestBody PessoaDTO pessoaDTO) {
