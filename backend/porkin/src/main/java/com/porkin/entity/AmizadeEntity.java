@@ -18,11 +18,11 @@ public class AmizadeEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long idAmigo;
 
-  @ManyToMany
+  @ManyToOne
   @JoinColumn(name = "idUsuario")
   private PessoaEntity fkPessoaUsuario;
 
-  @ManyToMany
+  @ManyToOne
   @JoinColumn(name = "idAmigo")
   private PessoaEntity fkPessoaAmigo;
 

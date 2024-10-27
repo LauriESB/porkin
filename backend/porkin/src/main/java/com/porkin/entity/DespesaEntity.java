@@ -30,7 +30,7 @@ public class DespesaEntity {
   @Column(nullable = false)
   private boolean situacao;
 
-  @ManyToMany
+  @ManyToOne
   @JoinColumn(name = "usuarioCriador")
   private PessoaEntity usuarioCriador;
 
