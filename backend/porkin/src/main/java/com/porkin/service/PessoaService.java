@@ -4,9 +4,16 @@ import com.porkin.dto.PessoaDTO;
 import com.porkin.entity.PessoaEntity;
 import com.porkin.repository.PessoaRepository;
 
+import java.util.List;
+
 public class PessoaService {
 
   public PessoaRepository pessoaRepository;
+
+  public List<PessoaDTO> listAll() {
+    List<PessoaEntity> pessoaEntities = pessoaRepository.findAll();
+    return pessoaEntities.stream().map(PessoaDTO::new).toList();
+  }
 
   public void insert(PessoaDTO pessoaDTO) {
     PessoaEntity pessoaEntity = new PessoaEntity(pessoaDTO);

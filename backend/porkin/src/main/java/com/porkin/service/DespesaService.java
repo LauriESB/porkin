@@ -6,9 +6,16 @@ import com.porkin.entity.AmizadeEntity;
 import com.porkin.entity.DespesaEntity;
 import com.porkin.repository.DespesaRepository;
 
+import java.util.List;
+
 public class DespesaService {
 
   public DespesaRepository despesaRepository;
+
+  public List<DespesaDTO> listAll() {
+    List<DespesaEntity> despesaDTOS = despesaRepository.findAll();
+    return despesaDTOS.stream().map(DespesaDTO::new).toList();
+  }
 
   public void insert(DespesaDTO despesaDTO) {
     DespesaEntity despesaEntity = new DespesaEntity(despesaDTO);
