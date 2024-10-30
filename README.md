@@ -27,10 +27,11 @@
 - **Tailwind CSS**: Framework de CSS utilitário que facilita a criação de layouts responsivos e estilizados.
 
 
-## 📱🧙🏻‍♀️ Como usar
+## 📱 Como usar
 
 
-#### Criação da Rede de Contatos
+#### Criação da rede de contatos
+
 - Permite a criação de uma rede de contatos.
 - Caso o usuário deseje compartilhar um valor com outras pessoas, os contatos devem ser adicionados antes da inserção de uma nova despesa.
 
@@ -40,20 +41,20 @@
 - O custo total é inicialmente dividido de forma igual entre todos os participantes.
 - Os valores podem ser ajustados posteriormente, de acordo com as necessidades do grupo.
 
-#### Gestão de Cobranças
+#### Gestão de cobranças
 
 - A cobrança permanece pendente, exibindo o valor que cada pessoa deve pagar e a data limite para pagamento.
 - No dia do vencimento, uma notificação é enviada como lembrete para aqueles que ainda não quitaram suas partes.
 
-#### Pagamento e Marcação
+#### Pagamento
 
 - Usuários podem marcar suas partes individuais como pagas a qualquer momento, selecionando a forma de pagamento utilizada.
 - Após o pagamento, a despesa pose ser removida do perfil do usuário que pagou.
 
-#### Exclusão de Despesas
+#### Exclusão de despesas
 - A exclusão permanente da despesa só pode ser realizada pela pessoa que a criou.
 
-## 🌠✨ Visão geral
+## 🧙🏻‍♀️ Visão geral
 
 <details>
 <summary align="left">veja os screenshots do projeto</summary>
