@@ -29,11 +29,29 @@
 
 ## 📱🧙🏻‍♀️ Como usar
 
-Para começar, é necessário criar um perfil e adicionar os contatos desejados à rede de amigos no site. Na página inicial, o valor a ser dividido pode ser definido e vinculado a uma ou mais pessoas da rede. Em seguida, a conta gerada pode ter seus valores reajustados entre as pessoas selecionadas, caso necessário.
 
-Essa cobrança permanecerá pendente, exibindo o valor que cada pessoa deve pagar e a data limite para o pagamento. No dia do vencimento, uma notificação será enviada como lembrete para aqueles que ainda não quitaram suas partes.
+#### Criação da Rede de Contatos
+- Permite a criação de uma rede de contatos.
+- Caso o usuário deseje compartilhar um valor com outras pessoas, os contatos devem ser adicionados antes da inserção de uma nova despesa.
 
-Os usuários podem marcar suas partes individuais como pagas a qualquer momento, selecionando a forma de pagamento que foi utilizada, e remover a despesa de seu perfil. Contudo, a exclusão permanente da despesa só pode ser realizada pela pessoa que a criou.
+#### Inserção e divisão
+
+- Na página inicial, o valor a ser dividido pode ser definido e vinculado a uma ou mais pessoas da rede.
+- O custo total é inicialmente dividido de forma igual entre todos os participantes.
+- Os valores podem ser ajustados posteriormente, de acordo com as necessidades do grupo.
+
+#### Gestão de Cobranças
+
+- A cobrança permanece pendente, exibindo o valor que cada pessoa deve pagar e a data limite para pagamento.
+- No dia do vencimento, uma notificação é enviada como lembrete para aqueles que ainda não quitaram suas partes.
+
+#### Pagamento e Marcação
+
+- Usuários podem marcar suas partes individuais como pagas a qualquer momento, selecionando a forma de pagamento utilizada.
+- Após o pagamento, a despesa pose ser removida do perfil do usuário que pagou.
+
+#### Exclusão de Despesas
+- A exclusão permanente da despesa só pode ser realizada pela pessoa que a criou.
 
 ## 🌠✨ Visão geral
 
