@@ -1,26 +1,25 @@
 package com.porkin.entity;
 
+import com.porkin.compositekeys.DivisaoIDs;
 import com.porkin.dto.DivisaoDTO;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Objects;
 
+@Entity
+@Table(name = "divisao")
 public class DivisaoEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long idAmigo;
-
-  private int porcentagemDespesa;
+  @EmbeddedId
+  private DivisaoIDs divisaoIDs;
 
   private boolean pago;
+
+  @ManyToOne
+  @JoinColumn(name = "idUsuarioCriador")
+  private PessoaEntity idUsuarioCriador;
 
   // divisaoEntity constructors
 
@@ -34,28 +33,21 @@ public class DivisaoEntity {
 
   // getters and setters
 
-  public long getId() {
-    return id;
+
+  public DivisaoIDs getDivisaoIDs() {
+    return divisaoIDs;
   }
 
-  public void setId(long id) {
-    this.id = id;
+  public void setDivisaoIDs(DivisaoIDs divisaoIDs) {
+    this.divisaoIDs = divisaoIDs;
   }
 
-  public Long getIdAmigo() {
-    return idAmigo;
+  public PessoaEntity getIdUsuarioCriador() {
+    return idUsuarioCriador;
   }
 
-  public void setIdAmigo(Long idAmigo) {
-    this.idAmigo = idAmigo;
-  }
-
-  public int getPorcentagemDespesa() {
-    return porcentagemDespesa;
-  }
-
-  public void setPorcentagemDespesa(int porcentagemDespesa) {
-    this.porcentagemDespesa = porcentagemDespesa;
+  public void setIdUsuarioCriador(PessoaEntity idUsuarioCriador) {
+    this.idUsuarioCriador = idUsuarioCriador;
   }
 
   public boolean isPago() {
@@ -73,12 +65,12 @@ public class DivisaoEntity {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DivisaoEntity that = (DivisaoEntity) o;
-    return id == that.id;
+    return Objects.equals(divisaoIDs, that.divisaoIDs) && Objects.equals(idUsuarioCriador, that.idUsuarioCriador);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(id);
+    return Objects.hash(divisaoIDs, idUsuarioCriador);
   }
 
 }

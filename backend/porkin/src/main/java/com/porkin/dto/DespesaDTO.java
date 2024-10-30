@@ -15,7 +15,7 @@ public class DespesaDTO {
 
   private String titulo;
 
-  private LocalDate data_criacao;
+  private LocalDate dataCriacao;
 
   private LocalDate dataLimitePgto;
 
@@ -60,11 +60,11 @@ public class DespesaDTO {
   }
 
   public LocalDate getData_criacao() {
-    return data_criacao;
+    return dataCriacao;
   }
 
   public void setData_criacao(LocalDate data_criacao) {
-    this.data_criacao = data_criacao;
+    this.dataCriacao = data_criacao;
   }
 
   public LocalDate getDataLimitePgto() {

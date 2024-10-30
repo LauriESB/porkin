@@ -5,11 +5,15 @@ import com.porkin.dto.DespesaDTO;
 import com.porkin.entity.AmizadeEntity;
 import com.porkin.entity.DespesaEntity;
 import com.porkin.repository.DespesaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DespesaService {
 
+  @Autowired
   public DespesaRepository despesaRepository;
 
   public List<DespesaDTO> listAll() {

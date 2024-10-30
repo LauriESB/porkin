@@ -1,5 +1,6 @@
 package com.porkin.entity;
 
+import com.porkin.compositekeys.AmizadeIDs;
 import com.porkin.dto.AmizadeDTO;
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
@@ -10,20 +11,17 @@ import java.util.Objects;
 @Table(name = "amizade")
 public class AmizadeEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long idUsuario;
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long idAmigo;
+  @EmbeddedId
+  private AmizadeIDs amizadeIDs;
 
   @ManyToOne
-  @JoinColumn(name = "idUsuario")
+  @MapsId("idUsuario")
+  @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
   private PessoaEntity fkPessoaUsuario;
 
   @ManyToOne
-  @JoinColumn(name = "idAmigo")
+  @MapsId("idAmigo")
+  @JoinColumn(name = "idAmigo", referencedColumnName = "idUsuario")
   private PessoaEntity fkPessoaAmigo;
 
   // pessoaEntity constructors
@@ -39,19 +37,19 @@ public class AmizadeEntity {
   // getters and setters
 
   public Long getIdUsuario() {
-    return idUsuario;
+    return amizadeIDs.getIdUsuario();
   }
 
   public void setIdUsuario(Long idUsuario) {
-    this.idUsuario = idUsuario;
+    amizadeIDs.setIdUsuario(idUsuario);
   }
 
   public Long getIdAmigo() {
-    return idAmigo;
+    return amizadeIDs.getIdAmigo();
   }
 
   public void setIdAmigo(Long idAmigo) {
-    this.idAmigo = idAmigo;
+    amizadeIDs.setIdAmigo(idAmigo);
   }
 
   public PessoaEntity getFkPessoaUsuario() {
@@ -77,12 +75,12 @@ public class AmizadeEntity {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AmizadeEntity that = (AmizadeEntity) o;
-    return Objects.equals(idUsuario, that.idUsuario);
+    return Objects.equals(amizadeIDs.getIdUsuario(), that.amizadeIDs.getIdUsuario());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(idUsuario);
+    return Objects.hashCode(amizadeIDs.getIdUsuario());
   }
 
 }

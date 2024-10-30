@@ -1,10 +1,13 @@
 package com.porkin.entity;
 
 import com.porkin.dto.DespesaDTO;
+import com.porkin.repository.AmizadeRepository;
+import com.porkin.repository.DivisaoRepository;
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,16 +25,16 @@ public class DespesaEntity {
   private String titulo;
 
   @Column(nullable = false)
-  private LocalDate data_criacao;
+  private LocalDate dataCriacao = LocalDate.now();
 
   @Column(nullable = false)
   private LocalDate dataLimitePgto;
 
   @Column(nullable = false)
-  private boolean situacao;
+  private boolean situacao = false;
 
   @ManyToOne
-  @JoinColumn(name = "usuarioCriador")
+  @JoinColumn(name = "idUsuarioCriador")
   private PessoaEntity usuarioCriador;
 
   // despesEntity constructors
@@ -71,11 +74,11 @@ public class DespesaEntity {
   }
 
   public LocalDate getData_criacao() {
-    return data_criacao;
+    return dataCriacao;
   }
 
   public void setData_criacao(LocalDate data_criacao) {
-    this.data_criacao = data_criacao;
+    this.dataCriacao = data_criacao;
   }
 
   public LocalDate getDataLimitePgto() {

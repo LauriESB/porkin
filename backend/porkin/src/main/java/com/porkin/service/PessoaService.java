@@ -3,11 +3,15 @@ package com.porkin.service;
 import com.porkin.dto.PessoaDTO;
 import com.porkin.entity.PessoaEntity;
 import com.porkin.repository.PessoaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PessoaService {
 
+  @Autowired
   public PessoaRepository pessoaRepository;
 
   public List<PessoaDTO> listAll() {

@@ -3,11 +3,15 @@ package com.porkin.service;
 import com.porkin.dto.DivisaoDTO;
 import com.porkin.entity.DivisaoEntity;
 import com.porkin.repository.DivisaoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DivisaoService {
 
+  @Autowired
   public DivisaoRepository divisaoRepository;
 
   public List<DivisaoDTO> listAll() {

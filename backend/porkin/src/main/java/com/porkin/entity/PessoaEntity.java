@@ -13,7 +13,7 @@ public class PessoaEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Long idUsuario;
 
   @Column(nullable = false)
   private String nome;
@@ -40,11 +40,11 @@ public class PessoaEntity {
   // getters and setters
 
   public Long getId() {
-    return id;
+    return idUsuario;
   }
 
   public void setId(Long id) {
-    this.id = id;
+    this.idUsuario = id;
   }
 
   public String getNome() {
@@ -86,12 +86,12 @@ public class PessoaEntity {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PessoaEntity that = (PessoaEntity) o;
-    return Objects.equals(id, that.id);
+    return Objects.equals(idUsuario, that.idUsuario);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(id);
+    return Objects.hashCode(idUsuario);
   }
 
 }
