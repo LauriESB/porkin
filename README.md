@@ -1,6 +1,6 @@
 # <img src="misc/banner.png">
 
-🌟Nos dê uma estrela!
+🌟 Nos dê uma estrela!
 <img align="right" src="https://img.shields.io/badge/status%20do%20projeto:-em%20desenvolvimento-purple">
 
 ## Tabela de conteúdos
