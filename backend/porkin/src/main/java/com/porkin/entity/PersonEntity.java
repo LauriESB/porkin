@@ -1,58 +1,57 @@
 package com.porkin.entity;
 
-import com.porkin.dto.PessoaDTO;
-import jakarta.annotation.Nullable;
+import com.porkin.dto.PersonDTO;
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
 
 import java.util.Objects;
 
 @Entity
-@Table(name = "pessoa")
-public class PessoaEntity {
+@Table(name = "person")
+public class PersonEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long idUsuario;
+  private Long idUser;
 
   @Column(nullable = false)
-  private String nome;
+  private String name;
 
   @Column(nullable = false, unique = true)
   private String email;
 
   @Column(nullable = false)
-  private int senha;
+  private int password;
 
   @Column(nullable = false)
-  private int celular;
+  private int mobileNumber;
 
   // pessoaEntity constructors
 
-  public PessoaEntity(PessoaDTO pessoaDTO) {
-    BeanUtils.copyProperties(pessoaDTO, this);
+  public PersonEntity(PersonDTO personDTO) {
+    BeanUtils.copyProperties(personDTO, this);
   }
 
-  public PessoaEntity() {
+  public PersonEntity() {
 
   }
 
   // getters and setters
 
   public Long getId() {
-    return idUsuario;
+    return idUser;
   }
 
   public void setId(Long id) {
-    this.idUsuario = id;
+    this.idUser = id;
   }
 
-  public String getNome() {
-    return nome;
+  public String getName() {
+    return name;
   }
 
-  public void setNome(String nome) {
-    this.nome = nome;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getEmail() {
@@ -63,20 +62,20 @@ public class PessoaEntity {
     this.email = email;
   }
 
-  public int getSenha() {
-    return senha;
+  public int getPassword() {
+    return password;
   }
 
-  public void setSenha(int senha) {
-    this.senha = senha;
+  public void setPassword(int senha) {
+    this.password = password;
   }
 
-  public int getCelular() {
-    return celular;
+  public int getMobileNumber() {
+    return mobileNumber;
   }
 
-  public void setCelular(int celular) {
-    this.celular = celular;
+  public void setMobileNumber(int mobileNumber) {
+    this.mobileNumber = mobileNumber;
   }
 
   // hashCode and equals
@@ -85,13 +84,13 @@ public class PessoaEntity {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    PessoaEntity that = (PessoaEntity) o;
-    return Objects.equals(idUsuario, that.idUsuario);
+    PersonEntity that = (PersonEntity) o;
+    return Objects.equals(idUser, that.idUser);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(idUsuario);
+    return Objects.hashCode(idUser);
   }
 
 }
