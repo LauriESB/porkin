@@ -66,7 +66,7 @@ public class PersonEntity {
     return password;
   }
 
-  public void setPassword(int senha) {
+  public void setPassword(int password) {
     this.password = password;
   }
 

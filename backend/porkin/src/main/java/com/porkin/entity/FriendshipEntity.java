@@ -8,7 +8,7 @@ import org.springframework.beans.BeanUtils;
 import java.util.Objects;
 
 @Entity
-@Table(name = "friendhsip")
+@Table(name = "friendship")
 public class FriendshipEntity {
 
   @EmbeddedId

@@ -13,7 +13,7 @@ public class ExpenseDTO {
 
   private String title;
 
-  private LocalDate creatinDate;
+  private LocalDate creationDate;
 
   private LocalDate dueDate;
 
@@ -57,12 +57,12 @@ public class ExpenseDTO {
     this.title = title;
   }
 
-  public LocalDate getCreatinDate() {
-    return creatinDate;
+  public LocalDate getCreationDate() {
+    return creationDate;
   }
 
-  public void setCreatinDate(LocalDate creatinDate) {
-    this.creatinDate = creatinDate;
+  public void setCreationDate(LocalDate creationDate) {
+    this.creationDate = creationDate;
   }
 
   public LocalDate getDueDate() {
