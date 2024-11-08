@@ -24,11 +24,6 @@ public class FrienshipService { // service chama o repository
     FriendshipEntity friendshipEntity = new FriendshipEntity(friendshipDTO);
     friendshipRepository.save(friendshipEntity);
   }
-
-  public FriendshipDTO update(FriendshipDTO friendshipDTO) {
-    FriendshipEntity friendshipEntity = new FriendshipEntity(friendshipDTO);
-    return new FriendshipDTO(friendshipRepository.save(friendshipEntity));
-  }
   
   public void delete(Long id) {
     FriendshipEntity friendshipEntity = friendshipRepository.findById(id).get();

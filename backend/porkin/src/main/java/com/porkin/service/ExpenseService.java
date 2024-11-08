@@ -24,8 +24,32 @@ public class ExpenseService {
     expenseRepository.save(expenseEntity);
   }
 
-  public ExpenseDTO update(ExpenseDTO expenseDTO) {
-    ExpenseEntity expenseEntity = new ExpenseEntity(expenseDTO);
+  public ExpenseDTO update(Long id, ExpenseDTO expenseDTO) {
+    ExpenseEntity expenseEntity = expenseRepository.findById(id).get();
+
+    if(expenseDTO.getExpenseCreator() != null) {
+      ExpenseEntity expenseDTOtoEntity = new ExpenseEntity(expenseDTO);
+      expenseEntity.setExpenseCreator(expenseDTOtoEntity.getExpenseCreator());
+    }
+
+    expenseEntity.setTotalCost(expenseDTO.getTotalCost());
+
+    if(expenseDTO.getTitle() != null) {
+      expenseEntity.setTitle(expenseDTO.getTitle());
+    }
+
+    if(expenseDTO.getCreationDate() != null) {
+      //exceçao
+    }
+
+    if(expenseDTO.getDueDate() != null) {
+      expenseEntity.setDueDate(expenseDTO.getDueDate());
+    }
+
+    if(expenseDTO.isCompleted() != expenseEntity.isCompleted()) {
+      expenseEntity.setCompleted(expenseDTO.isCompleted());
+    }
+
     return new ExpenseDTO(expenseRepository.save(expenseEntity));
   }
 

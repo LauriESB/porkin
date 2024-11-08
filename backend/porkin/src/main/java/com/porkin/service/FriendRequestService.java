@@ -25,11 +25,6 @@ public class FriendRequestService {
     friendRequestRepository.save(friendRequestEntity);
   }
 
-  public FriendRequestDTO update(FriendRequestDTO friendRequestDTO) {
-    FriendRequestEntity friendRequestEntity = new FriendRequestEntity(friendRequestDTO);
-    return new FriendRequestDTO(friendRequestRepository.save(friendRequestEntity));
-  }
-
   public void delete(Long id) {
     FriendRequestEntity friendRequestEntity = friendRequestRepository.findById(id).get();
     friendRequestRepository.delete(friendRequestEntity);

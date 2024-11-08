@@ -25,9 +25,9 @@ public class PersonController {
     personService.insert(personDTO);
   }
 
-  @PutMapping
-  public PersonDTO update(@RequestBody PersonDTO personDTO) {
-    return personService.update(personDTO);
+  @PutMapping("/{id}")
+  public PersonDTO update(@PathVariable("id") Long id, @RequestBody PersonDTO personDTO) {
+    return personService.update(id, personDTO);
   }
 
   @DeleteMapping("/{id}")

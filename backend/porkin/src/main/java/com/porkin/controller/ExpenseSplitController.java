@@ -25,9 +25,9 @@ public class ExpenseSplitController {
     expenseSplitService.insert(expenseSplitDTO);
   }
 
-  @PutMapping
-  public ExpenseSplitDTO update(@RequestBody ExpenseSplitDTO expenseSplitDTO) {
-    return expenseSplitService.update(expenseSplitDTO);
+  @PutMapping("/{id}")
+  public ExpenseSplitDTO update(@PathVariable Long id, @RequestBody ExpenseSplitDTO expenseSplitDTO) {
+    return expenseSplitService.update(id, expenseSplitDTO);
   }
 
   @DeleteMapping("/{id}")

@@ -12,9 +12,9 @@ public class PersonDTO {
 
   private String email;
 
-  private int password;
+  private String password;
 
-  private int mobileNumber;
+  private String mobileNumber;
 
   // PersonDTO constructors
 
@@ -53,19 +53,19 @@ public class PersonDTO {
     this.email = email;
   }
 
-  public int getPassword() {
+  public String getPassword() {
     return password;
   }
 
-  public void setPassword(int password) {
+  public void setPassword(String password) {
     this.password = password;
   }
 
-  public int getMobileNumber() {
+  public String getMobileNumber() {
     return mobileNumber;
   }
 
-  public void setMobileNumber(int mobileNumber) {
+  public void setMobileNumber(String mobileNumber) {
     this.mobileNumber = mobileNumber;
   }
 

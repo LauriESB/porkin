@@ -21,16 +21,6 @@ public class NotificationsController {
     return notificationsService.listAll();
   }
 
-  @PostMapping
-  public void insert(@RequestBody NotificationsDTO notificationsDTO) {
-    notificationsService.insert(notificationsDTO);
-  }
-
-  @PutMapping
-  public NotificationsDTO update(@RequestBody NotificationsDTO notificationsDTO) {
-    return notificationsService.update(notificationsDTO);
-  }
-
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete (@PathVariable("id") Long id) {
     notificationsService.delete(id);

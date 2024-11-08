@@ -25,11 +25,6 @@ public class FriendshipController {
     friendshipService.insert(friendshipDTO);
   }
 
-  @PutMapping
-  public FriendshipDTO update(@RequestBody FriendshipDTO friendshipDTO) {
-    return friendshipService.update(friendshipDTO);
-  }
-
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
     friendshipService.delete(id);

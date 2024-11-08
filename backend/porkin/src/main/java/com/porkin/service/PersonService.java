@@ -24,8 +24,22 @@ public class PersonService {
     personRepository.save(personEntity);
   }
 
-  public PersonDTO update(PersonDTO personDTO) {
-    PersonEntity personEntity = new PersonEntity(personDTO);
+  public PersonDTO update(Long id, PersonDTO personDTO) {
+    PersonEntity personEntity = personRepository.findById(id).get();
+
+    if(personDTO.getEmail() != null) {
+      personEntity.setEmail(personDTO.getEmail());
+    }
+
+    if(personDTO.getName() != null) {
+      personEntity.setName(personDTO.getName());
+    }
+
+    if(personDTO.getPassword() != null) {
+      personEntity.setPassword(personDTO.getPassword());
+    }
+
+
     return new PersonDTO(personRepository.save(personEntity));
   }
   public void delete(Long id) {

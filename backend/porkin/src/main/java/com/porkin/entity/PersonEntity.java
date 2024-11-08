@@ -21,10 +21,10 @@ public class PersonEntity {
   private String email;
 
   @Column(nullable = false)
-  private int password;
+  private String password;
 
   @Column(nullable = false)
-  private int mobileNumber;
+  private String mobileNumber;
 
   // pessoaEntity constructors
 
@@ -62,19 +62,19 @@ public class PersonEntity {
     this.email = email;
   }
 
-  public int getPassword() {
+  public String getPassword() {
     return password;
   }
 
-  public void setPassword(int password) {
+  public void setPassword(String password) {
     this.password = password;
   }
 
-  public int getMobileNumber() {
+  public String getMobileNumber() {
     return mobileNumber;
   }
 
-  public void setMobileNumber(int mobileNumber) {
+  public void setMobileNumber(String mobileNumber) {
     this.mobileNumber = mobileNumber;
   }
 

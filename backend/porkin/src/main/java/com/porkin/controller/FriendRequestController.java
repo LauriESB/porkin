@@ -26,11 +26,6 @@ public class FriendRequestController {
     friendRequestService.insert(friendRequestDTO);
   }
 
-  @PutMapping
-  public FriendRequestDTO update(@RequestBody FriendRequestDTO friendRequestDTO) {
-    return friendRequestService.update(friendRequestDTO);
-  }
-
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
     friendRequestService.delete(id);

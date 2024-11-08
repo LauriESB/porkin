@@ -25,9 +25,9 @@ public class ExpenseController {
     expenseService.insert(expenseDTO);
   }
 
-  @PutMapping
-  public ExpenseDTO update(@RequestBody ExpenseDTO expenseDTO) {
-    return expenseService.update(expenseDTO);
+  @PutMapping("/{id}")
+  public ExpenseDTO update(@PathVariable Long id, @RequestBody ExpenseDTO expenseDTO) {
+    return expenseService.update(id, expenseDTO);
   }
 
   @DeleteMapping("/{id}")

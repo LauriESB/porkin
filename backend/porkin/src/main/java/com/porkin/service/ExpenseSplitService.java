@@ -24,8 +24,13 @@ public class ExpenseSplitService {
     expenseSplitRepository.save(expenseSplitEntity);
   }
 
-  public ExpenseSplitDTO update(ExpenseSplitDTO expenseSplitDTO) {
-    ExpenseSplitEntity expenseSplitEntity = new ExpenseSplitEntity(expenseSplitDTO);
+  public ExpenseSplitDTO update(Long id, ExpenseSplitDTO expenseSplitDTO) {
+    ExpenseSplitEntity expenseSplitEntity = expenseSplitRepository.findById(id).get();
+
+    if(expenseSplitDTO.isPaid() != expenseSplitEntity.isPaid()) {
+      expenseSplitEntity.setPaid(expenseSplitDTO.isPaid());
+    }
+
     return new ExpenseSplitDTO(expenseSplitRepository.save(expenseSplitEntity));
   }
 
