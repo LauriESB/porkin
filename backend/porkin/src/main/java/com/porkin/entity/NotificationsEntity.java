@@ -20,16 +20,23 @@ public class NotificationsEntity {
   @JoinColumn(name = "idUser")
   private PersonEntity idUser;
 
+  @Column(nullable = false)
   private String message;
 
+  @Column(nullable = false)
   private LocalDateTime creationDate;
 
-  private boolean read = false;
+  @Column(nullable = false)
+  private boolean read;
 
   // constructors
 
   public NotificationsEntity(NotificationsDTO notificationsDTO) {
     BeanUtils.copyProperties(notificationsDTO, this);
+  }
+
+  public NotificationsEntity(boolean read) {
+    this.read = read;
   }
 
   public NotificationsEntity() {}

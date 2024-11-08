@@ -5,9 +5,11 @@ import com.porkin.dto.FriendshipDTO;
 import com.porkin.entity.FriendRequestEntity;
 import com.porkin.repository.FriendRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FriendRequestService {
 
   @Autowired
