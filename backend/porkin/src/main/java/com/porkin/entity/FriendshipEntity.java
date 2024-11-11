@@ -36,21 +36,21 @@ public class FriendshipEntity {
 
   // getters and setters
 
-  public Long getIdUser() {
-    return friendshipIDs.getIdUser();
-  }
+  //public Long getIdUser() {
+  //  return friendshipIDs.getIdUser();
+  //}
 
-  public void setIdUser(Long idUser) {
-    friendshipIDs.setIdUser(idUser);
-  }
+  //public void setIdUser(Long idUser) {
+  //  friendshipIDs.setIdUser(idUser);
+  //}
 
-  public Long getIdFriend() {
-    return friendshipIDs.getIdFriend();
-  }
+  //public Long getIdFriend() {
+  //  return friendshipIDs.getIdFriend();
+  //}
 
-  public void setIdFriend(Long idFriend) {
-    friendshipIDs.setIdFriend(idFriend);
-  }
+  //public void setIdFriend(Long idFriend) {
+  //  friendshipIDs.setIdFriend(idFriend);
+  //}
 
   public PersonEntity getFkPersonUser() {
     return fkPersonUser;

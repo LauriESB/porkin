@@ -16,24 +16,24 @@ public class FriendRequestEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "requesterId")
-  private PersonEntity personRequester;
+  private Long personRequester;
 
-  @ManyToOne
-  @JoinColumn(name = "receiverId")
-  private PersonEntity personReceiver;
+  private Long personReceiver;
 
-  @Column(nullable = false)
+  @Column
   private String status;
 
-  @Column(nullable = false)
+  @Column
   private LocalDateTime creationDate;
 
+  @Column
+  private String message;
   // constructors
 
   public FriendRequestEntity(FriendRequestDTO friendDTO) {
-    BeanUtils.copyProperties(friendDTO, this);
+    this.personRequester = friendDTO.getPersonRequester();
+    this.personReceiver = friendDTO.getPersonReceiver();
+    //BeanUtils.copyProperties(friendDTO, this);
   }
 
   public FriendRequestEntity() {
@@ -50,19 +50,19 @@ public class FriendRequestEntity {
     this.id = id;
   }
 
-  public PersonEntity getPersonRequester() {
+  public Long getPersonRequester() {
     return personRequester;
   }
 
-  public void setPersonRequester(PersonEntity personRequester) {
+  public void setPersonRequester(Long personRequester) {
     this.personRequester = personRequester;
   }
 
-  public PersonEntity getPersonReceiver() {
+  public Long getPersonReceiver() {
     return personReceiver;
   }
 
-  public void setPersonReceiver(PersonEntity personReceiver) {
+  public void setPersonReceiver(Long personReceiver) {
     this.personReceiver = personReceiver;
   }
 
@@ -80,6 +80,14 @@ public class FriendRequestEntity {
 
   public void setCreationDate(LocalDateTime creationDate) {
     this.creationDate = creationDate;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
   }
 
   // hashCode and equals

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FrienshipService { // service chama o repository
+public class FriendshipService { // service chama o repository
 
   @Autowired
   private FriendshipRepository friendshipRepository;

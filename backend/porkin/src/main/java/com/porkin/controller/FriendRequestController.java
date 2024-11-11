@@ -1,7 +1,9 @@
 package com.porkin.controller;
 
+import com.porkin.dto.ExpenseSplitDTO;
 import com.porkin.dto.FriendRequestDTO;
 import com.porkin.dto.FriendshipDTO;
+import com.porkin.dto.PersonDTO;
 import com.porkin.service.FriendRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +27,17 @@ public class FriendRequestController {
   public void insert(@RequestBody FriendRequestDTO friendRequestDTO) {
     friendRequestService.insert(friendRequestDTO);
   }
-
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-    friendRequestService.delete(id);
-    return ResponseEntity.ok().build();
+/*
+  @PostMapping("/{requestId}/accept")
+  public ResponseEntity<String> acceptRequest(@PathVariable Long requestId) {
+    friendRequestService.acceptRequest(requestId);
+    return ResponseEntity.ok("Friendship accepted");
   }
 
+  @PostMapping("/{requestId}/reject")
+  public ResponseEntity<String> rejectRequest(@PathVariable Long requestId) {
+    friendRequestService.rejectRequest(requestId);
+    return ResponseEntity.ok("Friendship rejected");
+  }
+*/
 }
