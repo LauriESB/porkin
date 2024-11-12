@@ -15,6 +15,8 @@ public class FriendRequestDTO {
 
   private Long personReceiver;
 
+  private String message;
+
   private String status;
 
   private LocalDateTime creationDate;
@@ -53,6 +55,14 @@ public class FriendRequestDTO {
 
   public void setPersonReceiver(Long personReceiver) {
     this.personReceiver = personReceiver;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
   }
 
   public String getStatus() {
