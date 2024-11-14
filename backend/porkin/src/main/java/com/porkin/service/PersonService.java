@@ -39,9 +39,10 @@ public class PersonService {
       personEntity.setPassword(personDTO.getPassword());
     }
 
-
     return new PersonDTO(personRepository.save(personEntity));
+
   }
+
   public void delete(Long id) {
     PersonEntity personEntity = personRepository.findById(id).get();
     personRepository.delete(personEntity);

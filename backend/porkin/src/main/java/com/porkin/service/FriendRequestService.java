@@ -60,13 +60,10 @@ public class FriendRequestService {
   @Transactional
   public void acceptRequest(Long id) {
     FriendRequestEntity friendRequestEntity = friendRequestRepository.findById(id).get();
-    friendRequestEntity.setStatus("accepted");
+    friendRequestRepository.delete(friendRequestEntity);
 
     PersonEntity personUser = personRepository.findById(friendRequestEntity.getPersonReceiver()).get();
     PersonEntity personFriend = personRepository.findById(friendRequestEntity.getPersonRequester()).get();
-
-    System.out.println("Person User: " + personUser.getName() + " ID: " + personUser.getId());
-    System.out.println("Person Friend: " + personFriend.getName() + " ID: " + personFriend.getId());
 
     FriendshipEntity friendshipEntity = new FriendshipEntity();
     friendshipEntity.setFriendshipIDs(new FriendshipIDs(friendRequestEntity.getPersonReceiver(), friendRequestEntity.getPersonRequester()));
@@ -75,15 +72,11 @@ public class FriendRequestService {
 
     friendshipRepository.save(friendshipEntity);
     friendshipRepository.flush();
-    friendRequestRepository.save(friendRequestEntity);
-
   }
 
   public void rejectRequest(Long id) {
     FriendRequestEntity friendRequestEntity = friendRequestRepository.findById(id).get();
-
-    friendRequestEntity.setStatus("rejected");
-    friendRequestRepository.save(friendRequestEntity);
+    friendRequestRepository.delete(friendRequestEntity);
   }
 
   public FriendRequestDTO findById(Long id) {

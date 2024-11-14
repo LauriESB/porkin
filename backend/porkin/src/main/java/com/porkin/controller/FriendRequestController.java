@@ -31,12 +31,13 @@ public class FriendRequestController {
   @PostMapping("/accept/{id}")
   public ResponseEntity<String> acceptFriendRequest(@PathVariable Long id) {
     friendRequestService.acceptRequest(id);
-    return ResponseEntity.ok("Friendship accepted");
+    return ResponseEntity.ok("Amizade aceita!");
   }
 
   @PostMapping("/reject/{id}")
   public ResponseEntity<String> rejectRequest(@PathVariable Long id) {
     friendRequestService.rejectRequest(id);
-    return ResponseEntity.ok("Friendship rejected");
+    return ResponseEntity.ok("Amizade negada!");
   }
+
 }
