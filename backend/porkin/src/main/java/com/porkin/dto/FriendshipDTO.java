@@ -10,18 +10,21 @@ public class FriendshipDTO {
 
   private Long idFriend;
 
-  private PersonEntity fkPersonUser;
-
-  private PersonEntity fkPersonFriend;
-
   // FriendshipDTO constructors
 
   public FriendshipDTO(FriendshipEntity friendshipEntity) {
-    BeanUtils.copyProperties(friendshipEntity, this);
+    //BeanUtils.copyProperties(friendshipEntity, this);
+    this.idUser = friendshipEntity.getFriendshipIDs().getIdUser();
+    this.idFriend = friendshipEntity.getFriendshipIDs().getIdFriend();
   }
 
   public FriendshipDTO() {
 
+  }
+
+  public FriendshipDTO(Long idUser, Long idFriend) {
+    this.idUser = idUser;
+    this.idFriend = idFriend;
   }
 
   // getters and setters
@@ -40,22 +43,6 @@ public class FriendshipDTO {
 
   public void setIdFriend(Long idFriend) {
     this.idFriend = idFriend;
-  }
-
-  public PersonEntity getFkPersonUser() {
-    return fkPersonUser;
-  }
-
-  public void setFkPersonUser(PersonEntity fkPersonUser) {
-    this.fkPersonUser = fkPersonUser;
-  }
-
-  public PersonEntity getFkPersonFriend() {
-    return fkPersonFriend;
-  }
-
-  public void setFkPersonFriend(PersonEntity fkPersonFriend) {
-    this.fkPersonFriend = fkPersonFriend;
   }
 
 }

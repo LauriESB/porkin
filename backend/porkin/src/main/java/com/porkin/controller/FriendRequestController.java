@@ -27,17 +27,16 @@ public class FriendRequestController {
   public void insert(@RequestBody FriendRequestDTO friendRequestDTO) {
     friendRequestService.insert(friendRequestDTO);
   }
-/*
-  @PostMapping("/{requestId}/accept")
-  public ResponseEntity<String> acceptRequest(@PathVariable Long requestId) {
-    friendRequestService.acceptRequest(requestId);
+
+  @PostMapping("/accept/{id}")
+  public ResponseEntity<String> acceptFriendRequest(@PathVariable Long id) {
+    friendRequestService.acceptRequest(id);
     return ResponseEntity.ok("Friendship accepted");
   }
 
-  @PostMapping("/{requestId}/reject")
-  public ResponseEntity<String> rejectRequest(@PathVariable Long requestId) {
-    friendRequestService.rejectRequest(requestId);
+  @PostMapping("/reject/{id}")
+  public ResponseEntity<String> rejectRequest(@PathVariable Long id) {
+    friendRequestService.rejectRequest(id);
     return ResponseEntity.ok("Friendship rejected");
   }
-*/
 }

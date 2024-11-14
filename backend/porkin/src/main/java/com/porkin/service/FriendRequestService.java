@@ -1,5 +1,7 @@
 package com.porkin.service;
 
+import com.porkin.compositekeys.FriendshipIDs;
+import com.porkin.controller.FriendshipController;
 import com.porkin.dto.FriendRequestDTO;
 import com.porkin.dto.FriendshipDTO;
 import com.porkin.dto.PersonDTO;
@@ -7,7 +9,9 @@ import com.porkin.entity.FriendRequestEntity;
 import com.porkin.entity.FriendshipEntity;
 import com.porkin.entity.PersonEntity;
 import com.porkin.repository.FriendRequestRepository;
+import com.porkin.repository.FriendshipRepository;
 import com.porkin.repository.PersonRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,12 @@ public class FriendRequestService {
 
   @Autowired
   private PersonRepository personRepository;
+
+  @Autowired
+  private FriendshipRepository friendshipRepository;
+
+  @Autowired
+  private FriendshipController newFriendship;
 
   public List<FriendRequestDTO> listAll() {
     List<FriendRequestEntity> friendRequestEntities = friendRequestRepository.findAll();
@@ -47,7 +57,25 @@ public class FriendRequestService {
     friendRequestRepository.save(newData);
   }
 
-  public void acceptRequest(FriendRequestDTO requestFriendship) {
+  @Transactional
+  public void acceptRequest(Long id) {
+    FriendRequestEntity friendRequestEntity = friendRequestRepository.findById(id).get();
+    friendRequestEntity.setStatus("accepted");
+
+    PersonEntity personUser = personRepository.findById(friendRequestEntity.getPersonReceiver()).get();
+    PersonEntity personFriend = personRepository.findById(friendRequestEntity.getPersonRequester()).get();
+
+    System.out.println("Person User: " + personUser.getName() + " ID: " + personUser.getId());
+    System.out.println("Person Friend: " + personFriend.getName() + " ID: " + personFriend.getId());
+
+    FriendshipEntity friendshipEntity = new FriendshipEntity();
+    friendshipEntity.setFriendshipIDs(new FriendshipIDs(friendRequestEntity.getPersonReceiver(), friendRequestEntity.getPersonRequester()));
+    friendshipEntity.setFkPersonUser(personUser);
+    friendshipEntity.setFkPersonFriend(personFriend);
+
+    friendshipRepository.save(friendshipEntity);
+    friendshipRepository.flush();
+    friendRequestRepository.save(friendRequestEntity);
 
   }
 

@@ -24,10 +24,12 @@ public class FriendshipEntity {
   @JoinColumn(name = "idFriend", referencedColumnName = "idUser")
   private PersonEntity fkPersonFriend;
 
-  // pessoaEntity constructors
+  // friendshipEntity constructors
 
-  public FriendshipEntity(FriendshipDTO friendshipDTO) {
-    BeanUtils.copyProperties(friendshipDTO, this);
+  public FriendshipEntity(FriendshipDTO friendshipDTO, PersonEntity fkPersonUser, PersonEntity fkPersonFriend) {
+    this.friendshipIDs = new FriendshipIDs(friendshipDTO.getIdUser(), friendshipDTO.getIdFriend());
+    this.fkPersonUser = fkPersonUser;
+    this.fkPersonFriend = fkPersonFriend;
   }
 
   public FriendshipEntity() {
@@ -36,21 +38,13 @@ public class FriendshipEntity {
 
   // getters and setters
 
-  //public Long getIdUser() {
-  //  return friendshipIDs.getIdUser();
-  //}
+  public FriendshipIDs getFriendshipIDs() {
+    return friendshipIDs;
+  }
 
-  //public void setIdUser(Long idUser) {
-  //  friendshipIDs.setIdUser(idUser);
-  //}
-
-  //public Long getIdFriend() {
-  //  return friendshipIDs.getIdFriend();
-  //}
-
-  //public void setIdFriend(Long idFriend) {
-  //  friendshipIDs.setIdFriend(idFriend);
-  //}
+  public void setFriendshipIDs(FriendshipIDs friendshipIDs) {
+    this.friendshipIDs = friendshipIDs;
+  }
 
   public PersonEntity getFkPersonUser() {
     return fkPersonUser;
