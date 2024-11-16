@@ -9,45 +9,7 @@ export const userData = {
 };
 
 export const bills = {
-  list: [
-    {
-      adminUsername: "dsbfelipe",
-      billName: "Churrasco",
-      creationDate: "12/10/2024",
-      payUntil: "22/10/2024",
-      payingMethod: "Pix",
-      totalValue: 105,
-      participants: [
-        {
-          username: "dsbfelipe",
-          fullName: "Felipe dos Santos Bento",
-          profilePicture:
-            "https://avatars.githubusercontent.com/u/141741516?s=400&u=5d8f4fcf45a3df114e37b01b82973d17a3356763&v=4",
-          percentage: "33%",
-          valueToPay: 35,
-          hasPayed: false,
-        },
-        {
-          username: "lau",
-          fullName: "Lauri Ellen Santinelli Biral",
-          profilePicture:
-            "https://media.licdn.com/dms/image/v2/D4D03AQELFhe5V4-HtA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1729015627002?e=1734566400&v=beta&t=kGzAmW11X5gqfHQHKeTnL8JEVEPWBJeCJ60GM8Q2E1k",
-          percentage: "33%",
-          valueToPay: 35,
-          hasPayed: false,
-        },
-        {
-          username: "mariana",
-          fullName: "Mariana Parducci",
-          profilePicture:
-            "https://media.licdn.com/dms/image/v2/D4D03AQGbOZyFofuDnA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1673382953481?e=1734566400&v=beta&t=0Y9pdKkAXKB4WOgJ6o2BZJIQHUTdLjby0dU3UXqvt0M",
-          percentage: "33%",
-          valueToPay: 35,
-          hasPayed: false,
-        },
-      ],
-    },
-  ],
+  list: [],
 };
 
 export const friends = {
@@ -80,4 +42,21 @@ export const friends = {
       email: "joão@gmail.com",
     },
   ],
+};
+
+export const paymentMethods = {
+  "Chave Pix": {
+    chave: "email@email.com",
+  },
+  "Transferência Bancária": {
+    nomeTitular: "Felipe dos Santos Bento",
+    numeroConta: "1234567890",
+    agencia: "1234",
+    tipoConta: "Conta Corrente",
+    cpf: "123.456.789-00",
+  },
+  PayPal: {
+    emailDestinatario: "contato@exemplo.com",
+    nomeDestinatario: "Maria Oliveira",
+  },
 };
