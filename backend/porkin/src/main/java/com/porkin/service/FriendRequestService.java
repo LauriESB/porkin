@@ -17,7 +17,9 @@ import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class FriendRequestService {
@@ -69,9 +71,27 @@ public class FriendRequestService {
     friendshipEntity.setFriendshipIDs(new FriendshipIDs(friendRequestEntity.getPersonReceiver(), friendRequestEntity.getPersonRequester()));
     friendshipEntity.setFkPersonUser(personUser);
     friendshipEntity.setFkPersonFriend(personFriend);
+    friendshipRepository.save(friendshipEntity); // aqui eu crio a entrada em friendship repository
 
-    friendshipRepository.save(friendshipEntity);
-    friendshipRepository.flush();
+
+    // depois eu preciso ATUALIZAR od IDs dos amigos na lista de amigos do perfil do usuário!
+    personUser.getFriendIDs().add(personFriend.getId());
+    personFriend.getFriendIDs().add(personUser.getId());
+
+    // salvo tudo
+    personRepository.save(personUser);
+    personRepository.save(personFriend);
+
+    /*
+    FriendshipEntity reciprocalFriendship = new FriendshipEntity();
+    reciprocalFriendship.setFriendshipIDs(new FriendshipIDs(personFriend.getIdUser(), personUser.getIdUser()));
+    reciprocalFriendship.setFkPersonUser(personFriend);
+    reciprocalFriendship.setFkPersonFriend(personUser);
+
+    friendshipRepository.save(reciprocalFriendship);
+
+    */
+    //friendshipRepository.flush();
   }
 
   public void rejectRequest(Long id) {

@@ -9,7 +9,7 @@ public class ExpenseDTO {
 
   private Long id;
 
-  private int totalCost;
+  private double totalCost;
 
   private String title;
 
@@ -19,7 +19,7 @@ public class ExpenseDTO {
 
   private boolean completed;
 
-  private Long expenseCreator;
+  private Long idExpenseCreator;
 
   // ExpenseDTO constructor
 
@@ -41,11 +41,11 @@ public class ExpenseDTO {
     this.id = id;
   }
 
-  public int getTotalCost() {
+  public double getTotalCost() {
     return totalCost;
   }
 
-  public void setTotalCost(int totalCost) {
+  public void setTotalCost(double totalCost) {
     this.totalCost = totalCost;
   }
 
@@ -81,12 +81,12 @@ public class ExpenseDTO {
     this.completed = completed;
   }
 
-  public Long getExpenseCreator() {
-    return expenseCreator;
+  public Long getIdExpenseCreator() {
+    return idExpenseCreator;
   }
 
-  public void setExpenseCreator(Long expenseCreator) {
-    this.expenseCreator = expenseCreator;
+  public void setIdExpenseCreator(Long idExpenseCreator) {
+    this.idExpenseCreator = idExpenseCreator;
   }
 
 }

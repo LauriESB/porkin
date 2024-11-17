@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface FriendshipRepository extends JpaRepository<FriendshipEntity, Long> {
-  @Query("select a from FriendshipEntity a where a.friendshipIDs.idUser = :idUser")
-  List<FriendshipEntity> findByIdUser(@Param("idUser") Long idUser);
+  //@Query("select a from FriendshipEntity a where a.friendshipIDs.idUser = :idUser")
+  //List<FriendshipEntity> findByIdUser(@Param("idUser") Long idUser);
 }

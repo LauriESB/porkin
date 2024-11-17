@@ -4,6 +4,9 @@ package com.porkin.dto;
 import com.porkin.entity.PersonEntity;
 import org.springframework.beans.BeanUtils;
 
+import java.util.List;
+import java.util.Set;
+
 public class PersonDTO {
 
   private Long id;
@@ -68,5 +71,6 @@ public class PersonDTO {
   public void setMobileNumber(String mobileNumber) {
     this.mobileNumber = mobileNumber;
   }
+
 
 }

@@ -16,23 +16,23 @@ public class ExpenseEntity {
   private Long id;
 
   @Column(nullable = false)
-  private int totalCost;
+  private double totalCost;
 
   @Column(nullable = false)
   private String title;
 
   @Column(nullable = false)
-  private LocalDate creationDate = LocalDate.now();
+  private LocalDate creationDate;
 
   @Column(nullable = false)
   private LocalDate dueDate;
 
   @Column(nullable = false)
-  private boolean completed = false;
+  private boolean completed;
 
   @ManyToOne
-  @JoinColumn(name = "idExpenseCreator")
-  private PersonEntity expenseCreator;
+  @JoinColumn(name = "idExpenseCreator", referencedColumnName = "idUser")
+  private PersonEntity idExpenseCreator;
 
   // despesEntity constructors
 
@@ -54,11 +54,11 @@ public class ExpenseEntity {
     this.id = id;
   }
 
-  public int getTotalCost() {
+  public double getTotalCost() {
     return totalCost;
   }
 
-  public void setTotalCost(int valorTotal) {
+  public void setTotalCost(double totalCost) {
     this.totalCost = totalCost;
   }
 
@@ -94,12 +94,12 @@ public class ExpenseEntity {
     this.completed = completed;
   }
 
-  public PersonEntity getExpenseCreator() {
-    return expenseCreator;
+  public PersonEntity getIdExpenseCreator() {
+    return idExpenseCreator;
   }
 
-  public void setExpenseCreator(PersonEntity expenseCreator) {
-    this.expenseCreator = expenseCreator;
+  public void setIdExpenseCreator(PersonEntity idExpenseCreator) {
+    this.idExpenseCreator = idExpenseCreator;
   }
 
   // hashCode and equals

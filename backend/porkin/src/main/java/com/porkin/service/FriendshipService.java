@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class FriendshipService { // service chama o repository
@@ -19,8 +20,14 @@ public class FriendshipService { // service chama o repository
   @Autowired
   private PersonRepository personRepository;
 
+  public Set<Long> getFriendIds(Long userId) {
+    PersonEntity person = personRepository.findById(userId).orElseThrow();
+    return person.getFriendIDs();
+  }
+
+  /*
   // busca dados no entity e retorna dto
-  public List<FriendshipDTO> listAll() {
+  public List<FriendshipDTO> listAll(Long userId) {
     List<FriendshipEntity> friendshipEntities = friendshipRepository.findAll(); // usa usuário repository pra buscar nas entities
     return friendshipEntities.stream().map(FriendshipDTO::new).toList();
   }
@@ -32,7 +39,7 @@ public class FriendshipService { // service chama o repository
     FriendshipEntity friendshipEntity = new FriendshipEntity(friendshipDTO, idUser, idFriend);
     friendshipRepository.save(friendshipEntity);
   }
-  
+   */
   public void delete(Long id) {
     FriendshipEntity friendshipEntity = friendshipRepository.findById(id).get();
     friendshipRepository.delete(friendshipEntity);

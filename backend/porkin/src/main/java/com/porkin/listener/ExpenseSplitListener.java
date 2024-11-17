@@ -21,10 +21,11 @@ public class ExpenseSplitListener {
 
   @PostPersist
   public void onExpenseCreated(ExpenseEntity expenseEntity) {
-    Long idExpenseCreator = expenseEntity.getExpenseCreator().getId();
-    List<FriendshipEntity> friendships = friendshipRepository.findByIdUser(idExpenseCreator);
+    /*
+    Long idExpenseCreator = expenseEntity.getIdExpenseCreator().getId();
+    //List<FriendshipEntity> friendships = friendshipRepository.findByIdUser(idExpenseCreator);
 
-    friendships.forEach(friendship -> {
+    //friendships.forEach(friendship -> {
 
       ExpenseSplitIDs idsSplit = new ExpenseSplitIDs();
       idsSplit.setIdExpense(expenseEntity.getId());
@@ -32,11 +33,13 @@ public class ExpenseSplitListener {
 
       ExpenseSplitEntity split = new ExpenseSplitEntity();
       split.setExpenseSplitIDs(idsSplit);
-      split.setIdExpenseCreator(expenseEntity.getExpenseCreator());
+      split.setIdExpenseCreator(expenseEntity.getIdExpenseCreator());
       split.setPaid(false);
 
       expenseSplitRepository.save(split);
 
     });
+    */
+
   }
 }

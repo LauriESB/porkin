@@ -4,7 +4,10 @@ import com.porkin.dto.PersonDTO;
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "person")
@@ -25,6 +28,17 @@ public class PersonEntity {
 
   @Column(nullable = false)
   private String mobileNumber;
+
+  @OneToMany(mappedBy = "fkPersonUser")
+  private Set<FriendshipEntity> friendships = new HashSet<>();
+
+  @OneToMany(mappedBy = "idExpenseCreator")
+  private List<ExpenseEntity> expenses;
+
+  @ElementCollection
+  @CollectionTable(name = "friendIDs", joinColumns = @JoinColumn(name = "idUser"))
+  @Column(name = "friendID")
+  private Set<Long> friendIDs = new HashSet<>();
 
   // pessoaEntity constructors
 
@@ -76,6 +90,34 @@ public class PersonEntity {
 
   public void setMobileNumber(String mobileNumber) {
     this.mobileNumber = mobileNumber;
+  }
+
+  public Set<FriendshipEntity> getFriendships() {
+    return friendships;
+  }
+
+  public void setFriendships(FriendshipEntity friendships) {
+    this.friendships.add(friendships);
+  }
+
+  public List<ExpenseEntity> getExpenses() {
+    return expenses;
+  }
+
+  public void setExpenses(List<ExpenseEntity> expenses) {
+    this.expenses = expenses;
+  }
+
+  public void setFriendships(Set<FriendshipEntity> friendships) {
+    this.friendships = friendships;
+  }
+
+  public Set<Long> getFriendIDs() {
+    return friendIDs;
+  }
+
+  public void setFriendIDs(Set<Long> friendIDs) {
+    this.friendIDs = friendIDs;
   }
 
   // hashCode and equals
