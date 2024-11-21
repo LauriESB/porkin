@@ -1,6 +1,7 @@
 package com.porkin.entity;
 
 import com.porkin.dto.PersonDTO;
+import com.porkin.paymentMethods.entity.PixEntity;
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
 
@@ -39,6 +40,10 @@ public class PersonEntity {
   @CollectionTable(name = "friendIDs", joinColumns = @JoinColumn(name = "idUser"))
   @Column(name = "friendID")
   private Set<Long> friendIDs = new HashSet<>();
+
+  @OneToOne
+  @JoinColumn(name = "pix_id")
+  private PixEntity pix;
 
   // pessoaEntity constructors
 
@@ -118,6 +123,14 @@ public class PersonEntity {
 
   public void setFriendIDs(Set<Long> friendIDs) {
     this.friendIDs = friendIDs;
+  }
+
+  public String getPix() {
+    return pix.getPixKey();
+  }
+
+  public void setPix(PixEntity pix) {
+    this.pix = pix;
   }
 
   // hashCode and equals

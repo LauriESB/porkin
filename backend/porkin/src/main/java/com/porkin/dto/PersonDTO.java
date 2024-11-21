@@ -19,6 +19,8 @@ public class PersonDTO {
 
   private String mobileNumber;
 
+  private String pix;
+
   // PersonDTO constructors
 
   public PersonDTO(PersonEntity personEntity) {
@@ -72,5 +74,12 @@ public class PersonDTO {
     this.mobileNumber = mobileNumber;
   }
 
+  public String getPix() {
+    return pix;
+  }
+
+  public void setPix(String pix) {
+    this.pix = pix;
+  }
 
 }
