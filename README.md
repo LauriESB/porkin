@@ -18,7 +18,7 @@
 
 ## 💻 Tecnologias utilizadas
 
-- **JDK 21 (Amazon Corretto)**: Java é a linguagem utilizada no back end deste projeto.
+- **JDK 21 (Amazon Corretto)**: Java é a linguagem utilizada no back-end deste projeto.
 - **Spring Boot**: Framework java.
   - **Spring Data JPA**: Para gerenciar a persistência de dados e as interações com o banco de dados.
 - **PostgreSQL**: O banco de dados relacional utilizado para armazenamento de dados.
