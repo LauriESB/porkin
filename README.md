@@ -18,12 +18,12 @@
 
 ## 💻 Tecnologias utilizadas
 
-- **JDK 21 (Amazon Corretto)**: Java é a linguagem utilizada no back-end deste projeto.
+- **JDK 21 (Amazon Corretto)**: Java é a linguagem de programação utilizada no back-end deste projeto.
 - **Spring Boot**: Framework java.
   - **Spring Data JPA**: Para gerenciar a persistência de dados e as interações com o banco de dados.
 - **PostgreSQL**: Banco de dados relacional utilizado para armazenamento de dados.
 - **Maven**: Gerenciamento de dependências.
-- **Javascript**: Javascript é a linguagem utilizada no front-end deste projeto.
+- **Javascript**: Javascript é a linguagem de programação utilizada no front-end deste projeto.
 - **HTML**: Linguagem de marcação usada para estruturar o conteúdo das páginas web.
 - **CSS**: Linguagem de estilo usada para definir a aparência visual das páginas web.
 - **Webpack**: Ferramenta para empacotamento de módulos JavaScript, otimizando recursos para o frontend.  
