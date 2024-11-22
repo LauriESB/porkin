@@ -23,8 +23,8 @@
   - **Spring Data JPA**: Para gerenciar a persistência de dados e as interações com o banco de dados.
 - **PostgreSQL**: O banco de dados relacional utilizado para armazenamento de dados.
 - **Maven**: Gerenciamento de dependências.
-- **Next.js**: Framework para construção de interfaces de usuário com React, permitindo renderização do lado do servidor.
-- **Tailwind CSS**: Framework de CSS utilitário que facilita a criação de layouts responsivos e estilizados.
+- **Javascript**: Javascript é a linguagem utilizada no front-end deste projeto.
+- **CSS**: Utilizamos CSS puro para personalizar a aparência das páginas.
 
 
 ## 📱 Como usar
@@ -40,6 +40,7 @@
 - Na página inicial, o valor a ser dividido pode ser definido e vinculado a uma ou mais pessoas da rede.
 - O custo total é inicialmente dividido de forma igual entre todos os participantes.
 - Os valores podem ser ajustados posteriormente, de acordo com as necessidades do grupo.
+- O usuário criador tem a opção de adicionar seu Pix ou PayPal à despesa criada.
 
 #### Gestão de cobranças
 
@@ -48,10 +49,10 @@
 
 #### Pagamento
 
-- Usuários podem marcar suas partes individuais como pagas a qualquer momento, selecionando a forma de pagamento utilizada.
-- Após o pagamento, a despesa pose ser removida do perfil do usuário que pagou.
+- Usuários podem marcar suas partes individuais como pagas a qualquer momento.
 
 #### Exclusão de despesas
+
 - A exclusão permanente da despesa só pode ser realizada pela pessoa que a criou.
 
 ## 🧙🏻‍♀️ Visão geral
