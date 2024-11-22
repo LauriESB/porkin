@@ -1,6 +1,7 @@
 package com.porkin.entity;
 
 import com.porkin.dto.PersonDTO;
+import com.porkin.paymentMethods.entity.PayPalEntity;
 import com.porkin.paymentMethods.entity.PixEntity;
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
@@ -44,6 +45,10 @@ public class PersonEntity {
   @OneToOne
   @JoinColumn(name = "pix_id")
   private PixEntity pix;
+
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "paypal_id")
+  private PayPalEntity paypal;
 
   // pessoaEntity constructors
 
@@ -131,6 +136,14 @@ public class PersonEntity {
 
   public void setPix(PixEntity pix) {
     this.pix = pix;
+  }
+
+  public PayPalEntity getPaypal() {
+    return paypal;
+  }
+
+  public void setPaypal(PayPalEntity paypal) {
+    this.paypal = paypal;
   }
 
   // hashCode and equals
