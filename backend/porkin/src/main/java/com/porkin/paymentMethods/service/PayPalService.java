@@ -42,16 +42,12 @@ public class PayPalService {
     PayPalEntity payPalEntity = payPalRepository.findById(id).get();
     PersonEntity person = personRepository.findById(payPalDTO.getIdUser()).get();
 
-    if (!payPalEntity.getIdUser().getId().equals(payPalEntity.getIdUser().getId())) {
-      throw new RuntimeException("PayPal does not belong to the specified user");
-    }
-
     if(payPalDTO.getPayPalKey() != null) {
       payPalEntity.setPayPalKey(payPalDTO.getPayPalKey());
       person.setPaypal(payPalEntity);
     }
 
-    //personRepository.save(person);
+    personRepository.save(person);
     return new PayPalDTO(payPalRepository.save(payPalEntity));
 
   }

@@ -42,12 +42,12 @@ public class PersonEntity {
   @Column(name = "friendID")
   private Set<Long> friendIDs = new HashSet<>();
 
-  @OneToOne
-  @JoinColumn(name = "pix_id")
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "pixId")
   private PixEntity pix;
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "paypal_id")
+  @JoinColumn(name = "paypalId")
   private PayPalEntity paypal;
 
   // pessoaEntity constructors

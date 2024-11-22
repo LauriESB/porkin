@@ -30,9 +30,9 @@ public class PixController {
     return pixService.updatePix(id, pixDTO);
   }
 
-  @DeleteMapping("/{id}")
-  public void delete(@PathVariable("id") Long id) {
-    pixService.deletePix(id);
+  @DeleteMapping("/{id}/{idUser}")
+  public void delete(@PathVariable("id") Long id, @PathVariable Long idUser) {
+    pixService.deletePix(id, idUser);
   }
 
 

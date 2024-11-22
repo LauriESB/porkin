@@ -44,18 +44,31 @@ public class PixService {
 
   public PixDTO updatePix(Long id, PixDTO pixDTO) {
     PixEntity pixEntity = pixRepository.findById(id).get();
+    PersonEntity person = personRepository.findById(pixDTO.getId()).get();
 
     if (pixDTO.getPixKey() != null) {
       pixEntity.setPixKey(pixDTO.getPixKey());
+      person.setPix(pixEntity);
     }
 
+    personRepository.save(person);
     return new PixDTO(pixRepository.save(pixEntity));
 
   }
 
-  public void deletePix(Long id) {
+  public void deletePix(Long id, Long idUser) {
     PixEntity pixEntity = pixRepository.findById(id).get();
-    pixRepository.delete(pixEntity);
+    PersonEntity person = personRepository.findById(idUser).get();
+
+    if (!pixEntity.getIdUser().equals(idUser)) {
+      throw new RuntimeException("PayPal does not belong to the specified user");
+    }
+
+    person.setPix(null);
+
+    personRepository.save(person);
+
+    //pixRepository.delete(pixEntity);
   }
 
 
