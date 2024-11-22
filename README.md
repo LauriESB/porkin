@@ -21,10 +21,13 @@
 - **JDK 21 (Amazon Corretto)**: Java é a linguagem utilizada no back-end deste projeto.
 - **Spring Boot**: Framework java.
   - **Spring Data JPA**: Para gerenciar a persistência de dados e as interações com o banco de dados.
-- **PostgreSQL**: O banco de dados relacional utilizado para armazenamento de dados.
+- **PostgreSQL**: Banco de dados relacional utilizado para armazenamento de dados.
 - **Maven**: Gerenciamento de dependências.
 - **Javascript**: Javascript é a linguagem utilizada no front-end deste projeto.
-- **CSS**: Utilizamos CSS puro para personalizar a aparência das páginas.
+- **HTML**: Linguagem de marcação usada para estruturar o conteúdo das páginas web.
+- **CSS**: Linguagem de estilo usada para definir a aparência visual das páginas web.
+- **Webpack**: Ferramenta para empacotamento de módulos JavaScript, otimizando recursos para o frontend.  
+- **GSAP**: Biblioteca JavaScript para animações. 
 
 
 ## 📱 Como usar
