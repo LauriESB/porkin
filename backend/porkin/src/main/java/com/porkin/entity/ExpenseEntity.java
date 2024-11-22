@@ -1,6 +1,7 @@
 package com.porkin.entity;
 
 import com.porkin.dto.ExpenseDTO;
+import com.porkin.dto.ExpenseSplitDTO;
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
 
@@ -37,6 +38,7 @@ public class ExpenseEntity {
 
   @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL)
   private List<ExpenseSplitEntity> expenseDetails;
+
 
   // despesEntity constructors
 
@@ -106,8 +108,13 @@ public class ExpenseEntity {
     this.idExpenseCreator = idExpenseCreator;
   }
 
-  public List<ExpenseSplitEntity> getExpenseDetails() {
-    return expenseDetails;
+  public List<ExpenseSplitDTO> getExpenseDetails() {
+    return this.expenseDetails.stream().map(details -> new ExpenseSplitDTO(
+            details.getPerson(),
+            details.getValueToPay(),
+            details.getPercentage(),
+            details.isPaid()
+        )).toList();
   }
 
   public void setExpenseDetails(List<ExpenseSplitEntity> expenseDetails) {

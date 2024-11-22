@@ -5,8 +5,6 @@ import org.springframework.beans.BeanUtils;
 
 public class ExpenseSplitDTO {
 
-  private long id;
-
   private Long person;
 
   private double valueToPay;
@@ -21,19 +19,18 @@ public class ExpenseSplitDTO {
     BeanUtils.copyProperties(expenseSplitEntity, this);
   }
 
+  public ExpenseSplitDTO(Long person, double valueToPay, double percentage, boolean paid) {
+    this.person = person;
+    this.valueToPay = valueToPay;
+    this.percentage = percentage;
+    this.paid = paid;
+  }
+
   public ExpenseSplitDTO() {
 
   }
 
   // getters and setters
-
-  public long getId() {
-    return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
-  }
 
   public Long getPerson() {
     return person;

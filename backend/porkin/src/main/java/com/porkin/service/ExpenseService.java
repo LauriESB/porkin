@@ -43,7 +43,6 @@ public class ExpenseService {
 
     //expenseRepository.save(expenseEntity);
 
-    /*
     expenseDTO.getExpenseDetails().forEach(expenseSplitDTO -> {
 
       ExpenseSplitEntity splitParticipants = new ExpenseSplitEntity();
@@ -59,11 +58,8 @@ public class ExpenseService {
     });
 
     expenseEntity.setExpenseDetails(split);
-    expenseSplitRepository.saveAll(split);
-
-
-     */
     expenseRepository.save(expenseEntity);
+    expenseSplitRepository.saveAll(split);
   }
 
   public ExpenseDTO update(Long id, ExpenseDTO expenseDTO) {

@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/expensesplit")
+@RequestMapping(value = "/expenseSplit")
 public class ExpenseSplitController {
 
   @Autowired
   private ExpenseSplitService expenseSplitService;
 
-  @GetMapping
-  public List<ExpenseSplitDTO> listAll() {
+  @GetMapping("/{id}")
+  public List<ExpenseSplitDTO> listAll(@PathVariable("id") Long id) {
     return expenseSplitService.listAll();
   }
 
@@ -26,7 +26,7 @@ public class ExpenseSplitController {
   }
 
   @PutMapping("/{id}")
-  public ExpenseSplitDTO update(@PathVariable Long id, @RequestBody ExpenseSplitDTO expenseSplitDTO) {
+  public ExpenseSplitDTO update(@PathVariable("id") Long id, @RequestBody ExpenseSplitDTO expenseSplitDTO) {
     return expenseSplitService.update(id, expenseSplitDTO);
   }
 

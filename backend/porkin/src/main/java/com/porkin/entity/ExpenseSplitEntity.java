@@ -7,7 +7,7 @@ import org.springframework.beans.BeanUtils;
 import java.util.Objects;
 
 @Entity
-@Table(name = "expensesplit")
+@Table(name = "expenseSplit")
 public class ExpenseSplitEntity {
 
   //@EmbeddedId
@@ -22,7 +22,7 @@ public class ExpenseSplitEntity {
   private ExpenseEntity expense;
 
   @ManyToOne
-  @JoinColumn(name = "idExpenseCreator")
+  @JoinColumn(name = "person")
   private PersonEntity person;
 
   @Column(nullable = false)
@@ -62,8 +62,8 @@ public class ExpenseSplitEntity {
     this.expense = expense;
   }
 
-  public PersonEntity getPerson() {
-    return person;
+  public Long getPerson() {
+    return person.getId();
   }
 
   public void setPerson(PersonEntity person) {
