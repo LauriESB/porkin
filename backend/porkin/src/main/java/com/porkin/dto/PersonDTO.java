@@ -2,6 +2,7 @@ package com.porkin.dto;
 
 
 import com.porkin.entity.PersonEntity;
+import com.porkin.paymentMethods.dto.PixDTO;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class PersonDTO {
 
   private String mobileNumber;
 
-  private String pix;
+  private PixDTO pix;
 
   // PersonDTO constructors
 
@@ -74,11 +75,11 @@ public class PersonDTO {
     this.mobileNumber = mobileNumber;
   }
 
-  public String getPix() {
+  public PixDTO getPix() {
     return pix;
   }
 
-  public void setPix(String pix) {
+  public void setPix(PixDTO pix) {
     this.pix = pix;
   }
 

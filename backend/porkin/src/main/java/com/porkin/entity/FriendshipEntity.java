@@ -24,6 +24,7 @@ public class FriendshipEntity {
   @JoinColumn(name = "idFriend", referencedColumnName = "idUser")
   private PersonEntity fkPersonFriend;
 
+
   // friendshipEntity constructors
 
   public FriendshipEntity(FriendshipDTO friendshipDTO, PersonEntity fkPersonUser, PersonEntity fkPersonFriend) {

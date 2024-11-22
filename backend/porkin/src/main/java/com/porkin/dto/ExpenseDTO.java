@@ -1,9 +1,11 @@
 package com.porkin.dto;
 
 import com.porkin.entity.ExpenseEntity;
+import com.porkin.entity.PersonEntity;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ExpenseDTO {
 
@@ -20,6 +22,8 @@ public class ExpenseDTO {
   private boolean completed;
 
   private Long idExpenseCreator;
+
+  private List<ExpenseSplitDTO> expenseDetails;
 
   // ExpenseDTO constructor
 
@@ -87,6 +91,14 @@ public class ExpenseDTO {
 
   public void setIdExpenseCreator(Long idExpenseCreator) {
     this.idExpenseCreator = idExpenseCreator;
+  }
+
+  public List<ExpenseSplitDTO> getExpenseDetails() {
+    return expenseDetails;
+  }
+
+  public void setExpenseDetails(List<ExpenseSplitDTO> expenseDetails) {
+    this.expenseDetails = expenseDetails;
   }
 
 }

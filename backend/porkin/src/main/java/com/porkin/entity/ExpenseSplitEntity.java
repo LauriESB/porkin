@@ -1,6 +1,5 @@
 package com.porkin.entity;
 
-import com.porkin.compositekeys.ExpenseSplitIDs;
 import com.porkin.dto.ExpenseSplitDTO;
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
@@ -11,14 +10,29 @@ import java.util.Objects;
 @Table(name = "expensesplit")
 public class ExpenseSplitEntity {
 
-  @EmbeddedId
-  private ExpenseSplitIDs expenseSplitIDs;
+  //@EmbeddedId
+  //private ExpenseSplitIDs expenseSplitIDs;
 
-  private boolean paid;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  @ManyToOne
+  @JoinColumn(name = "expenseId")
+  private ExpenseEntity expense;
 
   @ManyToOne
   @JoinColumn(name = "idExpenseCreator")
-  private PersonEntity idExpenseCreator;
+  private PersonEntity person;
+
+  @Column(nullable = false)
+  private boolean paid;
+
+  @Column(nullable = false)
+  private double valueToPay;
+
+  @Column(nullable = false)
+  private double percentage;
 
   // divisaoEntity constructors
 
@@ -32,21 +46,28 @@ public class ExpenseSplitEntity {
 
   // getters and setters
 
-
-  public ExpenseSplitIDs getExpenseSplitIDs() {
-    return expenseSplitIDs;
+  public Long getId() {
+    return id;
   }
 
-  public void setExpenseSplitIDs(ExpenseSplitIDs expenseSplitIDs) {
-    this.expenseSplitIDs = expenseSplitIDs;
+  public void setId(Long id) {
+    this.id = id;
   }
 
-  public PersonEntity getIdExpenseCreator() {
-    return idExpenseCreator;
+  public ExpenseEntity getExpense() {
+    return expense;
   }
 
-  public void setIdExpenseCreator(PersonEntity idExpenseCreator) {
-    this.idExpenseCreator = idExpenseCreator;
+  public void setExpense(ExpenseEntity expense) {
+    this.expense = expense;
+  }
+
+  public PersonEntity getPerson() {
+    return person;
+  }
+
+  public void setPerson(PersonEntity person) {
+    this.person = person;
   }
 
   public boolean isPaid() {
@@ -57,19 +78,34 @@ public class ExpenseSplitEntity {
     this.paid = paid;
   }
 
+  public double getValueToPay() {
+    return valueToPay;
+  }
+
+  public void setValueToPay(double valueToPay) {
+    this.valueToPay = valueToPay;
+  }
+
+  public double getPercentage() {
+    return percentage;
+  }
+
+  public void setPercentage(double percentage) {
+    this.percentage = percentage;
+  }
+
   // hashCode and equals
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ExpenseSplitEntity that = (ExpenseSplitEntity) o;
-    return Objects.equals(expenseSplitIDs, that.expenseSplitIDs) && Objects.equals(idExpenseCreator, that.idExpenseCreator);
+    return Objects.equals(id, that.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(expenseSplitIDs, idExpenseCreator);
+    return Objects.hashCode(id);
   }
 
 }

@@ -7,9 +7,11 @@ public class ExpenseSplitDTO {
 
   private long id;
 
-  private Long idFriend;
+  private Long person;
 
-  private int expensePercentage;
+  private double valueToPay;
+
+  private double percentage;
 
   private boolean paid;
 
@@ -33,20 +35,28 @@ public class ExpenseSplitDTO {
     this.id = id;
   }
 
-  public Long getIdFriend() {
-    return idFriend;
+  public Long getPerson() {
+    return person;
   }
 
-  public void setIdFriend(Long idFriend) {
-    this.idFriend = idFriend;
+  public void setPerson(Long person) {
+    this.person = person;
   }
 
-  public int getExpensePercentage() {
-    return expensePercentage;
+  public double getValueToPay() {
+    return valueToPay;
   }
 
-  public void setExpensePercentage(int expensePercentage) {
-    this.expensePercentage = expensePercentage;
+  public void setValueToPay(double valueToPay) {
+    this.valueToPay = valueToPay;
+  }
+
+  public double getPercentage() {
+    return percentage;
+  }
+
+  public void setPercentage(double percentage) {
+    this.percentage = percentage;
   }
 
   public boolean isPaid() {

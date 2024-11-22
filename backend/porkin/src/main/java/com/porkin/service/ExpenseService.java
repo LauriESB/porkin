@@ -2,13 +2,16 @@ package com.porkin.service;
 
 import com.porkin.dto.ExpenseDTO;
 import com.porkin.entity.ExpenseEntity;
+import com.porkin.entity.ExpenseSplitEntity;
 import com.porkin.entity.PersonEntity;
 import com.porkin.repository.ExpenseRepository;
+import com.porkin.repository.ExpenseSplitRepository;
 import com.porkin.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,6 +22,9 @@ public class ExpenseService {
 
   @Autowired
   public PersonRepository personRepository;
+
+  @Autowired
+  public ExpenseSplitRepository expenseSplitRepository;
 
   public List<ExpenseDTO> listAll() {
     List<ExpenseEntity> expenseEntities = expenseRepository.findAll();
@@ -33,6 +39,30 @@ public class ExpenseService {
     PersonEntity idexpensecreator = personRepository.findById(expenseDTO.getIdExpenseCreator()).get();
     expenseEntity.setIdExpenseCreator(idexpensecreator);
 
+    List<ExpenseSplitEntity> split = new ArrayList<>();
+
+    //expenseRepository.save(expenseEntity);
+
+    /*
+    expenseDTO.getExpenseDetails().forEach(expenseSplitDTO -> {
+
+      ExpenseSplitEntity splitParticipants = new ExpenseSplitEntity();
+
+      PersonEntity personParticipant = personRepository.findById(expenseSplitDTO.getPerson()).get();
+
+      splitParticipants.setExpense(expenseEntity);
+      splitParticipants.setPerson(personParticipant);
+      splitParticipants.setValueToPay(expenseSplitDTO.getValueToPay());
+      splitParticipants.setPercentage(expenseSplitDTO.getPercentage());
+      splitParticipants.setPaid(false);
+      split.add(splitParticipants);
+    });
+
+    expenseEntity.setExpenseDetails(split);
+    expenseSplitRepository.saveAll(split);
+
+
+     */
     expenseRepository.save(expenseEntity);
   }
 
@@ -41,7 +71,10 @@ public class ExpenseService {
 
     if(expenseDTO.getIdExpenseCreator() != null) {
       ExpenseEntity expenseDTOtoEntity = new ExpenseEntity(expenseDTO);
-      expenseEntity.setIdExpenseCreator(expenseDTOtoEntity.getIdExpenseCreator());
+
+      PersonEntity person = personRepository.findById(expenseEntity.getIdExpenseCreator()).get();
+
+      expenseEntity.setIdExpenseCreator(person);
     }
 
     expenseEntity.setTotalCost(expenseDTO.getTotalCost());

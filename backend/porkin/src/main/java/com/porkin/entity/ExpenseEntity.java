@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -31,8 +32,11 @@ public class ExpenseEntity {
   private boolean completed;
 
   @ManyToOne
-  @JoinColumn(name = "idExpenseCreator", referencedColumnName = "idUser")
+  @JoinColumn(name = "idExpenseCreator")
   private PersonEntity idExpenseCreator;
+
+  @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL)
+  private List<ExpenseSplitEntity> expenseDetails;
 
   // despesEntity constructors
 
@@ -94,12 +98,20 @@ public class ExpenseEntity {
     this.completed = completed;
   }
 
-  public PersonEntity getIdExpenseCreator() {
-    return idExpenseCreator;
+  public Long getIdExpenseCreator() {
+    return idExpenseCreator.getId();
   }
 
   public void setIdExpenseCreator(PersonEntity idExpenseCreator) {
     this.idExpenseCreator = idExpenseCreator;
+  }
+
+  public List<ExpenseSplitEntity> getExpenseDetails() {
+    return expenseDetails;
+  }
+
+  public void setExpenseDetails(List<ExpenseSplitEntity> expenseDetails) {
+    this.expenseDetails = expenseDetails;
   }
 
   // hashCode and equals

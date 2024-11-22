@@ -1,3 +1,4 @@
+/*
 package com.porkin.compositekeys;
 
 import jakarta.persistence.Embeddable;
@@ -50,3 +51,4 @@ public class ExpenseSplitIDs implements Serializable {
   }
 
 }
+*/
