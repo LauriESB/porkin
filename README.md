@@ -81,6 +81,6 @@ Este projeto está sob a licença GNU GENERAL PUBLIC LICENSE Version 3 (GPLv3) -
 
 Para qualquer dúvida que você possa ter, aqui está a melhor maneira de se comunicar com o nosso time:
 
-- **Email**: [porkinoapp@gmail.com](mailto:porkinoapp)
+<a href="https://www.linkedin.com/in/laurisantinelli/"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
 
 [De volta ao topo do README](#top)
