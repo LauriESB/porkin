@@ -1,33 +1,38 @@
-package com.porkin.compositekeys;
+/*package com.porkin.compositekeys;
+
 
 import java.io.Serializable;
 import java.util.Objects;
 
 public class FriendshipIDs implements Serializable {
 
-  private Long idUser;
-  private Long idFriend;
+  private String idUser;
+  private String idFriend;
 
-  public FriendshipIDs() {}
+  // constructors
 
-  public FriendshipIDs(Long idUser, Long idFriend) {
+  public FriendshipIDs(String idUser, String idFriend) {
     this.idUser = idUser;
     this.idFriend = idFriend;
   }
 
-  public Long getIdUser() {
+  public FriendshipIDs() {}
+
+  // getters and setters
+
+  public String getIdUser() {
     return idUser;
   }
 
-  public void setIdUser(Long idUser) {
+  public void setIdUser(String idUser) {
     this.idUser = idUser;
   }
 
-  public Long getIdFriend() {
+  public String getIdFriend() {
     return idFriend;
   }
 
-  public void setIdFriend(Long idFriend) {
+  public void setIdFriend(String idFriend) {
     this.idFriend = idFriend;
   }
 
@@ -45,3 +50,4 @@ public class FriendshipIDs implements Serializable {
   }
 
 }
+*/

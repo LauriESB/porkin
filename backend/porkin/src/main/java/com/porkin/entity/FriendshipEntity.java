@@ -1,9 +1,7 @@
 package com.porkin.entity;
 
-import com.porkin.compositekeys.FriendshipIDs;
 import com.porkin.dto.FriendshipDTO;
 import jakarta.persistence.*;
-import org.springframework.beans.BeanUtils;
 
 import java.util.Objects;
 
@@ -11,24 +9,22 @@ import java.util.Objects;
 @Table(name = "friendship")
 public class FriendshipEntity {
 
-  @EmbeddedId
-  private FriendshipIDs friendshipIDs;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   @ManyToOne
-  @MapsId("idUser")
-  @JoinColumn(name = "idUser", referencedColumnName = "idUser")
+  @JoinColumn(name = "idUser", referencedColumnName = "username")
   private PersonEntity fkPersonUser;
 
   @ManyToOne
-  @MapsId("idFriend")
-  @JoinColumn(name = "idFriend", referencedColumnName = "idUser")
+  @JoinColumn(name = "idFriend", referencedColumnName = "username")
   private PersonEntity fkPersonFriend;
 
 
   // friendshipEntity constructors
 
   public FriendshipEntity(FriendshipDTO friendshipDTO, PersonEntity fkPersonUser, PersonEntity fkPersonFriend) {
-    this.friendshipIDs = new FriendshipIDs(friendshipDTO.getIdUser(), friendshipDTO.getIdFriend());
     this.fkPersonUser = fkPersonUser;
     this.fkPersonFriend = fkPersonFriend;
   }
@@ -38,14 +34,6 @@ public class FriendshipEntity {
   }
 
   // getters and setters
-
-  public FriendshipIDs getFriendshipIDs() {
-    return friendshipIDs;
-  }
-
-  public void setFriendshipIDs(FriendshipIDs friendshipIDs) {
-    this.friendshipIDs = friendshipIDs;
-  }
 
   public PersonEntity getFkPersonUser() {
     return fkPersonUser;
@@ -67,15 +55,14 @@ public class FriendshipEntity {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     FriendshipEntity that = (FriendshipEntity) o;
-    return Objects.equals(friendshipIDs.getIdUser(), that.friendshipIDs.getIdUser());
+    return Objects.equals(id, that.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(friendshipIDs.getIdUser());
+    return Objects.hashCode(id);
   }
 
 }

@@ -1,47 +1,45 @@
 package com.porkin.dto;
 
 import com.porkin.entity.FriendshipEntity;
-import com.porkin.entity.PersonEntity;
-import org.springframework.beans.BeanUtils;
 
 public class FriendshipDTO {
 
-  private Long idUser;
+  private String idUser;
 
-  private Long idFriend;
+  private String idFriend;
 
   // FriendshipDTO constructors
 
   public FriendshipDTO(FriendshipEntity friendshipEntity) {
     //BeanUtils.copyProperties(friendshipEntity, this);
-    this.idUser = friendshipEntity.getFriendshipIDs().getIdUser();
-    this.idFriend = friendshipEntity.getFriendshipIDs().getIdFriend();
+    this.idUser = friendshipEntity.getFkPersonUser().getUsername();
+    this.idFriend = friendshipEntity.getFkPersonFriend().getUsername();
+  }
+
+  public FriendshipDTO(String idUser, String idFriend) {
+    this.idUser = idUser;
+    this.idFriend = idFriend;
   }
 
   public FriendshipDTO() {
 
   }
 
-  public FriendshipDTO(Long idUser, Long idFriend) {
-    this.idUser = idUser;
-    this.idFriend = idFriend;
-  }
-
   // getters and setters
 
-  public Long getIdUser() {
+  public String getIdUser() {
     return idUser;
   }
 
-  public void setIdUser(Long idUser) {
+  public void setIdUser(String idUser) {
     this.idUser = idUser;
   }
 
-  public Long getIdFriend() {
+  public String getIdFriend() {
     return idFriend;
   }
 
-  public void setIdFriend(Long idFriend) {
+  public void setIdFriend(String idFriend) {
     this.idFriend = idFriend;
   }
 

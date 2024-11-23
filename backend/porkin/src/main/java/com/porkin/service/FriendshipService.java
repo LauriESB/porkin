@@ -5,6 +5,7 @@ import com.porkin.entity.FriendshipEntity;
 import com.porkin.entity.PersonEntity;
 import com.porkin.repository.FriendshipRepository;
 import com.porkin.repository.PersonRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,29 +21,35 @@ public class FriendshipService { // service chama o repository
   @Autowired
   private PersonRepository personRepository;
 
-  public Set<Long> getFriendIds(Long userId) {
-    PersonEntity person = personRepository.findById(userId).orElseThrow();
-    return person.getFriendIDs();
-  }
-
-  /*
-  // busca dados no entity e retorna dto
-  public List<FriendshipDTO> listAll(Long userId) {
-    List<FriendshipEntity> friendshipEntities = friendshipRepository.findAll(); // usa usuário repository pra buscar nas entities
+  public List<FriendshipDTO> listAll() {
+    List<FriendshipEntity> friendshipEntities = friendshipRepository.findAll();
     return friendshipEntities.stream().map(FriendshipDTO::new).toList();
   }
 
-  public void insert(FriendshipDTO friendshipDTO) {
-    PersonEntity idUser = personRepository.findById(friendshipDTO.getIdUser()).get();
-    PersonEntity idFriend = personRepository.findById(friendshipDTO.getIdFriend()).get();
-
-    FriendshipEntity friendshipEntity = new FriendshipEntity(friendshipDTO, idUser, idFriend);
-    friendshipRepository.save(friendshipEntity);
+  public Set<String> getFriendIds(String username) {
+    PersonEntity person = personRepository.findByUsername(username).orElseThrow();
+    return person.getFriendsUsernames();
   }
-   */
-  public void delete(Long id) {
-    FriendshipEntity friendshipEntity = friendshipRepository.findById(id).get();
-    friendshipRepository.delete(friendshipEntity);
+
+  @Transactional
+  public void delete(String user, String friend) {
+    friendshipRepository.deleteByUserAndFriend(user, friend);
+    friendshipRepository.deleteByUserAndFriend(friend, user);
+
+    PersonEntity personUser = personRepository.findByUsername(user).get();
+    PersonEntity personFriend = personRepository.findByUsername(friend).get();
+
+    personUser.getFriendsUsernames().remove(personFriend);
+    personUser.getFriendships().remove(personFriend);
+
+    personFriend.getFriendsUsernames().remove(personUser);
+    personFriend.getFriendships().remove(personUser);
+
+    personRepository.save(personUser);
+    personRepository.save(personFriend);
+
+    personRepository.flush();
+
   }
 
   public FriendshipDTO findById(Long id) {

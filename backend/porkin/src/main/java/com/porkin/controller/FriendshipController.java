@@ -1,6 +1,5 @@
 package com.porkin.controller;
 
-import com.porkin.dto.FriendRequestDTO;
 import com.porkin.dto.FriendshipDTO;
 import com.porkin.service.FriendshipService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,28 +16,20 @@ public class FriendshipController {
   @Autowired
   private FriendshipService friendshipService;
 
-  @GetMapping("/friends/{userId}")
-  public ResponseEntity<Set<Long>> getFriends(@PathVariable Long userId) {
-    Set<Long> friendIds = friendshipService.getFriendIds(userId);
+  @GetMapping
+  public List<FriendshipDTO> listAll() {
+    return friendshipService.listAll();
+  }
+
+  @GetMapping("/{username}")
+  public ResponseEntity<Set<String>> getFriends(@PathVariable String username) {
+    Set<String> friendIds = friendshipService.getFriendIds(username);
     return ResponseEntity.ok(friendIds);
   }
 
-  /*
-  @GetMapping("/friends/{userId}")
-  public List<FriendshipDTO> listAll(@PathVariable Long userId) {
-    return friendshipService.listAll(userId);
-  }
-  */
-
-  /*
-  @PostMapping
-  public void insert(@RequestBody FriendshipDTO friendshipDTO) {
-    friendshipService.insert(friendshipDTO);
-  }
-  */
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-    friendshipService.delete(id);
+  @DeleteMapping("/{user}/{friend}")
+  public ResponseEntity<Void> delete(@PathVariable("user") String user, @PathVariable String friend) {
+    friendshipService.delete(user, friend);
     return ResponseEntity.ok().build();
   }
 

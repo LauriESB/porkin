@@ -31,16 +31,16 @@ public class PersonEntity {
   @Column(nullable = false, unique = true)
   private String username;
 
-  @OneToMany(mappedBy = "fkPersonUser")
+  @OneToMany(mappedBy = "fkPersonUser", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<FriendshipEntity> friendships = new HashSet<>();
 
   @OneToMany(mappedBy = "idExpenseCreator")
   private List<ExpenseEntity> expenses;
 
   @ElementCollection
-  @CollectionTable(name = "friendIDs", joinColumns = @JoinColumn(name = "idUser"))
+  @CollectionTable(name = "friendIDs", joinColumns = @JoinColumn(name = "username"))
   @Column(name = "friendID")
-  private Set<Long> friendIDs = new HashSet<>();
+  private Set<String> friendsUsernames = new HashSet<>();
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "pixId")
@@ -122,12 +122,12 @@ public class PersonEntity {
     this.friendships = friendships;
   }
 
-  public Set<Long> getFriendIDs() {
-    return friendIDs;
+  public Set<String> getFriendsUsernames() {
+    return friendsUsernames;
   }
 
-  public void setFriendIDs(Set<Long> friendIDs) {
-    this.friendIDs = friendIDs;
+  public void setFriendsUsernames(Set<String> friendsUsernames) {
+    this.friendsUsernames = friendsUsernames;
   }
 
   public String getPix() {

@@ -1,8 +1,6 @@
 package com.porkin.dto;
 
 import com.porkin.entity.FriendRequestEntity;
-import com.porkin.entity.PersonEntity;
-import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
@@ -11,9 +9,9 @@ public class FriendRequestDTO {
 
   private Long id;
 
-  private Long personRequester;
+  private String personRequester;
 
-  private Long personReceiver;
+  private String personReceiver;
 
   private String message;
 
@@ -21,7 +19,7 @@ public class FriendRequestDTO {
 
   private LocalDateTime creationDate;
 
-  //
+  // constructors
 
   public FriendRequestDTO(FriendRequestEntity friendEntity) {
     BeanUtils.copyProperties(friendEntity, this);
@@ -41,19 +39,19 @@ public class FriendRequestDTO {
     this.id = id;
   }
 
-  public Long getPersonRequester() {
+  public String getPersonRequester() {
     return personRequester;
   }
 
-  public void setPersonRequester(Long personRequester) {
+  public void setPersonRequester(String personRequester) {
     this.personRequester = personRequester;
   }
 
-  public Long getPersonReceiver() {
+  public String getPersonReceiver() {
     return personReceiver;
   }
 
-  public void setPersonReceiver(Long personReceiver) {
+  public void setPersonReceiver(String personReceiver) {
     this.personReceiver = personReceiver;
   }
 
