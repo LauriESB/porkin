@@ -20,6 +20,11 @@ public class PersonController {
     return personService.listAll();
   }
 
+  @GetMapping("/{username}")
+  public PersonDTO listAll(@PathVariable("username") String username) {
+    return personService.findByUsername(username);
+  }
+
   @PostMapping
   public void insert(@RequestBody PersonDTO personDTO) {
     personService.insert(personDTO);

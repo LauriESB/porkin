@@ -1,12 +1,8 @@
 package com.porkin.dto;
 
-
 import com.porkin.entity.PersonEntity;
 import com.porkin.paymentMethods.dto.PixDTO;
 import org.springframework.beans.BeanUtils;
-
-import java.util.List;
-import java.util.Set;
 
 public class PersonDTO {
 
@@ -14,15 +10,15 @@ public class PersonDTO {
 
   private String name;
 
+  private String username;
+
   private String email;
 
   private String password;
 
-  private String mobileNumber;
-
   private PixDTO pix;
 
-  // PersonDTO constructors
+  // constructors
 
   public PersonDTO(PersonEntity personEntity) {
     BeanUtils.copyProperties(personEntity, this);
@@ -33,7 +29,6 @@ public class PersonDTO {
   }
 
   // getters and setters
-
 
   public Long getId() {
     return id;
@@ -59,20 +54,20 @@ public class PersonDTO {
     this.email = email;
   }
 
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
   public String getPassword() {
     return password;
   }
 
   public void setPassword(String password) {
     this.password = password;
-  }
-
-  public String getMobileNumber() {
-    return mobileNumber;
-  }
-
-  public void setMobileNumber(String mobileNumber) {
-    this.mobileNumber = mobileNumber;
   }
 
   public PixDTO getPix() {

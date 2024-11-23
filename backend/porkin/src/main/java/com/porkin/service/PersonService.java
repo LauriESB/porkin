@@ -19,6 +19,11 @@ public class PersonService {
     return personEntities.stream().map(PersonDTO::new).toList();
   }
 
+  public PersonDTO findByUsername(String username) {
+    PersonEntity person = personRepository.findByUsername(username).get();
+    return new PersonDTO(person);
+  }
+
   public void insert(PersonDTO personDTO) {
     PersonEntity personEntity = new PersonEntity(personDTO);
     personRepository.save(personEntity);
@@ -35,8 +40,8 @@ public class PersonService {
       personEntity.setName(personDTO.getName());
     }
 
-    if(personDTO.getPassword() != null) {
-      personEntity.setPassword(personDTO.getPassword());
+    if(personDTO.getUsername() != null) {
+      personEntity.setPassword(personDTO.getUsername());
     }
 
     return new PersonDTO(personRepository.save(personEntity));

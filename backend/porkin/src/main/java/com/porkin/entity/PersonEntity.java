@@ -28,8 +28,8 @@ public class PersonEntity {
   @Column(nullable = false)
   private String password;
 
-  @Column(nullable = false)
-  private String mobileNumber;
+  @Column(nullable = false, unique = true)
+  private String username;
 
   @OneToMany(mappedBy = "fkPersonUser")
   private Set<FriendshipEntity> friendships = new HashSet<>();
@@ -94,12 +94,12 @@ public class PersonEntity {
     this.password = password;
   }
 
-  public String getMobileNumber() {
-    return mobileNumber;
+  public String getUsername() {
+    return username;
   }
 
-  public void setMobileNumber(String mobileNumber) {
-    this.mobileNumber = mobileNumber;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public Set<FriendshipEntity> getFriendships() {
