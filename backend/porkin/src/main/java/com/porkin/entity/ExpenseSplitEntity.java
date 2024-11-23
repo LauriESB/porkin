@@ -62,8 +62,8 @@ public class ExpenseSplitEntity {
     this.expense = expense;
   }
 
-  public Long getPerson() {
-    return person.getId();
+  public String getPerson() {
+    return person.getUsername();
   }
 
   public void setPerson(PersonEntity person) {

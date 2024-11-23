@@ -5,11 +5,11 @@ import org.springframework.beans.BeanUtils;
 
 public class ExpenseSplitDTO {
 
-  private Long person;
+  private String username;
 
-  private double valueToPay;
+  private Double valueToPay;
 
-  private double percentage;
+  private Double percentage;
 
   private boolean paid;
 
@@ -19,8 +19,8 @@ public class ExpenseSplitDTO {
     BeanUtils.copyProperties(expenseSplitEntity, this);
   }
 
-  public ExpenseSplitDTO(Long person, double valueToPay, double percentage, boolean paid) {
-    this.person = person;
+  public ExpenseSplitDTO(String person, Double valueToPay, Double percentage, boolean paid) {
+    this.username = person;
     this.valueToPay = valueToPay;
     this.percentage = percentage;
     this.paid = paid;
@@ -32,27 +32,27 @@ public class ExpenseSplitDTO {
 
   // getters and setters
 
-  public Long getPerson() {
-    return person;
+  public String getUsername() {
+    return username;
   }
 
-  public void setPerson(Long person) {
-    this.person = person;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
-  public double getValueToPay() {
+  public Double getValueToPay() {
     return valueToPay;
   }
 
-  public void setValueToPay(double valueToPay) {
+  public void setValueToPay(Double valueToPay) {
     this.valueToPay = valueToPay;
   }
 
-  public double getPercentage() {
+  public Double getPercentage() {
     return percentage;
   }
 
-  public void setPercentage(double percentage) {
+  public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
 

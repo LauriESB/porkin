@@ -1,7 +1,6 @@
 package com.porkin.dto;
 
 import com.porkin.entity.ExpenseEntity;
-import com.porkin.entity.PersonEntity;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
@@ -11,7 +10,7 @@ public class ExpenseDTO {
 
   private Long id;
 
-  private double totalCost;
+  private Double totalCost;
 
   private String title;
 
@@ -21,7 +20,7 @@ public class ExpenseDTO {
 
   private boolean completed;
 
-  private Long idExpenseCreator;
+  private String idExpenseCreator;
 
   private List<ExpenseSplitDTO> expenseDetails;
 
@@ -45,11 +44,11 @@ public class ExpenseDTO {
     this.id = id;
   }
 
-  public double getTotalCost() {
+  public Double getTotalCost() {
     return totalCost;
   }
 
-  public void setTotalCost(double totalCost) {
+  public void setTotalCost(Double totalCost) {
     this.totalCost = totalCost;
   }
 
@@ -85,11 +84,11 @@ public class ExpenseDTO {
     this.completed = completed;
   }
 
-  public Long getIdExpenseCreator() {
+  public String getIdExpenseCreator() {
     return idExpenseCreator;
   }
 
-  public void setIdExpenseCreator(Long idExpenseCreator) {
+  public void setIdExpenseCreator(String idExpenseCreator) {
     this.idExpenseCreator = idExpenseCreator;
   }
 

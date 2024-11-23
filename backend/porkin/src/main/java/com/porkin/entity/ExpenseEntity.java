@@ -18,7 +18,7 @@ public class ExpenseEntity {
   private Long id;
 
   @Column(nullable = false)
-  private double totalCost;
+  private Double totalCost;
 
   @Column(nullable = false)
   private String title;
@@ -60,11 +60,11 @@ public class ExpenseEntity {
     this.id = id;
   }
 
-  public double getTotalCost() {
+  public Double getTotalCost() {
     return totalCost;
   }
 
-  public void setTotalCost(double totalCost) {
+  public void setTotalCost(Double totalCost) {
     this.totalCost = totalCost;
   }
 
@@ -100,8 +100,8 @@ public class ExpenseEntity {
     this.completed = completed;
   }
 
-  public Long getIdExpenseCreator() {
-    return idExpenseCreator.getId();
+  public String getIdExpenseCreator() {
+    return idExpenseCreator.getUsername();
   }
 
   public void setIdExpenseCreator(PersonEntity idExpenseCreator) {

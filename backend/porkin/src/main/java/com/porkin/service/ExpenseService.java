@@ -36,7 +36,7 @@ public class ExpenseService {
     expenseEntity.setCreationDate(LocalDate.now());
     expenseEntity.setCompleted(false);
 
-    PersonEntity idexpensecreator = personRepository.findById(expenseDTO.getIdExpenseCreator()).get();
+    PersonEntity idexpensecreator = personRepository.findByUsername(expenseDTO.getIdExpenseCreator()).get();
     expenseEntity.setIdExpenseCreator(idexpensecreator);
 
     List<ExpenseSplitEntity> split = new ArrayList<>();
@@ -47,7 +47,7 @@ public class ExpenseService {
 
       ExpenseSplitEntity splitParticipants = new ExpenseSplitEntity();
 
-      PersonEntity personParticipant = personRepository.findById(expenseSplitDTO.getPerson()).get();
+      PersonEntity personParticipant = personRepository.findByUsername(expenseSplitDTO.getUsername()).get();
 
       splitParticipants.setExpense(expenseEntity);
       splitParticipants.setPerson(personParticipant);
@@ -65,22 +65,12 @@ public class ExpenseService {
   public ExpenseDTO update(Long id, ExpenseDTO expenseDTO) {
     ExpenseEntity expenseEntity = expenseRepository.findById(id).get();
 
-    if(expenseDTO.getIdExpenseCreator() != null) {
-      ExpenseEntity expenseDTOtoEntity = new ExpenseEntity(expenseDTO);
+    if(expenseDTO.getTotalCost() != null) {
 
-      PersonEntity person = personRepository.findById(expenseEntity.getIdExpenseCreator()).get();
-
-      expenseEntity.setIdExpenseCreator(person);
     }
-
-    expenseEntity.setTotalCost(expenseDTO.getTotalCost());
 
     if(expenseDTO.getTitle() != null) {
       expenseEntity.setTitle(expenseDTO.getTitle());
-    }
-
-    if(expenseDTO.getCreationDate() != null) {
-      //exceçao
     }
 
     if(expenseDTO.getDueDate() != null) {
