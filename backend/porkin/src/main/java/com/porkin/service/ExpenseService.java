@@ -35,6 +35,12 @@ public class ExpenseService {
     return expenseEntities.stream().map(ExpenseDTO::new).toList();
   }
 
+  public List<ExpenseDTO> listUserExpenses(String username) {
+    PersonEntity person = personRepository.findByUsername(username).get();
+    List<ExpenseEntity> userExpenses = person.getExpenses();
+    return userExpenses.stream().map(ExpenseDTO::new).toList();
+  }
+
   public void insert(ExpenseDTO expenseDTO) {
     ExpenseEntity expenseEntity = new ExpenseEntity(expenseDTO);
     expenseEntity.setCreationDate(LocalDate.now());

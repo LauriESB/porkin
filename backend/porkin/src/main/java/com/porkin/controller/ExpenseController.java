@@ -20,6 +20,11 @@ public class ExpenseController {
     return expenseService.listAll();
   }
 
+  @GetMapping("/{username}")
+  public List<ExpenseDTO> listUserExpenses(@PathVariable("username") String username) {
+    return expenseService.listUserExpenses(username);
+  }
+
   @PostMapping
   public void insert(@RequestBody ExpenseDTO expenseDTO) {
     expenseService.insert(expenseDTO);
