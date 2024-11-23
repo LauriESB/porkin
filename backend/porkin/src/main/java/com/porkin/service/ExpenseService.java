@@ -1,18 +1,22 @@
 package com.porkin.service;
 
 import com.porkin.dto.ExpenseDTO;
+import com.porkin.dto.ExpenseSplitDTO;
 import com.porkin.entity.ExpenseEntity;
 import com.porkin.entity.ExpenseSplitEntity;
 import com.porkin.entity.PersonEntity;
 import com.porkin.repository.ExpenseRepository;
 import com.porkin.repository.ExpenseSplitRepository;
 import com.porkin.repository.PersonRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ExpenseService {
@@ -62,11 +66,12 @@ public class ExpenseService {
     expenseSplitRepository.saveAll(split);
   }
 
+  @Transactional
   public ExpenseDTO update(Long id, ExpenseDTO expenseDTO) {
     ExpenseEntity expenseEntity = expenseRepository.findById(id).get();
 
     if(expenseDTO.getTotalCost() != null) {
-
+      expenseEntity.setTotalCost(expenseDTO.getTotalCost());
     }
 
     if(expenseDTO.getTitle() != null) {
@@ -79,6 +84,27 @@ public class ExpenseService {
 
     if(expenseDTO.isCompleted() != expenseEntity.isCompleted()) {
       expenseEntity.setCompleted(expenseDTO.isCompleted());
+    }
+
+    if (expenseDTO.getExpenseDetails() != null) {
+
+      expenseSplitRepository.deleteAllByExpenseId(expenseEntity.getId());
+
+      List<ExpenseSplitEntity> newSplits = expenseDTO.getExpenseDetails().stream().map(detailDTO -> {
+        ExpenseSplitEntity split = new ExpenseSplitEntity();
+
+        PersonEntity person = personRepository.findByUsername(detailDTO.getUsername()).get();
+
+        split.setExpense(expenseEntity);
+        split.setPerson(person);
+        split.setValueToPay(detailDTO.getValueToPay());
+        split.setPercentage(detailDTO.getPercentage());
+        return split;
+      }).collect(Collectors.toList());
+
+      expenseSplitRepository.saveAll(newSplits);
+
+      expenseEntity.setExpenseDetails(newSplits);
     }
 
     return new ExpenseDTO(expenseRepository.save(expenseEntity));
