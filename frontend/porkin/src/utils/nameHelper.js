@@ -32,3 +32,29 @@ export function calculateValueFromPercentage(totalValue, percentage) {
 export function parsePercentage(percentage) {
   return parseInt(percentage);
 }
+
+export function getFirstAndLastName(fullName) {
+  const nameParts = fullName.trim().split(" ");
+  if (nameParts.length === 1) {
+    return nameParts[0];
+  }
+  const firstName = nameParts[0];
+  const lastName = nameParts[nameParts.length - 1];
+  return `${firstName} ${lastName}`;
+}
+
+export function formatDate(date) {
+  const [year, month, day] = date.split("-");
+  return `${day}/${month}/${year}`;
+}
+
+export function adjustParentHeight(parent, childSelector) {
+  const children = parent.querySelectorAll(childSelector);
+  let totalHeight = 0;
+
+  children.forEach((child) => {
+    totalHeight += child.getBoundingClientRect().height;
+  });
+
+  parent.style.height = `${totalHeight}px`;
+}

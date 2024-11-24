@@ -25,7 +25,7 @@ let selectedParticipants = [
     username: userData.username,
   },
 ];
-const localStorageKey = "formattedValue";
+export const localStorageKey = "formattedValue";
 
 function createHome() {
   return `<main id="home-main">
@@ -927,7 +927,7 @@ function displaySplitBill(element, selectedParticipantsArray, valueToSplit) {
       const participantData = {
         username: username,
         valueToPay: parseFloat(valueToPay.replace(",", ".")),
-        percentageToPay: percentageToPay.slice(0, -1),
+        status: "pending",
       };
 
       participants.push(participantData);
@@ -936,12 +936,12 @@ function displaySplitBill(element, selectedParticipantsArray, valueToSplit) {
     console.log(participants);
 
     const billData = {
-      adminUsername: userData.username,
+      billName: billNameInput.value,
+      admin: userData.username,
       createdAt: new Date(),
       totalValue: valueToSplit,
-      billName: billNameInput.value,
       payUntil: billDateInput.value,
-      billPaymentInput: Object.keys(paymentMethods)[billPaymentInput.value],
+      method: Object.keys(paymentMethods)[billPaymentInput.value],
       participants: participants,
     };
 
