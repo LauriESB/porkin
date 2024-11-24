@@ -1,4 +1,4 @@
-# <img src="misc/slice 2.png">
+# <img src="misc/banner.png">
 
 
 <br>
@@ -20,6 +20,27 @@
 
 **porkin!** é um PWA desenvolvido para quem precisa organizar as despesas de um evento com os amigos de maneira simples, rápida e sem complicações. Sabemos que, na correria, é fácil perder o controle de quem pagou o quê e quem deve para quem, especialmente quando as dívidas são quitadas após algum tempo. **porkin!** facilita esse processo, permitindo que todos acompanhem as despesas em tempo real, garantindo transparência e evitando mal-entendidos. Com uma interface intuitiva e funcionalidades pensadas para o dia a dia, ele é a solução perfeita para manter as contas em ordem e focar no que realmente importa: aproveitar os momentos com os amigos.
 
+<details open>
+<summary>
+ Screenshots
+</summary> <br />
+    
+<p align="center">
+    <img width="32%" src="misc/1.png"/>
+&nbsp;
+    <img width="32%" src="misc/2.png"/>
+&nbsp;
+    <img width="32%" src="misc/3.png"/>
+
+&nbsp;
+    <img width="32%" src="misc/4.png"/>
+&nbsp;
+    <img width="32%" src="misc/5 .png"/>
+&nbsp;
+    <img width="32%" src="misc/6.png"/>
+
+</details>
+
 ## 💻 Tecnologias utilizadas
 
 - **JDK 21 (Amazon Corretto)**: Java é a linguagem de programação utilizada no back-end deste projeto.
@@ -32,7 +53,6 @@
 - **CSS**: Linguagem de estilo usada para definir a aparência visual das páginas web.
 - **Webpack**: Ferramenta para empacotamento de módulos JavaScript, otimizando recursos para o frontend.  
 - **GSAP**: Biblioteca JavaScript para animações. 
-
 
 ## 📱 Como usar
 
@@ -61,20 +81,6 @@
 #### Exclusão de despesas
 
 - A exclusão permanente da despesa só pode ser realizada pela pessoa que a criou.
-
-## 🧙🏻‍♀️ Visão geral
-
-<details>
-<summary align="left">veja os screenshots do projeto</summary>
-<br>
-
-<!--[login](misc/projecto-login.png)-->
-
-```
-ainda não disponível 💤
-```
-
-</details>
 
 
 ## 📖 Licença
