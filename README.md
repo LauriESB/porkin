@@ -1,11 +1,9 @@
 # <img src="misc/banner.png">
 
-
 <br>
 
 🌟 Nos dê uma estrela!
 <img align="right" src="https://img.shields.io/badge/status%20do%20projeto:-em%20desenvolvimento-purple">
-
 
 ## Tabela de conteúdos
 
@@ -31,6 +29,8 @@
     <img width="32%" src="misc/2.png"/>
 &nbsp;
     <img width="32%" src="misc/3.png"/>
+    <br>
+    <br>
     <img width="32%" src="misc/4.png"/>
 &nbsp;
     <img width="32%" src="misc/5 .png"/>
@@ -49,11 +49,10 @@
 - **Javascript**: Javascript é a linguagem de programação utilizada no front-end deste projeto.
 - **HTML**: Linguagem de marcação usada para estruturar o conteúdo das páginas web.
 - **CSS**: Linguagem de estilo usada para definir a aparência visual das páginas web.
-- **Webpack**: Ferramenta para empacotamento de módulos JavaScript, otimizando recursos para o frontend.  
-- **GSAP**: Biblioteca JavaScript para animações. 
+- **Webpack**: Ferramenta para empacotamento de módulos JavaScript, otimizando recursos para o frontend.
+- **GSAP**: Biblioteca JavaScript para animações.
 
 ## 📱 Como usar
-
 
 #### Criação da rede de contatos
 
@@ -79,7 +78,6 @@
 #### Exclusão de despesas
 
 - A exclusão permanente da despesa só pode ser realizada pela pessoa que a criou.
-
 
 ## 📖 Licença
 
