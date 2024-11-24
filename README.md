@@ -1,7 +1,11 @@
-# <img src="misc/banner.png">
+# <img src="misc/slice 2.png">
+
+
+<br>
 
 🌟 Nos dê uma estrela!
 <img align="right" src="https://img.shields.io/badge/status%20do%20projeto:-em%20desenvolvimento-purple">
+
 
 ## Tabela de conteúdos
 
@@ -76,11 +80,5 @@ ainda não disponível 💤
 ## 📖 Licença
 
 Este projeto está sob a licença GNU GENERAL PUBLIC LICENSE Version 3 (GPLv3) - veja o arquivo [LICENSE.md](https://github.com/LauriESB/porkin/blob/main/LICENSE) para mais detalhes.
-
-## 💌 Contato
-
-Para qualquer dúvida que você possa ter, aqui está a melhor maneira de se comunicar com o nosso time:
-
-<a href="https://www.linkedin.com/in/laurisantinelli/"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
 
 [De volta ao topo do README](#top)
