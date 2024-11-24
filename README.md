@@ -21,15 +21,13 @@
 <details open>
 <summary>
  Screenshots
-</summary> <br />
-    
-<p align="center">
-    <img width="32%" src="misc/1.png"/>
+</summary> 
+<br>
+    <img width="32%" src="misc/1.png" style="margin-bottom: 10px"/>
 &nbsp;
-    <img width="32%" src="misc/2.png"/>
+    <img width="32%" src="misc/2.png" style="margin-bottom: 10px"/>
 &nbsp;
-    <img width="32%" src="misc/3.png"/>
-    <br>
+    <img width="32%" src="misc/3.png" style="margin-bottom: 10px"/>
     <img width="32%" src="misc/4.png"/>
 &nbsp;
     <img width="32%" src="misc/5 .png"/>
