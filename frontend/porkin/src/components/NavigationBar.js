@@ -1,3 +1,8 @@
+import { displayBillsScreen } from "./Bills";
+import { displayFriendsScreen } from "./Friends";
+import { displayHome } from "./Home";
+import { displaySettingsScreen } from "./Settings";
+
 function createNavBar() {
   return `<nav class="navbar">
     <button class="home-button">
@@ -29,6 +34,28 @@ function createNavBar() {
 
 export function displayNavBar(element) {
   element.innerHTML += createNavBar();
+
+  const homeMainButton = document.querySelector(".home-button");
+  const friendsMainButton = document.querySelector(".friends-button");
+  const billsMainButton = document.querySelector(".bills-button");
+  const settingsMainButton = document.querySelector(".settings-button");
+
+  homeMainButton.addEventListener("click", () => {
+    element.innerHTML = "";
+    displayHome(element);
+  });
+  friendsMainButton.addEventListener("click", () => {
+    element.innerHTML = "";
+    displayFriendsScreen(element);
+  });
+  billsMainButton.addEventListener("click", () => {
+    element.innerHTML = "";
+    displayBillsScreen(element);
+  });
+  settingsMainButton.addEventListener("click", () => {
+    element.innerHTML = "";
+    displaySettingsScreen(element);
+  });
 }
 
 export function displayHomeNavBar(element) {
@@ -55,4 +82,30 @@ export function displayFriendsNavBar(element) {
   });
 
   friendsButton.classList.add("active");
+}
+
+export function displayBillsNavBar(element) {
+  displayNavBar(element);
+
+  const billsButton = document.querySelector(".bills-button");
+  const allButtons = document.querySelectorAll("nav > button");
+
+  allButtons.forEach((button) => {
+    button.classList.remove("active");
+  });
+
+  billsButton.classList.add("active");
+}
+
+export function displaySettingsNavBar(element) {
+  displayNavBar(element);
+
+  const settingsButton = document.querySelector(".settings-button");
+  const allButtons = document.querySelectorAll("nav > button");
+
+  allButtons.forEach((button) => {
+    button.classList.remove("active");
+  });
+
+  settingsButton.classList.add("active");
 }
