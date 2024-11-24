@@ -29,7 +29,6 @@
     <img width="32%" src="misc/2.png"/>
 &nbsp;
     <img width="32%" src="misc/3.png"/>
-    <br>
     <hr>
     <img width="32%" src="misc/4.png"/>
 &nbsp;
