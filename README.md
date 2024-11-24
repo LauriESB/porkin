@@ -31,7 +31,6 @@
     <img width="32%" src="misc/3.png"/>
     <br>
     <hr>
-    <br>
     <img width="32%" src="misc/4.png"/>
 &nbsp;
     <img width="32%" src="misc/5 .png"/>
