@@ -1,9 +1,11 @@
 # <img src="misc/banner.png">
 
+
 <br>
 
 🌟 Nos dê uma estrela!
 <img align="right" src="https://img.shields.io/badge/status%20do%20projeto:-em%20desenvolvimento-purple">
+
 
 ## Tabela de conteúdos
 
@@ -21,13 +23,15 @@
 <details open>
 <summary>
  Screenshots
-</summary> 
+</summary> <br />
+    
+<p align="center">
+    <img width="32%" src="misc/1.png"/>
+&nbsp;
+    <img width="32%" src="misc/2.png"/>
+&nbsp;
+    <img width="32%" src="misc/3.png"/>
 <br>
-    <img width="32%" src="misc/1.png" style="margin-bottom: 10px"/>
-&nbsp;
-    <img width="32%" src="misc/2.png" style="margin-bottom: 10px"/>
-&nbsp;
-    <img width="32%" src="misc/3.png" style="margin-bottom: 10px"/>
     <img width="32%" src="misc/4.png"/>
 &nbsp;
     <img width="32%" src="misc/5 .png"/>
@@ -46,10 +50,35 @@
 - **Javascript**: Javascript é a linguagem de programação utilizada no front-end deste projeto.
 - **HTML**: Linguagem de marcação usada para estruturar o conteúdo das páginas web.
 - **CSS**: Linguagem de estilo usada para definir a aparência visual das páginas web.
-- **Webpack**: Ferramenta para empacotamento de módulos JavaScript, otimizando recursos para o frontend.
-- **GSAP**: Biblioteca JavaScript para animações.
+- **Webpack**: Ferramenta para empacotamento de módulos JavaScript, otimizando recursos para o frontend.  
+- **GSAP**: Biblioteca JavaScript para animações. 
+
+## 📦 Deploy
+
+A aplicação foi implantada utilizando uma combinação de **Docker**, **Render** e **Vercel**.
+
+### [Neon](https://neon.tech/)
+
+Neon é um banco de dados PostgreSQL serverless que oferece armazenamento escalável e execução sob demanda.
+Utilizamos para subir o banco de dados.
+
+### [Docker](https://www.docker.com/products/docker-desktop/) 
+
+Docker é uma plataforma para criar, testar e implantar aplicações em containers, garantindo que o software funcione de maneira consistente em qualquer ambiente. Containers são usados para empacotar aplicações com todas as suas dependências.
+
+### [Render](https://render.com) 
+
+Render é uma plataforma de hospedagem em nuvem que facilita a implantação de aplicativos web, microsserviços e bancos de dados, oferecendo escalabilidade automática e monitoramento integrado. 
+Utilizamos para subir o back.
+
+### [Vercel](https://vercel.com)
+
+Vercel é uma plataforma de hospedagem em nuvem frontend que facilita o desenvolvimento, pré-visualização e implantação de sites e aplicações web.
+Utilizamos para subir o front.
+
 
 ## 📱 Como usar
+
 
 #### Criação da rede de contatos
 
@@ -75,6 +104,7 @@
 #### Exclusão de despesas
 
 - A exclusão permanente da despesa só pode ser realizada pela pessoa que a criou.
+
 
 ## 📖 Licença
 
