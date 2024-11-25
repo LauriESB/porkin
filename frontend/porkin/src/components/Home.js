@@ -17,6 +17,7 @@ import { displayHomeNavBar } from "./NavigationBar.js";
 import gsap from "gsap";
 import closedLock from "../../public/svg/lock-closed.svg";
 import openLock from "../../public/svg/lock-open.svg";
+import { getUserData } from "../utils/requests.js";
 
 let selectedParticipants = [
   {
@@ -61,6 +62,7 @@ function createHome() {
 }
 
 export function displayHome(element) {
+  getUserData();
   element.innerHTML += createHome();
   displayHomeNavBar(element);
   const addParticipantsButton = document.getElementById(
