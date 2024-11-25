@@ -11,10 +11,9 @@
 
 - [Sobre](#-sobre)
 - [Tecnologias utilizadas](#-tecnologias-utilizadas)
+- [Deploy](#-deploy)
 - [Como usar](#-como-usar)
-- [Screenshots do projeto](#-visão-geral)
 - [Licença](#-licença)
-- [Contato](#-contato)
 
 ## 🐷 Sobre
 
@@ -55,7 +54,7 @@
 
 ## 📦 Deploy
 
-A aplicação foi implantada utilizando uma combinação de **Docker**, **Render** e **Vercel**.
+A aplicação foi implantada utilizando uma combinação de **Neon** **Docker**, **Render** e **Vercel**.
 
 ### [Neon](https://neon.tech/)
 
