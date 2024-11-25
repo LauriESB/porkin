@@ -9,7 +9,7 @@ public class CorsConfig implements WebMvcConfigurer {
 
   public void addCorsMapping(CorsRegistry registry) {
     registry.addMapping("/**")
-        .allowedOrigins("https://porkin-lime.vercel.app")
+        .allowedOrigins("https://porkin-lime.vercel.app", "http://localhost:8080")
         .allowedMethods("GET", "POST","PUT", "DELETE")
         .allowedHeaders("*");
   }
