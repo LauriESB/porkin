@@ -1,7 +1,6 @@
 package com.porkin.service;
 
 import com.porkin.dto.ExpenseDTO;
-import com.porkin.dto.ExpenseSplitDTO;
 import com.porkin.entity.ExpenseEntity;
 import com.porkin.entity.ExpenseSplitEntity;
 import com.porkin.entity.PersonEntity;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,9 +34,11 @@ public class ExpenseService {
   }
 
   public List<ExpenseDTO> listUserExpenses(String username) {
-    PersonEntity person = personRepository.findByUsername(username).get();
-    List<ExpenseEntity> userExpenses = person.getExpenses();
-    return userExpenses.stream().map(ExpenseDTO::new).toList();
+    List<ExpenseEntity> expenses = expenseRepository.findAllByParticipantUsername(username);
+
+    return expenses.stream()
+        .map(expense -> new ExpenseDTO(expense)) // Converta para DTO
+        .collect(Collectors.toList());
   }
 
   public void insert(ExpenseDTO expenseDTO) {
@@ -65,16 +65,24 @@ public class ExpenseService {
       splitParticipants.setPercentage(expenseSplitDTO.getPercentage());
       splitParticipants.setPaid(false);
       split.add(splitParticipants);
+
+      if (personParticipant.getSplitExpenses() == null) {
+        personParticipant.setSplitExpenses(new ArrayList<>());
+      }
+      personParticipant.getSplitExpenses().add(splitParticipants);
+
+      personParticipant.getExpenses().add(expenseEntity);
     });
 
     expenseEntity.setExpenseDetails(split);
     expenseRepository.save(expenseEntity);
     expenseSplitRepository.saveAll(split);
+
   }
 
   @Transactional
-  public ExpenseDTO update(Long id, ExpenseDTO expenseDTO) {
-    ExpenseEntity expenseEntity = expenseRepository.findById(id).get();
+  public ExpenseDTO update(String idExpenseCreator, ExpenseDTO expenseDTO) {
+    ExpenseEntity expenseEntity = expenseRepository.findByIdExpenseCreator_Username(idExpenseCreator).get();
 
     if(expenseDTO.getTotalCost() != null) {
       expenseEntity.setTotalCost(expenseDTO.getTotalCost());
@@ -105,19 +113,21 @@ public class ExpenseService {
         split.setPerson(person);
         split.setValueToPay(detailDTO.getValueToPay());
         split.setPercentage(detailDTO.getPercentage());
+        split.setPaid(detailDTO.isPaid());
         return split;
       }).collect(Collectors.toList());
 
       expenseSplitRepository.saveAll(newSplits);
 
       expenseEntity.setExpenseDetails(newSplits);
+
     }
 
     return new ExpenseDTO(expenseRepository.save(expenseEntity));
   }
 
-  public void delete(Long id) {
-    ExpenseEntity expenseEntity = expenseRepository.findById(id).get();
+  public void delete(String idExpenseCreator) {
+    ExpenseEntity expenseEntity = expenseRepository.findByIdExpenseCreator_Username(idExpenseCreator).get();
     expenseRepository.delete(expenseEntity);
   }
 

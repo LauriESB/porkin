@@ -28,15 +28,15 @@ public class FriendRequestController {
     friendRequestService.insert(friendRequestDTO);
   }
 
-  @PostMapping("/accept/{id}")
-  public ResponseEntity<String> acceptFriendRequest(@PathVariable Long id) {
-    friendRequestService.acceptRequest(id);
+  @PostMapping("/accept/{user}/{friend}")
+  public ResponseEntity<String> acceptFriendRequest(@PathVariable String user, @PathVariable String friend) {
+    friendRequestService.acceptRequest(user, friend);
     return ResponseEntity.ok("Amizade aceita!");
   }
 
-  @PostMapping("/reject/{id}")
-  public ResponseEntity<String> rejectRequest(@PathVariable Long id) {
-    friendRequestService.rejectRequest(id);
+  @PostMapping("/reject/{user}/{friend}")
+  public ResponseEntity<String> rejectRequest(@PathVariable String user, String friend) {
+    friendRequestService.rejectRequest(user, friend);
     return ResponseEntity.ok("Amizade negada!");
   }
 

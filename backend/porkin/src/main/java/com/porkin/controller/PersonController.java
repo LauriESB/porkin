@@ -30,14 +30,14 @@ public class PersonController {
     personService.insert(personDTO);
   }
 
-  @PutMapping("/{id}")
-  public PersonDTO update(@PathVariable("id") Long id, @RequestBody PersonDTO personDTO) {
-    return personService.update(id, personDTO);
+  @PutMapping("/{username}")
+  public PersonDTO update(@PathVariable("username") String username, @RequestBody PersonDTO personDTO) {
+    return personService.update(username, personDTO);
   }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-    personService.delete(id);
+  @DeleteMapping("/{username}")
+  public ResponseEntity<Void> delete(@PathVariable("username") String username) {
+    personService.delete(username);
     return ResponseEntity.ok().build();
   }
 

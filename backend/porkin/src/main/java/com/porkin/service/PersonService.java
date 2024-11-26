@@ -29,12 +29,8 @@ public class PersonService {
     personRepository.save(personEntity);
   }
 
-  public PersonDTO update(Long id, PersonDTO personDTO) {
-    PersonEntity personEntity = personRepository.findById(id).get();
-
-    if(personDTO.getEmail() != null) {
-      personEntity.setEmail(personDTO.getEmail());
-    }
+  public PersonDTO update(String username, PersonDTO personDTO) {
+    PersonEntity personEntity = personRepository.findByUsername(username).get();
 
     if(personDTO.getName() != null) {
       personEntity.setName(personDTO.getName());
@@ -44,12 +40,20 @@ public class PersonService {
       personEntity.setPassword(personDTO.getUsername());
     }
 
+    if(personDTO.getEmail() != null) {
+      personEntity.setEmail(personDTO.getEmail());
+    }
+
+    if(personDTO.getPassword() != null) {
+      personEntity.setPassword(personDTO.getPassword());
+    }
+
     return new PersonDTO(personRepository.save(personEntity));
 
   }
 
-  public void delete(Long id) {
-    PersonEntity personEntity = personRepository.findById(id).get();
+  public void delete(String username) {
+    PersonEntity personEntity = personRepository.findByUsername(username).get();
     personRepository.delete(personEntity);
   }
 

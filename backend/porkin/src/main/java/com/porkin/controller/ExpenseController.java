@@ -30,14 +30,14 @@ public class ExpenseController {
     expenseService.insert(expenseDTO);
   }
 
-  @PutMapping("/{id}")
-  public ExpenseDTO update(@PathVariable Long id, @RequestBody ExpenseDTO expenseDTO) {
-    return expenseService.update(id, expenseDTO);
+  @PutMapping("/{idExpenseCreator}")
+  public ExpenseDTO update(@PathVariable String idExpenseCreator, @RequestBody ExpenseDTO expenseDTO) {
+    return expenseService.update(idExpenseCreator, expenseDTO);
   }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-    expenseService.delete(id);
+  @DeleteMapping("/{idExpenseCreator}")
+  public ResponseEntity<Void> delete(@PathVariable("idExpenseCreator") String idExpenseCreator) {
+    expenseService.delete(idExpenseCreator);
     return ResponseEntity.ok().build();
   }
 

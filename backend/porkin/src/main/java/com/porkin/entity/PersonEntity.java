@@ -34,8 +34,11 @@ public class PersonEntity {
   @OneToMany(mappedBy = "fkPersonUser", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<FriendshipEntity> friendships = new HashSet<>();
 
-  @OneToMany(mappedBy = "idExpenseCreator")
+  @OneToMany(mappedBy = "idExpenseCreator", cascade = CascadeType.ALL)
   private List<ExpenseEntity> expenses;
+
+  @OneToMany(mappedBy = "person")
+  private List<ExpenseSplitEntity> splitExpenses;
 
   @ElementCollection
   @CollectionTable(name = "friendIDs", joinColumns = @JoinColumn(name = "username"))
@@ -116,6 +119,14 @@ public class PersonEntity {
 
   public void setExpenses(List<ExpenseEntity> expenses) {
     this.expenses = expenses;
+  }
+
+  public List<ExpenseSplitEntity> getSplitExpenses() {
+    return splitExpenses;
+  }
+
+  public void setSplitExpenses(List<ExpenseSplitEntity> splitExpenses) {
+    this.splitExpenses = splitExpenses;
   }
 
   public void setFriendships(Set<FriendshipEntity> friendships) {
