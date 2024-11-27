@@ -149,8 +149,8 @@ public class PersonEntity {
     this.pix = pix;
   }
 
-  public PayPalEntity getPaypal() {
-    return paypal;
+  public String getPaypal() {
+    return paypal.getPayPalKey();
   }
 
   public void setPaypal(PayPalEntity paypal) {
