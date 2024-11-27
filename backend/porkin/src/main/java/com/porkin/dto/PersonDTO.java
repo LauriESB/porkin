@@ -1,6 +1,7 @@
 package com.porkin.dto;
 
 import com.porkin.entity.PersonEntity;
+import com.porkin.paymentMethods.dto.PayPalDTO;
 import com.porkin.paymentMethods.dto.PixDTO;
 import org.springframework.beans.BeanUtils;
 
@@ -17,6 +18,8 @@ public class PersonDTO {
   private String password;
 
   private PixDTO pix;
+
+  private PayPalDTO payPal;
 
   // constructors
 
@@ -76,6 +79,14 @@ public class PersonDTO {
 
   public void setPix(PixDTO pix) {
     this.pix = pix;
+  }
+
+  public PayPalDTO getPayPal() {
+    return payPal;
+  }
+
+  public void setPayPal(PayPalDTO payPal) {
+    this.payPal = payPal;
   }
 
 }

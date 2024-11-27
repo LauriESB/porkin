@@ -49,18 +49,4 @@ public class PayPalDTO {
     this.payPalKey = payPalKey;
   }
 
-  // equals and hashCode
-
-  @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
-    PayPalDTO payPalDTO = (PayPalDTO) o;
-    return Objects.equals(id, payPalDTO.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hashCode(id);
-  }
-
 }

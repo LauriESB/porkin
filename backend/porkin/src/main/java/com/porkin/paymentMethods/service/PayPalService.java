@@ -25,8 +25,9 @@ public class PayPalService {
   }
 
   public void insert(PayPalDTO payPalDTO) {
-    PayPalEntity payPalEntity = new PayPalEntity(payPalDTO);
     PersonEntity person = personRepository.findById(payPalDTO.getIdUser()).get();
+
+    PayPalEntity payPalEntity = new PayPalEntity(payPalDTO);
 
     payPalEntity.setIdUser(person);
     payPalEntity.setType("Chave PayPal");
@@ -56,7 +57,7 @@ public class PayPalService {
     PayPalEntity payPalEntity = payPalRepository.findById(id).get();
     PersonEntity person = personRepository.findById(idUser).get();
 
-    if (!payPalEntity.getIdUser().getId().equals(idUser)) {
+    if (!payPalEntity.getIdUser().equals(idUser)) {
       throw new RuntimeException("PayPal does not belong to the specified user");
     }
 

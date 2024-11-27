@@ -15,8 +15,10 @@ public class PayPalEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(nullable = false)
   private String type;
 
+  @Column(nullable = false)
   private String payPalKey;
 
   @OneToOne
@@ -59,8 +61,8 @@ public class PayPalEntity {
     this.payPalKey = payPalKey;
   }
 
-  public PersonEntity getIdUser() {
-    return idUser;
+  public Long getIdUser() {
+    return idUser.getId();
   }
 
   public void setIdUser(PersonEntity idUser) {

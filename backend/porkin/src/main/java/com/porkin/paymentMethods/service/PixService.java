@@ -25,19 +25,15 @@ public class PixService {
   }
 
   public void addPix(PixDTO pixDTO) {
-    // Busque a PersonEntity antes de criar o PixEntity
     PersonEntity person = personRepository.findById(pixDTO.getIdUser())
         .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-    // Crie o PixEntity e defina o usuário
     PixEntity pixEntity = new PixEntity(pixDTO);
     pixEntity.setIdUser(person);
     pixEntity.setType("Chave Pix");
 
-    // Adicione o PixEntity à lista de métodos de pagamento do usuário
     person.setPix(pixEntity);
 
-    // Salve o PixEntity e a PersonEntity
     pixRepository.save(pixEntity);
     personRepository.save(person);
   }

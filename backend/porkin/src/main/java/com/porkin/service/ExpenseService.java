@@ -81,8 +81,8 @@ public class ExpenseService {
   }
 
   @Transactional
-  public ExpenseDTO update(String idExpenseCreator, ExpenseDTO expenseDTO) {
-    ExpenseEntity expenseEntity = expenseRepository.findByIdExpenseCreator_Username(idExpenseCreator).get();
+  public ExpenseDTO update(Long id, ExpenseDTO expenseDTO) {
+    ExpenseEntity expenseEntity = expenseRepository.findById(id).get();
 
     if(expenseDTO.getTotalCost() != null) {
       expenseEntity.setTotalCost(expenseDTO.getTotalCost());
@@ -126,8 +126,8 @@ public class ExpenseService {
     return new ExpenseDTO(expenseRepository.save(expenseEntity));
   }
 
-  public void delete(String idExpenseCreator) {
-    ExpenseEntity expenseEntity = expenseRepository.findByIdExpenseCreator_Username(idExpenseCreator).get();
+  public void delete(Long id) {
+    ExpenseEntity expenseEntity = expenseRepository.findById(id).get();
     expenseRepository.delete(expenseEntity);
   }
 
