@@ -14,3 +14,5 @@ window.addEventListener("load", () => {
     localStorage.removeItem(localStorageKey);
   }
 });
+
+displayLoginScreen(content);
