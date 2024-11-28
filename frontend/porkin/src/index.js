@@ -15,4 +15,14 @@ window.addEventListener("load", () => {
   }
 });
 
-displayLoginScreen(content);
+window.addEventListener("load", () => {
+  const localStorageKey = "currentUser";
+  const currentUserData = localStorage.getItem(localStorageKey);
+
+  if (currentUserData) {
+    const parsedUserData = JSON.parse(currentUserData);
+    displayHome(content, parsedUserData);
+  } else {
+    displayLoginScreen(content);
+  }
+});

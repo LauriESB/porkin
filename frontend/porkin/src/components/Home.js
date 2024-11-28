@@ -30,6 +30,8 @@ const localStorageUserKey = "currentUser";
 
 const userParticipant = JSON.parse(localStorage.getItem(localStorageUserKey));
 
+function createSelectedParticipants() {}
+
 let selectedParticipants = [
   {
     fullName: "Você",
