@@ -14,15 +14,3 @@ window.addEventListener("load", () => {
     localStorage.removeItem(localStorageKey);
   }
 });
-
-window.addEventListener("load", () => {
-  const localStorageUserKey = "currentUser";
-  const currentUserData = localStorage.getItem(localStorageUserKey);
-
-  if (currentUserData) {
-    const parsedUserData = JSON.parse(currentUserData);
-    displayHome(content, parsedUserData);
-  } else {
-    displayLoginScreen(content);
-  }
-});
