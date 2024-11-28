@@ -8,6 +8,15 @@ import {
 import transparentIcon from "../../public/images/porkin-transparent.png";
 import gsap from "gsap";
 import { getFirstAndLastName } from "../utils/nameHelper.js";
+import {
+  acceptFriendRequest,
+  getAllUsers,
+  getFriendRequests,
+  getFriendsList,
+  rejectFriendRequest,
+  sendFriendRequest,
+} from "../utils/requests.js";
+import { profilePictures } from "./UserData.js";
 
 function createFriendsScreen() {
   return `
@@ -57,49 +66,67 @@ function createFriendsScreen() {
   `;
 }
 
-export function displayFriendsScreen(element) {
+export async function displayFriendsScreen(element, currentUserData) {
   element.innerHTML = createFriendsScreen();
-  displayFriendsNavBar(element);
+  displayFriendsNavBar(element, currentUserData);
   const friendsContainer = document.getElementById("friends-screen-container");
   const noFriendsWarning = document.querySelector(".no-friends-added");
   const addFriendButton = document.getElementById("add-friends-button");
   const friendRequestsButton = document.getElementById(
     "friend-requests-button"
   );
+  const friendsList = await getFriendsList(currentUserData.username);
+  const allUsers = await getAllUsers();
 
-  if (friends.list.length === 0) {
+  if (friendsList.length === 0) {
     noFriendsWarning.style.display = "flex";
   } else {
     noFriendsWarning.style.display = "";
-    displayFriendsScreenList(friendsContainer);
+    displayFriendsScreenList(
+      friendsContainer,
+      currentUserData,
+      friendsList,
+      allUsers
+    );
   }
 
   addFriendButton.addEventListener("click", () => {
     element.innerHTML = "";
-    displayAddFriendScreen(element);
+    displayAddFriendScreen(element, currentUserData, allUsers);
   });
 
   friendRequestsButton.addEventListener("click", () => {
     element.innerHTML = "";
-    displayFriendRequests(element);
+    displayFriendRequests(element, currentUserData);
   });
 }
 
-function displayFriendsScreenList(element) {
-  friends.list.forEach((friend) => {
+function displayFriendsScreenList(
+  element,
+  currentUserData,
+  friendsList,
+  allUsers
+) {
+  friendsList.forEach((friend, index) => {
+    const currentFriend = allUsers.find(
+      (user) => user.username === friendsList[index]
+    );
+    console.log(currentFriend);
     element.innerHTML += `
       <div class="friends-screen-friend">
         <div>
           <img
-            src="${friend.profilePicture}"
-            alt="${friend.fullName}'s picture"
+            src="${profilePictures[currentFriend.username]}"
+            alt="${currentFriend.name}'s picture"
           />
           <div class="name-and-username">
-            <p class="friend-name">${friend.fullName}</p>
-            <p class="friend-username">@${friend.username}</p>
+            <p class="friend-name">${currentFriend.name}</p>
+            <p class="friend-username">@${currentFriend.username}</p>
           </div>
         </div>
-        <button class="delete-friend-button" data-username="${friend.username}">
+        <button class="delete-friend-button" data-username="${
+          currentFriend.username
+        }">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -129,7 +156,7 @@ function displayFriendsScreenList(element) {
       };
       console.log(removalRequest);
       element.innerHTML = "";
-      displayFriendsScreenList(element);
+      displayFriendsScreenList(element, currentUserData);
     });
   });
 }
@@ -189,7 +216,7 @@ function createAddFriendScreen() {
   `;
 }
 
-function displayAddFriendScreen(element) {
+async function displayAddFriendScreen(element, currentUserData, allUsers) {
   element.innerHTML = createAddFriendScreen();
 
   const searchedUsersContainer = document.getElementById("users-result");
@@ -209,7 +236,7 @@ function displayAddFriendScreen(element) {
         ease: "power1.inOut",
       }
     );
-    setTimeout(() => displayFriendsScreen(element), 200);
+    setTimeout(() => displayFriendsScreen(element, currentUserData), 200);
   });
 
   gsap.fromTo(
@@ -237,14 +264,17 @@ function displayAddFriendScreen(element) {
 
     searchedUsersContainer.innerHTML = "";
     noUsersSearched.style.display = "none";
-    const usersFound = registeredUsers.list.filter(
+    console.log(currentUserData);
+    const usersFound = allUsers.filter(
       (user) =>
-        user.fullName
+        (user.name
           .toLowerCase()
           .includes(searchUserInput.value.toLowerCase()) ||
-        user.username
-          .toLowerCase()
-          .includes(searchUserInput.value.toLowerCase())
+          user.username
+            .toLowerCase()
+            .includes(searchUserInput.value.toLowerCase())) &&
+        user.name !== currentUserData.name &&
+        user.username !== currentUserData.username
     );
 
     if (usersFound.length === 0) {
@@ -260,11 +290,11 @@ function displayAddFriendScreen(element) {
         <div class="user-searched">
           <div>
             <img
-              src="${user.profilePicture}"
+              src="${profilePictures[user.username]}"
               alt=""
             />
             <div class="name-and-username">
-              <p class="user-full-name">${user.fullName}</p>
+              <p class="user-full-name">${user.name}</p>
               <p class="user-username">@${user.username}</p>
             </div>
           </div>
@@ -281,6 +311,17 @@ function displayAddFriendScreen(element) {
           </button>
         </div>
       `;
+    });
+
+    const inviteButtons = document.querySelectorAll(".invite-button");
+
+    inviteButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const personReceiver = button.dataset.username;
+        console.log(personReceiver);
+        const personRequester = currentUserData.username;
+        sendFriendRequest(personRequester, personReceiver);
+      });
     });
   });
 }
@@ -317,7 +358,7 @@ function createFriendRequestsScreen() {
   `;
 }
 
-function displayFriendRequests(element) {
+function displayFriendRequests(element, currentUserData) {
   element.innerHTML = createFriendRequestsScreen();
 
   const mainContainer = document.querySelector("#content > div");
@@ -326,7 +367,7 @@ function displayFriendRequests(element) {
   );
   const friendRequestsContainer = document.getElementById("friend-requests");
 
-  displayFriendRequestsList(friendRequestsContainer);
+  displayFriendRequestsList(friendRequestsContainer, currentUserData);
 
   gsap.fromTo(
     mainContainer,
@@ -348,26 +389,34 @@ function displayFriendRequests(element) {
         ease: "power1.inOut",
       }
     );
-    setTimeout(() => displayFriendsScreen(element), 200);
+    setTimeout(() => displayFriendsScreen(element, currentUserData), 200);
   });
 }
 
-function displayFriendRequestsList(element) {
+async function displayFriendRequestsList(element, currentUserData) {
   const noRequestsWarning = document.querySelector(".no-requests");
+  const allFriendRequests = await getFriendRequests();
+  const allUsers = await getAllUsers();
 
-  if (friendRequests.list.length === 0) {
+  const friendRequests = allFriendRequests.filter(
+    (request) =>
+      request.personReceiver === currentUserData.username &&
+      request.status === "em espera"
+  );
+  if (friendRequests.length === 0) {
     noRequestsWarning.style.display = "flex";
     return;
   }
 
   noRequestsWarning.style.display = "none";
+  console.log(friendRequests);
 
-  friendRequests.list.forEach((request) => {
-    const user = registeredUsers.list.find(
-      (user) => user.username === request.sentBy
+  friendRequests.forEach((request) => {
+    const user = allUsers.find(
+      (user) => user.username === request.personRequester
     );
     const currentDate = new Date();
-    const requestDate = new Date(request.date);
+    const requestDate = new Date(request.creationDate);
     const timeDiff = Math.floor(
       (currentDate - requestDate) / (1000 * 60 * 60 * 24)
     );
@@ -377,14 +426,11 @@ function displayFriendRequestsList(element) {
       <div class="friend-request">
         <div>
           <img
-            src="${user.profilePicture}"
-            alt="${user.fullName}'s picture"
+            src="${profilePictures[user.username]}"
           />
           <div class="name-and-username">
             <div class="full-name-and-date">
-              <p class="user-full-name">${getFirstAndLastName(
-                user.fullName
-              )}</p>
+              <p class="user-full-name">${getFirstAndLastName(user.name)}</p>
               <p class="request-date">${timeAgo}</p>
             </div>
             <p class="user-username">@${user.username}</p>
@@ -420,5 +466,24 @@ function displayFriendRequestsList(element) {
         </div>
       </div>
     `;
+  });
+
+  const acceptRequestButtons = document.querySelectorAll(".accept-request");
+  const rejectRequestButtons = document.querySelectorAll(".refuse-request");
+
+  acceptRequestButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const friend = button.dataset.username;
+      acceptFriendRequest(currentUserData.username, friend);
+      displayFriendRequestsList(element, currentUserData);
+    });
+  });
+
+  rejectRequestButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const friend = button.dataset.username;
+      rejectFriendRequest(currentUserData.username, friend);
+      displayFriendRequestsList(element, currentUserData);
+    });
   });
 }

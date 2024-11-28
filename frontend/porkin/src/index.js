@@ -5,6 +5,7 @@ import "./components/Home.js";
 import { displayHome } from "./components/Home.js";
 import { localStorageKey } from "./components/Home.js";
 import { displayLoginScreen } from "./components/AuthScreen.js";
+import { sendFriendRequest } from "./utils/requests.js";
 
 const content = document.getElementById("content");
 
@@ -14,4 +15,14 @@ window.addEventListener("load", () => {
   }
 });
 
-displayLoginScreen(content);
+window.addEventListener("load", () => {
+  const localStorageKey = "currentUser";
+  const currentUserData = localStorage.getItem(localStorageKey);
+
+  if (currentUserData) {
+    const parsedUserData = JSON.parse(currentUserData);
+    displayHome(content, parsedUserData);
+  } else {
+    displayLoginScreen(content);
+  }
+});

@@ -17,21 +17,32 @@ import { displayHomeNavBar } from "./NavigationBar.js";
 import gsap from "gsap";
 import closedLock from "../../public/svg/lock-closed.svg";
 import openLock from "../../public/svg/lock-open.svg";
-import { getUserData } from "../utils/requests.js";
+import {
+  createExpense,
+  getFriendsList,
+  getUserData,
+} from "../utils/requests.js";
+import { profilePictures } from "./UserData.js";
+import { getAllUsers } from "../utils/requests.js";
+import defaultPicture from "../../public/images/default-profile-picture.png";
+
+const localStorageUserKey = "currentUser";
+
+const userParticipant = JSON.parse(localStorage.getItem(localStorageUserKey));
 
 let selectedParticipants = [
   {
     fullName: "Você",
-    profilePicture: userData.profilePicture,
-    username: userData.username,
+    profilePicture: profilePictures[userParticipant.username],
+    username: userParticipant.username,
   },
 ];
 export const localStorageKey = "formattedValue";
 
-function createHome() {
+function createHome(currentUserData) {
   return `<main id="home-main">
       <header id="home-header">
-        <h3>Bem vindo(a), ${getFirstName(userData.fullName)}</h3>
+        <h3>Bem vindo(a), ${getFirstName(currentUserData.name)}</h3>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32">
           <path d="M5 18H19V11.0314C19 7.14806 15.866 4 12 4C8.13401 4 5 7.14806 5 11.0314V18ZM12 2C16.9706 2 21 6.04348 21 11.0314V20H3V11.0314C3 6.04348 7.02944 2 12 2ZM9.5 21H14.5C14.5 22.3807 13.3807 23.5 12 23.5C10.6193 23.5 9.5 22.3807 9.5 21Z"></path>
         </svg>
@@ -61,10 +72,11 @@ function createHome() {
     </main>`;
 }
 
-export function displayHome(element) {
-  getUserData();
-  element.innerHTML += createHome();
-  displayHomeNavBar(element);
+export function displayHome(element, currentUserData) {
+  element.innerHTML += createHome(currentUserData);
+  console.log(currentUserData);
+
+  displayHomeNavBar(element, currentUserData);
   const addParticipantsButton = document.getElementById(
     "add-participants-button"
   );
@@ -117,7 +129,12 @@ export function displayHome(element) {
       return;
     }
 
-    displaySplitBill(element, insertedParticipants, insertedValue);
+    displaySplitBill(
+      element,
+      insertedParticipants,
+      insertedValue,
+      currentUserData
+    );
     const billSplitingPage = document.getElementById("bill-spliting-page");
     const completeSplitButton = document.getElementById("create-bill-button");
 
@@ -143,33 +160,45 @@ export function displayHome(element) {
   });
 
   addParticipantsButton.addEventListener("click", () => {
-    displayAddParticipants(element);
+    displayAddParticipants(element, currentUserData);
     resetParticipants();
   });
 
   homeParticipantsContainer.addEventListener("click", () => {
-    displayAddParticipants(element);
+    displayAddParticipants(element, currentUserData);
   });
 }
 
-function createFriendsList(array) {
+async function createFriendsList(array) {
   let friendsList = "";
+  const allUsers = await getAllUsers();
 
-  array.forEach((friend) => {
+  array.forEach((friend, index) => {
+    const currentFriend = allUsers.find(
+      (user) => user.username === array[index]
+    );
+    console.log(currentFriend);
+
     friendsList += `
       <div class="friend">
         <div>
           <img
             class="friend-picture"
-            src="${friend.profilePicture}"
-            alt="${friend.fullName}'s picture"
+            src="${
+              profilePictures[currentFriend.username]
+                ? profilePictures[currentFriend.username]
+                : defaultPicture
+            }"
+            alt="${currentFriend.name}'s picture"
           />
           <div class="friend-name-container">
-            <p class="friend-name">${friend.fullName}</p>
-            <p class="friend-username">@${friend.username}</p>
+            <p class="friend-name">${currentFriend.name}</p>
+            <p class="friend-username">@${currentFriend.username}</p>
           </div>
         </div>
-        <input type="checkbox" class="friend-checkbox" value="${friend.username}" />
+        <input type="checkbox" class="friend-checkbox" value="${
+          currentFriend.username
+        }" />
       </div>
     `;
   });
@@ -297,7 +326,7 @@ function displayHomeParticipants(element, selectedParticipants) {
   element.innerHTML += createHomeParticipantsIcons(selectedParticipants);
 }
 
-function displayAddParticipants(element) {
+async function displayAddParticipants(element, currentUserData) {
   element.innerHTML = createAddParticipants();
 
   const participantsContainer = document.querySelector(
@@ -321,9 +350,10 @@ function displayAddParticipants(element) {
       ease: "power1.inOut",
     }
   );
+  const friendsList = await getFriendsList(currentUserData.username);
 
   displayParticipantsList(participantsContainer, selectedParticipants);
-  displayFriendsList(friendsListContainer, friends.list);
+  displayFriendsList(friendsListContainer, friendsList);
 
   searchFriend.addEventListener("input", (event) => {
     friendsListContainer.innerHTML = "";
@@ -341,7 +371,7 @@ function displayAddParticipants(element) {
         ease: "power1.inOut",
       }
     );
-    setTimeout(() => goBackToHome(element), 200);
+    setTimeout(() => goBackToHome(element, currentUserData), 200);
   });
   acceptButton.addEventListener("click", () => {
     gsap.fromTo(
@@ -353,7 +383,7 @@ function displayAddParticipants(element) {
         ease: "power1.inOut",
       }
     );
-    setTimeout(() => acceptParticipants(element), 200);
+    setTimeout(() => acceptParticipants(element, currentUserData), 200);
   });
 }
 
@@ -361,8 +391,8 @@ function displayParticipantsList(element, selectedParticipants) {
   element.innerHTML = createParticipantsList(selectedParticipants);
 }
 
-function displayFriendsList(element, array) {
-  element.innerHTML = createFriendsList(array);
+async function displayFriendsList(element, array) {
+  element.innerHTML = await createFriendsList(array);
 
   const participantsContainer = document.querySelector(
     ".participants-array-pictures"
@@ -431,13 +461,13 @@ function clearParticipantsList() {
   console.log(selectedParticipants);
 }
 
-function goBackToHome(element) {
+function goBackToHome(element, currentUserData) {
   element.innerHTML = "";
-  displayHome(element);
+  displayHome(element, currentUserData);
 }
 
-function acceptParticipants(element) {
-  goBackToHome(element);
+function acceptParticipants(element, currentUserData) {
+  goBackToHome(element, currentUserData);
 
   const homeParticipantsContainer = document.getElementById("participants");
   displayHomeParticipants(homeParticipantsContainer, selectedParticipants);
@@ -628,7 +658,12 @@ function loadPaymentMethods(element) {
   });
 }
 
-function displaySplitBill(element, selectedParticipantsArray, valueToSplit) {
+async function displaySplitBill(
+  element,
+  selectedParticipantsArray,
+  valueToSplit,
+  currentUserData
+) {
   element.innerHTML = createSplitBill();
   const paymentSelect = document.getElementById("payment-select");
 
@@ -662,7 +697,7 @@ function displaySplitBill(element, selectedParticipantsArray, valueToSplit) {
     const currentDate = billDateInput.value;
     const currentPayment = billPaymentInput.value;
 
-    displayAddParticipants(element);
+    displayAddParticipants(element, currentUserData);
 
     const backButton = document.querySelector(".add-participants-back-button");
     const acceptParticipantsButton = document.getElementById(
@@ -696,7 +731,12 @@ function displaySplitBill(element, selectedParticipantsArray, valueToSplit) {
         }
       );
       setTimeout(() => {
-        displaySplitBill(element, selectedParticipantsArray, valueToSplit);
+        displaySplitBill(
+          element,
+          selectedParticipantsArray,
+          valueToSplit,
+          currentUserData
+        );
         const billNameInput = document.getElementById("name-input");
         const billDateInput = document.getElementById("date-input");
         const billPaymentInput = document.getElementById("payment-select");
@@ -721,7 +761,12 @@ function displaySplitBill(element, selectedParticipantsArray, valueToSplit) {
         }
       );
       setTimeout(() => {
-        displaySplitBill(element, selectedParticipantsArray, valueToSplit);
+        displaySplitBill(
+          element,
+          selectedParticipantsArray,
+          valueToSplit,
+          currentUserData
+        );
         const billNameInput = document.getElementById("name-input");
         const billDateInput = document.getElementById("date-input");
         const billPaymentInput = document.getElementById("payment-select");
@@ -744,7 +789,7 @@ function displaySplitBill(element, selectedParticipantsArray, valueToSplit) {
         ease: "power2.inOut",
         onComplete: () => {
           element.innerHTML = "";
-          displayHome(element);
+          displayHome(element, currentUserData);
         },
       }
     );
@@ -782,7 +827,7 @@ function displaySplitBill(element, selectedParticipantsArray, valueToSplit) {
     valueToSplit
   );
 
-  completeSplitButton.addEventListener("click", (event) => {
+  completeSplitButton.addEventListener("click", async (event) => {
     event.preventDefault();
 
     const errorContainer = document.getElementById("split-error-message");
@@ -925,30 +970,30 @@ function displaySplitBill(element, selectedParticipantsArray, valueToSplit) {
       const valueToPay = valueInputs[index]?.value || 0;
       const percentageToPay = percentageInputs[index]?.value || 0;
       const username = participant.username;
+      console.log(username);
 
       const participantData = {
         username: username,
         valueToPay: parseFloat(valueToPay.replace(",", ".")),
-        status: "pending",
+        percentage: parseFloat(percentageToPay.replace("%", "")),
       };
 
       participants.push(participantData);
     });
 
+    participants[0].username = currentUserData.username;
+
     console.log(participants);
 
     const billData = {
-      billName: billNameInput.value,
-      admin: userData.username,
-      createdAt: new Date(),
-      totalValue: valueToSplit,
-      payUntil: billDateInput.value,
-      method: Object.keys(paymentMethods)[billPaymentInput.value],
-      participants: participants,
+      title: billNameInput.value,
+      totalCost: valueToSplit,
+      dueDate: billDateInput.value,
+      idExpenseCreator: currentUserData.username,
+      expenseDetails: participants,
     };
 
-    bills.list.push(billData);
-    console.log(bills);
+    createExpense(billData);
 
     gsap.fromTo(
       billSplitingPage,
@@ -959,7 +1004,7 @@ function displaySplitBill(element, selectedParticipantsArray, valueToSplit) {
         ease: "power2.inOut",
         onComplete: () => {
           element.innerHTML = "";
-          displayHome(element);
+          displayHome(element, currentUserData);
         },
       }
     );

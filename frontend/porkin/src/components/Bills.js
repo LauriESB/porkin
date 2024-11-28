@@ -1,7 +1,7 @@
 import { displayBillsNavBar } from "./NavigationBar";
 import plus from "../../public/svg/plus.svg";
 import minus from "../../public/svg/minus.svg";
-import { bills, registeredUsers, userData } from "./UserData";
+import { bills, profilePictures, registeredUsers, userData } from "./UserData";
 import {
   adjustParentHeight,
   formatDate,
@@ -9,6 +9,7 @@ import {
   insertComma,
 } from "../utils/nameHelper";
 import gsap from "gsap";
+import { getAllExpenses, getAllUsers } from "../utils/requests";
 
 function createBillsScreen() {
   return `
@@ -39,30 +40,35 @@ function createBillsScreen() {
   `;
 }
 
-export function displayBillsScreen(element) {
+export function displayBillsScreen(element, currentUserData) {
   element.innerHTML = createBillsScreen();
-  displayBillsNavBar(element);
+  displayBillsNavBar(element, currentUserData);
 
   const billsContainer = document.getElementById("bills-container");
 
-  displayBillsList(billsContainer);
+  displayBillsList(billsContainer, currentUserData);
 }
 
-function displayBillsList(element) {
-  bills.list.forEach((bill, index) => {
-    const admin = registeredUsers.list.find(
-      (user) => user.username === bill.admin
+async function displayBillsList(element, currentUserData) {
+  const allBills = await getAllExpenses(currentUserData.username);
+  const allUsers = await getAllUsers();
+
+  console.log(allBills);
+
+  allBills.forEach((bill, index) => {
+    const admin = allUsers.find(
+      (user) => user.username === bill.idExpenseCreator
     );
     const parentContainer = document.getElementById("content");
 
     const participantsPictures = [];
 
-    bill.participants.forEach((participant) => {
-      const user = registeredUsers.list.find(
+    bill.expenseDetails.forEach((participant) => {
+      const user = allUsers.find(
         (user) => user.username === participant.username
       );
       participantsPictures.push(`
-        <img src="${user.profilePicture}" />  
+        <img src="${profilePictures[user.username]}" />  
       `);
     });
 
@@ -71,23 +77,24 @@ function displayBillsList(element) {
         <div class="admin-bill-name-value">
           <div>
             <img
-              src="${admin.profilePicture}"
+              src="${profilePictures[admin.username]}"
               alt=""
             />
-            <p class="bill-name">${bill.billName}</p>
+            <p class="bill-name">${bill.title}</p>
           </div>
           <div class="participant-value-container">
             <p class="participant-value-currency">R$</p>
             <p class="participant-value-quantity">${insertComma(
-              bill.totalValue
+              bill.totalCost
             )}</p>
           </div>
         </div>
-        <p class="pay-date">Pagar até ${formatDate(bill.payUntil)} via ${
-      bill.method
-    }</p>
+        <p class="pay-date">Pagar até ${formatDate(bill.dueDate)}
+    </p>
         <div class="pay-button-and-participants">
-          <button class="pay-button" data-username="${userData.username}">
+          <button class="pay-button" data-username="${
+            currentUserData.username
+          }">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -170,21 +177,23 @@ function displayBillsList(element) {
     participantsPictures.forEach((picture) => {
       billParticipantPictures[index].innerHTML += picture;
     });
+    console.log(bill.expenseDetails);
 
-    bill.participants.forEach((participant) => {
-      const user = registeredUsers.list.find(
+    bill.expenseDetails.forEach((participant) => {
+      const user = allUsers.find(
         (user) => user.username === participant.username
       );
+      console.log(user);
 
       peopleWhoPayedContainers[index].innerHTML += `
       <div class="person">
         <div class="person-div-1">
           <img
-            src="${user.profilePicture}"
+            src="${profilePictures[user.username]}"
             alt=""
           />
-          <p>${getFirstName(user.fullName)} ${
-        participant.status === "paid" ? "pagou" : "deve"
+          <p>${getFirstName(user.name)} ${
+        participant.paid ? "pagou" : "deve"
       }</p>
         </div>
         <div class="person-div-2">

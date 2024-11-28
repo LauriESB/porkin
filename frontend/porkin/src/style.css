@@ -35,7 +35,7 @@
   display: flex;
   position: fixed;
   bottom: 0;
-  height: 5rem;
+  height: 8.5vh;
 }
 
 .navbar > button {
@@ -1489,6 +1489,7 @@ button {
   width: 82.5%;
   background: linear-gradient(180deg, var(--button-light), var(--slate-950));
   height: 6%;
+  min-height: 48px;
   color: var(--slate-50);
   font-family: "Outfit", serif;
   font-optical-sizing: auto;
@@ -1830,9 +1831,15 @@ button {
 }
 
 .change-picture-button {
-  background-color: var(--slate-50);
-  border: none;
+  background: linear-gradient(180deg, var(--button-light), var(--slate-950));
+  border: 1px solid var(--slate-950);
   box-shadow: 0 4px 4px var(--box-shadow);
+  color: var(--slate-50);
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13.5px;
 }
 
 .remove-picture-button {
@@ -2040,4 +2047,17 @@ button {
   font-size: 14px;
   line-height: 1.6;
   margin-bottom: 1rem;
+}
+
+.photo-section > div > label {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+}
+
+.photo-section > div {
+  align-items: flex-start;
+  padding: 0.5rem 0;
 }

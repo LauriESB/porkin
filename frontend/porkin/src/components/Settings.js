@@ -1,6 +1,9 @@
 import { displaySettingsNavBar } from "./NavigationBar";
+import { getProfilePicture, uploadProfilePicture } from "../utils/requests";
+import { displayLoginScreen } from "./AuthScreen";
+import { profilePictures } from "./UserData";
 
-function createSettingsScreen() {
+function createSettingsScreen(currentUserData) {
   return `
     <div>
       <header id="friends-header">
@@ -8,38 +11,26 @@ function createSettingsScreen() {
       </header>
       <div class="photo-section">
         <img
-          src="https://avatars.githubusercontent.com/u/141741516?s=400&u=5d8f4fcf45a3df114e37b01b82973d17a3356763&v=4"
+          src="${profilePictures[currentUserData.username]}"
           alt=""
         />
         <div>
+          <input id="picture-input" type="file" accept="image/*">
           <button class="change-picture-button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
               height="20"
-              fill="#000000"
+              fill="#f8fafc"
               viewBox="0 0 256 256"
             >
               <path
                 d="M208,34H80A14,14,0,0,0,66,48V66H48A14,14,0,0,0,34,80V208a14,14,0,0,0,14,14H176a14,14,0,0,0,14-14V190h18a14,14,0,0,0,14-14V48A14,14,0,0,0,208,34ZM78,48a2,2,0,0,1,2-2H208a2,2,0,0,1,2,2v74.2l-20.1-20.1a14,14,0,0,0-19.8,0L94.2,178H80a2,2,0,0,1-2-2ZM178,208a2,2,0,0,1-2,2H48a2,2,0,0,1-2-2V80a2,2,0,0,1,2-2H66v98a14,14,0,0,0,14,14h98Zm30-30H111.17l67.41-67.41a2,2,0,0,1,2.83,0L210,139.17V176A2,2,0,0,1,208,178Zm-88-68A22,22,0,1,0,98,88,22,22,0,0,0,120,110Zm0-32a10,10,0,1,1-10,10A10,10,0,0,1,120,78Z"
               ></path>
             </svg>
-            <p>Alterar foto de perfil</p>
-          </button>
-          <button class="remove-picture-button">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="#000000"
-              viewBox="0 0 256 256"
-            >
-              <path
-                d="M216,50H40a6,6,0,0,0,0,12H50V208a14,14,0,0,0,14,14H192a14,14,0,0,0,14-14V62h10a6,6,0,0,0,0-12ZM194,208a2,2,0,0,1-2,2H64a2,2,0,0,1-2-2V62H194ZM82,24a6,6,0,0,1,6-6h80a6,6,0,0,1,0,12H88A6,6,0,0,1,82,24Z"
-              ></path>
-            </svg>
-            <p>Remover foto de perfil</p>
-          </button>
+            <p>Salvar</p>
+            </button>
+          </input>
         </div>
       </div>
       <div class="separation-line"></div>
@@ -49,7 +40,7 @@ function createSettingsScreen() {
           <input
             id="username-input"
             type="text"
-            placeholder="dsbfelipe"
+            placeholder="${currentUserData.username}"
             class="transparent"
           />
           <svg
@@ -69,7 +60,7 @@ function createSettingsScreen() {
           <input
             id="full-name-input"
             type="text"
-            placeholder="Felipe dos Santos Bento"
+            placeholder="${currentUserData.name}"
             class="transparent"
           />
           <svg
@@ -89,7 +80,7 @@ function createSettingsScreen() {
           <input
             id="email-input"
             type="email"
-            placeholder="dsbfelipe@outlook.com"
+            placeholder="${currentUserData.email}"
             class="transparent"
           />
           <svg
@@ -109,7 +100,9 @@ function createSettingsScreen() {
           <input
             id="pix-input"
             type="text"
-            placeholder="(015) 98810-7304"
+            placeholder="${
+              currentUserData.pix ? currentUserData.pix : "Insira uma chave Pix"
+            }"
             class="transparent"
           />
           <svg
@@ -129,7 +122,11 @@ function createSettingsScreen() {
           <input
             id="paypal-input"
             type="text"
-            placeholder="dsbfelipe@outlook.com"
+            placeholder="${
+              currentUserData.paypal
+                ? currentUserData.paypal
+                : "Insira uma chave PayPal"
+            }"
             class="transparent"
           />
           <svg
@@ -192,7 +189,27 @@ function createSettingsScreen() {
   `;
 }
 
-export function displaySettingsScreen(element) {
-  element.innerHTML = createSettingsScreen();
-  displaySettingsNavBar(element);
+export async function displaySettingsScreen(element, currentUserData) {
+  element.innerHTML = createSettingsScreen(currentUserData);
+  displaySettingsNavBar(element, currentUserData);
+
+  const changePictureButton = document.querySelector(".change-picture-button");
+  const imageInput = document.getElementById("picture-input");
+  const logoutButton = document.getElementById("logout-button");
+
+  changePictureButton.addEventListener("click", () => {
+    if (imageInput.files.length === 0) {
+      return;
+    }
+
+    uploadProfilePicture(currentUserData.username, imageInput);
+  });
+
+  logoutButton.addEventListener("click", () => {
+    const localStorageKey = "currentUser";
+
+    localStorage.removeItem(localStorageKey);
+
+    displayLoginScreen(element);
+  });
 }

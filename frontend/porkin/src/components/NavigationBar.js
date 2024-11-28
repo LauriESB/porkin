@@ -32,7 +32,7 @@ function createNavBar() {
   </nav>`;
 }
 
-export function displayNavBar(element) {
+export function displayNavBar(element, currentUserData) {
   element.innerHTML += createNavBar();
 
   const homeMainButton = document.querySelector(".home-button");
@@ -42,24 +42,25 @@ export function displayNavBar(element) {
 
   homeMainButton.addEventListener("click", () => {
     element.innerHTML = "";
-    displayHome(element);
+    displayHome(element, currentUserData);
   });
   friendsMainButton.addEventListener("click", () => {
     element.innerHTML = "";
-    displayFriendsScreen(element);
+    displayFriendsScreen(element, currentUserData);
+    console.log(currentUserData);
   });
   billsMainButton.addEventListener("click", () => {
     element.innerHTML = "";
-    displayBillsScreen(element);
+    displayBillsScreen(element, currentUserData);
   });
   settingsMainButton.addEventListener("click", () => {
     element.innerHTML = "";
-    displaySettingsScreen(element);
+    displaySettingsScreen(element, currentUserData);
   });
 }
 
-export function displayHomeNavBar(element) {
-  displayNavBar(element);
+export function displayHomeNavBar(element, currentUserData) {
+  displayNavBar(element, currentUserData);
 
   const homeButton = document.querySelector(".home-button");
   const allButtons = document.querySelectorAll("nav > button");
@@ -71,8 +72,8 @@ export function displayHomeNavBar(element) {
   homeButton.classList.add("active");
 }
 
-export function displayFriendsNavBar(element) {
-  displayNavBar(element);
+export function displayFriendsNavBar(element, currentUserData) {
+  displayNavBar(element, currentUserData);
 
   const friendsButton = document.querySelector(".friends-button");
   const allButtons = document.querySelectorAll("nav > button");
@@ -84,8 +85,8 @@ export function displayFriendsNavBar(element) {
   friendsButton.classList.add("active");
 }
 
-export function displayBillsNavBar(element) {
-  displayNavBar(element);
+export function displayBillsNavBar(element, currentUserData) {
+  displayNavBar(element, currentUserData);
 
   const billsButton = document.querySelector(".bills-button");
   const allButtons = document.querySelectorAll("nav > button");
@@ -97,8 +98,8 @@ export function displayBillsNavBar(element) {
   billsButton.classList.add("active");
 }
 
-export function displaySettingsNavBar(element) {
-  displayNavBar(element);
+export function displaySettingsNavBar(element, currentUserData) {
+  displayNavBar(element, currentUserData);
 
   const settingsButton = document.querySelector(".settings-button");
   const allButtons = document.querySelectorAll("nav > button");

@@ -7,6 +7,8 @@ import porkinIcon from "../../public/images/porkin-icon.svg";
 import gsap from "gsap";
 import { displayHome } from "./Home";
 import { displayResetPasswordStepOne } from "./ResetPassword";
+import { getUserData } from "../utils/requests";
+import { createUser } from "../utils/requests";
 
 function createLoginScreen() {
   return `
@@ -175,6 +177,7 @@ export function displayLoginScreen(element) {
   const forgotPasswordButton = document.getElementById(
     "forgot-password-button"
   );
+  const emailInput = document.getElementById("email-input");
 
   forgotPasswordButton.addEventListener("click", () => {
     displayResetPasswordStepOne(element);
@@ -198,24 +201,33 @@ export function displayLoginScreen(element) {
     displaySignupScreen(element);
   });
 
-  loginButton.addEventListener("click", () => {
-    gsap.fromTo(
-      mainContainer,
-      { right: 0 },
-      {
-        right: window.innerWidth,
-        duration: 0.2,
-        ease: "power1.inOut",
-      }
-    );
-    setTimeout(() => {
-      element.innerHTML = "";
-      displayHome(element);
-    }, 200);
+  loginButton.addEventListener("click", async () => {
+    if (emailInput.value === "") {
+      return;
+    }
+
+    try {
+      const currentUserData = await getUserData(emailInput.value);
+      localStorage.setItem("currentUser", JSON.stringify(currentUserData));
+      gsap.fromTo(
+        mainContainer,
+        { right: 0 },
+        {
+          right: window.innerWidth,
+          duration: 0.2,
+          ease: "power1.inOut",
+        }
+      );
+      setTimeout(() => {
+        element.innerHTML = "";
+        displayHome(element, currentUserData);
+      }, 200);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
   });
 }
-
-function displaySignupScreen(element) {
+async function displaySignupScreen(element) {
   element.innerHTML = createSignupScreen();
 
   const goToLoginButton = document.getElementById("go-to-login-button");
@@ -248,19 +260,41 @@ function displaySignupScreen(element) {
     }
   });
 
-  signupButton.addEventListener("click", () => {
+  signupButton.addEventListener("click", async () => {
     const newUserFullName = fullNameInput.value;
     const newUserUsername = usernameInput.value;
     const newUserEmail = emailInput.value;
     const newUserPassword = passwordInput.value;
 
     const newUserData = {
-      fullName: newUserFullName,
+      name: newUserFullName,
       username: newUserUsername,
       email: newUserEmail,
       password: newUserPassword,
     };
 
-    console.log(newUserData);
+    try {
+      await createUser(newUserData);
+
+      const currentUserData = await getUserData(newUserUsername);
+      localStorage.setItem("currentUser", JSON.stringify(currentUserData));
+
+      gsap.fromTo(
+        mainContainer,
+        { right: 0 },
+        {
+          right: window.innerWidth,
+          duration: 0.2,
+          ease: "power1.inOut",
+        }
+      );
+
+      setTimeout(() => {
+        element.innerHTML = "";
+        displayHome(element, currentUserData);
+      }, 200);
+    } catch (error) {
+      console.error("Error during signup process:", error);
+    }
   });
 }
