@@ -16,8 +16,8 @@ window.addEventListener("load", () => {
 });
 
 window.addEventListener("load", () => {
-  const localStorageKey = "currentUser";
-  const currentUserData = localStorage.getItem(localStorageKey);
+  const localStorageUserKey = "currentUser";
+  const currentUserData = localStorage.getItem(localStorageUserKey);
 
   if (currentUserData) {
     const parsedUserData = JSON.parse(currentUserData);
