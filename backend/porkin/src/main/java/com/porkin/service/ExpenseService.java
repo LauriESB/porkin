@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,7 +47,9 @@ public class ExpenseService {
     expenseEntity.setCreationDate(LocalDate.now());
     expenseEntity.setCompleted(false);
 
-    PersonEntity idexpensecreator = personRepository.findByUsername(expenseDTO.getIdExpenseCreator()).get();
+    PersonEntity idexpensecreator = personRepository.findByUsername(expenseDTO.getIdExpenseCreator())
+        .orElseThrow(() -> new NoSuchElementException("Expense creator not found: " + expenseDTO.getIdExpenseCreator()));
+
     expenseEntity.setIdExpenseCreator(idexpensecreator);
 
     List<ExpenseSplitEntity> split = new ArrayList<>();

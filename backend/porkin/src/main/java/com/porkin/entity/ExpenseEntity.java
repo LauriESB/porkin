@@ -2,6 +2,8 @@ package com.porkin.entity;
 
 import com.porkin.dto.ExpenseDTO;
 import com.porkin.dto.ExpenseSplitDTO;
+import com.porkin.paymentMethods.entity.PayPalEntity;
+import com.porkin.paymentMethods.entity.PixEntity;
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
 
@@ -41,6 +43,13 @@ public class ExpenseEntity {
   @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL)
   private List<ExpenseSplitEntity> expenseDetails;
 
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "pixId")
+  private PixEntity pix;
+
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "paypalId")
+  private PayPalEntity paypal;
 
   // despesEntity constructors
 
@@ -121,6 +130,22 @@ public class ExpenseEntity {
 
   public void setExpenseDetails(List<ExpenseSplitEntity> expenseDetails) {
     this.expenseDetails = expenseDetails;
+  }
+
+  public String getPix() {
+    return pix != null ? pix.getPixKey() : null;
+  }
+
+  public void setPix(PixEntity pix) {
+    this.pix = pix;
+  }
+
+  public String getPaypal() {
+    return paypal != null ? paypal.getPayPalKey() : null;
+  }
+
+  public void setPaypal(PayPalEntity paypal) {
+    this.paypal = paypal;
   }
 
   // hashCode and equals

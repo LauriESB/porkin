@@ -1,6 +1,7 @@
 package com.porkin.dto;
 
 import com.porkin.entity.ExpenseEntity;
+import com.porkin.paymentMethods.entity.PixEntity;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
@@ -23,6 +24,10 @@ public class ExpenseDTO {
   private String idExpenseCreator;
 
   private List<ExpenseSplitDTO> expenseDetails;
+
+  private String pix;
+
+  private String paypal;
 
   // ExpenseDTO constructor
 
@@ -98,6 +103,22 @@ public class ExpenseDTO {
 
   public void setExpenseDetails(List<ExpenseSplitDTO> expenseDetails) {
     this.expenseDetails = expenseDetails;
+  }
+
+  public String getPix() {
+    return pix;
+  }
+
+  public void setPix(String pix) {
+    this.pix = pix;
+  }
+
+  public String getPaypal() {
+    return paypal;
+  }
+
+  public void setPaypal(String paypal) {
+    this.paypal = paypal;
   }
 
 }
