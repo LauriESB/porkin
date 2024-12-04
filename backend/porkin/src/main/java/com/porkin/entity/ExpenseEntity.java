@@ -40,8 +40,7 @@ public class ExpenseEntity {
   @JoinColumn(name = "idExpenseCreator")
   private PersonEntity idExpenseCreator;
 
-  @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL)
-  private List<ExpenseSplitEntity> expenseDetails;
+  private boolean notificationSent;
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "pixId")
@@ -50,6 +49,11 @@ public class ExpenseEntity {
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "paypalId")
   private PayPalEntity paypal;
+
+  @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL)
+  private List<ExpenseSplitEntity> expenseDetails;
+
+
 
   // despesEntity constructors
 
@@ -119,17 +123,12 @@ public class ExpenseEntity {
     this.idExpenseCreator = idExpenseCreator;
   }
 
-  public List<ExpenseSplitDTO> getExpenseDetails() {
-    return this.expenseDetails.stream().map(details -> new ExpenseSplitDTO(
-            details.getPerson(),
-            details.getValueToPay(),
-            details.getPercentage(),
-            details.isPaid()
-        )).toList();
+  public boolean isNotificationSent() {
+    return notificationSent;
   }
 
-  public void setExpenseDetails(List<ExpenseSplitEntity> expenseDetails) {
-    this.expenseDetails = expenseDetails;
+  public void setNotificationSent(boolean notificationSent) {
+    this.notificationSent = notificationSent;
   }
 
   public String getPix() {
@@ -146,6 +145,19 @@ public class ExpenseEntity {
 
   public void setPaypal(PayPalEntity paypal) {
     this.paypal = paypal;
+  }
+
+  public List<ExpenseSplitDTO> getExpenseDetails() {
+    return this.expenseDetails.stream().map(details -> new ExpenseSplitDTO(
+            details.getPerson(),
+            details.getValueToPay(),
+            details.getPercentage(),
+            details.isPaid()
+        )).toList();
+  }
+
+  public void setExpenseDetails(List<ExpenseSplitEntity> expenseDetails) {
+    this.expenseDetails = expenseDetails;
   }
 
   // hashCode and equals

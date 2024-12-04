@@ -10,13 +10,9 @@ public class NotificationsDTO {
 
   private Long id;
 
-  private Long idUser;
-
   private String message;
 
   private LocalDate creationDate;
-
-  private boolean read;
 
   // constructors
 
@@ -36,14 +32,6 @@ public class NotificationsDTO {
     this.id = id;
   }
 
-  public Long getIdUser() {
-    return idUser;
-  }
-
-  public void setIdUser(Long idUser) {
-    this.idUser = idUser;
-  }
-
   public String getMessage() {
     return message;
   }
@@ -58,14 +46,6 @@ public class NotificationsDTO {
 
   public void setCreationDate(LocalDate creationDate) {
     this.creationDate = creationDate;
-  }
-
-  public boolean isRead() {
-    return read;
-  }
-
-  public void setRead(boolean read) {
-    this.read = read;
   }
 
 }

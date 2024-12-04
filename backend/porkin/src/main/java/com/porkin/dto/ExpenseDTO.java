@@ -23,11 +23,13 @@ public class ExpenseDTO {
 
   private String idExpenseCreator;
 
-  private List<ExpenseSplitDTO> expenseDetails;
+  private boolean notificationSend;
 
   private String pix;
 
   private String paypal;
+
+  private List<ExpenseSplitDTO> expenseDetails;
 
   // ExpenseDTO constructor
 
@@ -103,6 +105,14 @@ public class ExpenseDTO {
 
   public void setExpenseDetails(List<ExpenseSplitDTO> expenseDetails) {
     this.expenseDetails = expenseDetails;
+  }
+
+  public boolean isNotificationSend() {
+    return notificationSend;
+  }
+
+  public void setNotificationSend(boolean notificationSend) {
+    this.notificationSend = notificationSend;
   }
 
   public String getPix() {

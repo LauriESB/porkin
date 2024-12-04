@@ -3,15 +3,20 @@ package com.porkin.service;
 import com.porkin.dto.ExpenseDTO;
 import com.porkin.entity.ExpenseEntity;
 import com.porkin.entity.ExpenseSplitEntity;
+import com.porkin.entity.NotificationsEntity;
 import com.porkin.entity.PersonEntity;
+import com.porkin.paymentMethods.entity.PayPalEntity;
+import com.porkin.paymentMethods.entity.PixEntity;
 import com.porkin.repository.ExpenseRepository;
 import com.porkin.repository.ExpenseSplitRepository;
 import com.porkin.repository.PersonRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -40,6 +45,33 @@ public class ExpenseService {
     return expenses.stream()
         .map(expense -> new ExpenseDTO(expense)) // Converta para DTO
         .collect(Collectors.toList());
+  }
+
+  @Scheduled(cron = "0 0 0 * * ?")
+  public void checkDueDateAndNotifyDaily() {
+    List<ExpenseEntity> expensesDueToday = expenseRepository.findByDueDate(LocalDate.now());
+
+    for (ExpenseEntity expenses : expensesDueToday) {
+      checkDueDateAndNotify(expenses);
+    }
+
+  }
+
+  public void checkDueDateAndNotify(ExpenseEntity expenseEntity) {
+    if (!expenseEntity.isNotificationSent() && expenseEntity.getDueDate().isEqual(LocalDate.now())) {
+      expenseEntity.getExpenseDetails().forEach(split -> {
+        PersonEntity participant = personRepository.findByUsername(split.getUsername()).get();
+
+        NotificationsEntity notifications = new NotificationsEntity();
+        notifications.setMessage("A despesa '" + expenseEntity.getTitle() + "' vence hoje!");
+        notifications.setCreationDate(LocalDateTime.now());
+        notifications.setPerson(participant);
+      });
+
+      expenseEntity.setNotificationSent(true);
+      expenseRepository.save(expenseEntity);
+
+    }
   }
 
   public void insert(ExpenseDTO expenseDTO) {
@@ -81,6 +113,8 @@ public class ExpenseService {
     expenseRepository.save(expenseEntity);
     expenseSplitRepository.saveAll(split);
 
+    checkDueDateAndNotify(expenseEntity);
+
   }
 
   @Transactional
@@ -101,6 +135,32 @@ public class ExpenseService {
 
     if(expenseDTO.isCompleted() != expenseEntity.isCompleted()) {
       expenseEntity.setCompleted(expenseDTO.isCompleted());
+    }
+
+    if(expenseDTO.getPaypal() != null) {
+      PayPalEntity paypal = new PayPalEntity();
+      paypal.setType("PayPal");
+      paypal.setPayPalKey(expenseDTO.getPaypal());
+
+      PersonEntity person = new PersonEntity();
+      person = personRepository.findByUsername(expenseDTO.getIdExpenseCreator()).get();
+
+      paypal.setIdUser(person);
+
+      expenseEntity.setPaypal(paypal);
+    }
+
+    if(expenseDTO.getPix() != null) {
+      PixEntity pix = new PixEntity();
+      pix.setType("PayPal");
+      pix.setPixKey(expenseDTO.getPix());
+
+      PersonEntity person = new PersonEntity();
+      person = personRepository.findByUsername(expenseDTO.getIdExpenseCreator()).get();
+
+      pix.setIdUser(person);
+
+      expenseEntity.setPix(pix);
     }
 
     if (expenseDTO.getExpenseDetails() != null) {

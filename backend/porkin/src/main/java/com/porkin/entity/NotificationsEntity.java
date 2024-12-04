@@ -16,27 +16,20 @@ public class NotificationsEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "idUser")
-  private PersonEntity idUser;
-
   @Column(nullable = false)
   private String message;
 
-  @Column(nullable = false)
-  private LocalDateTime creationDate;
+  @ManyToOne
+  @JoinColumn(name = "idUser")
+  private PersonEntity person;
 
   @Column(nullable = false)
-  private boolean read;
+  private LocalDateTime creationDate;
 
   // constructors
 
   public NotificationsEntity(NotificationsDTO notificationsDTO) {
     BeanUtils.copyProperties(notificationsDTO, this);
-  }
-
-  public NotificationsEntity(boolean read) {
-    this.read = read;
   }
 
   public NotificationsEntity() {}
@@ -51,14 +44,6 @@ public class NotificationsEntity {
     this.id = id;
   }
 
-  public PersonEntity getIdUser() {
-    return idUser;
-  }
-
-  public void setIdUser(PersonEntity idUser) {
-    this.idUser = idUser;
-  }
-
   public String getMessage() {
     return message;
   }
@@ -67,20 +52,20 @@ public class NotificationsEntity {
     this.message = message;
   }
 
+  public PersonEntity getPerson() {
+    return person;
+  }
+
+  public void setPerson(PersonEntity person) {
+    this.person = person;
+  }
+
   public LocalDateTime getCreationDate() {
     return creationDate;
   }
 
   public void setCreationDate(LocalDateTime creationDate) {
     this.creationDate = creationDate;
-  }
-
-  public boolean isRead() {
-    return read;
-  }
-
-  public void setRead(boolean read) {
-    this.read = read;
   }
 
   // hashCode and equals
