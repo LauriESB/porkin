@@ -9,6 +9,7 @@ import com.porkin.paymentMethods.entity.PayPalEntity;
 import com.porkin.paymentMethods.entity.PixEntity;
 import com.porkin.repository.ExpenseRepository;
 import com.porkin.repository.ExpenseSplitRepository;
+import com.porkin.repository.NotificationsRepository;
 import com.porkin.repository.PersonRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class ExpenseService {
 
   @Autowired
   public ExpenseSplitRepository expenseSplitRepository;
+
+  @Autowired
+  public NotificationsRepository notificationsRepository;
 
   public List<ExpenseDTO> listAll() {
     List<ExpenseEntity> expenseEntities = expenseRepository.findAll();
@@ -66,6 +70,7 @@ public class ExpenseService {
         notifications.setMessage("A despesa '" + expenseEntity.getTitle() + "' vence hoje!");
         notifications.setCreationDate(LocalDateTime.now());
         notifications.setPerson(participant);
+        notificationsRepository.save(notifications);
       });
 
       expenseEntity.setNotificationSent(true);
