@@ -16,9 +16,9 @@ public class NotificationsController {
   @Autowired
   private NotificationsService notificationsService;
 
-  @GetMapping
-  public List<NotificationsDTO> listAll() {
-    return notificationsService.listAll();
+  @GetMapping("/{username}")
+  public List<NotificationsDTO> listAll(@PathVariable("username") String username) {
+    return notificationsService.listAll(username);
   }
 
   @DeleteMapping("/{id}")
