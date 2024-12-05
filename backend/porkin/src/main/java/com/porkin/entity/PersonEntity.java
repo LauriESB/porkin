@@ -53,6 +53,10 @@ public class PersonEntity {
   @JoinColumn(name = "paypalId")
   private PayPalEntity paypal;
 
+  @OneToOne
+  @JoinColumn
+  private ImageData userProfilePicture;
+
   // pessoaEntity constructors
 
   public PersonEntity(PersonDTO personDTO) {
@@ -155,6 +159,14 @@ public class PersonEntity {
 
   public void setPaypal(PayPalEntity paypal) {
     this.paypal = paypal;
+  }
+
+  public ImageData getUserProfilePicture() {
+    return userProfilePicture;
+  }
+
+  public void setUserProfilePicture(ImageData userProfilePicture) {
+    this.userProfilePicture = userProfilePicture;
   }
 
   // hashCode and equals
