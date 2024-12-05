@@ -3,7 +3,10 @@ import { getProfilePicture, uploadProfilePicture } from "../utils/requests";
 import { displayLoginScreen } from "./AuthScreen";
 import { profilePictures } from "./UserData";
 
-function createSettingsScreen(currentUserData) {
+async function createSettingsScreen(currentUserData) {
+  const currentUserProfilePicture = await getProfilePicture(
+    currentUserData.username
+  );
   return `
     <div>
       <header id="friends-header">
@@ -11,7 +14,7 @@ function createSettingsScreen(currentUserData) {
       </header>
       <div class="photo-section">
         <img
-          src="${profilePictures[currentUserData.username]}"
+          src="${currentUserProfilePicture}"
           alt=""
         />
         <div>
@@ -190,7 +193,7 @@ function createSettingsScreen(currentUserData) {
 }
 
 export async function displaySettingsScreen(element, currentUserData) {
-  element.innerHTML = createSettingsScreen(currentUserData);
+  element.innerHTML = await createSettingsScreen(currentUserData);
   displaySettingsNavBar(element, currentUserData);
 
   const changePictureButton = document.querySelector(".change-picture-button");

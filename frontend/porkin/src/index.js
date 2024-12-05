@@ -5,7 +5,7 @@ import "./components/Home.js";
 import { displayHome } from "./components/Home.js";
 import { localStorageKey } from "./components/Home.js";
 import { displayLoginScreen } from "./components/AuthScreen.js";
-import { sendFriendRequest } from "./utils/requests.js";
+import { getProfilePicture, sendFriendRequest } from "./utils/requests.js";
 
 const content = document.getElementById("content");
 
@@ -15,14 +15,6 @@ window.addEventListener("load", () => {
   }
 });
 
-window.addEventListener("load", () => {
-  const localStorageKey = "currentUser";
-  const currentUserData = localStorage.getItem(localStorageKey);
+displayLoginScreen(content);
 
-  if (currentUserData) {
-    const parsedUserData = JSON.parse(currentUserData);
-    displayHome(content, parsedUserData);
-  } else {
-    displayLoginScreen(content);
-  }
-});
+/* console.log(getProfilePicture("dsbfelipe")); */

@@ -126,11 +126,11 @@ export async function rejectFriendRequest(user, friend) {
 
 export async function uploadProfilePicture(user, fileInput) {
   const formData = new FormData();
-  formData.append("file", fileInput.files[0]);
+  formData.append("image", fileInput.files[0]); // Use "image" as the key
 
   try {
     const response = await axios.post(
-      `https://porkin.onrender.com/person/${user}/upload-profile-picture`,
+      `https://porkin.onrender.com/image/${user}`,
       formData,
       {
         headers: {
@@ -147,17 +147,22 @@ export async function uploadProfilePicture(user, fileInput) {
 export async function getProfilePicture(username) {
   try {
     const response = await fetch(
-      `https://porkin.onrender.com/person/${username}/profile-picture`
+      `https://porkin.onrender.com/image/${username}`
     );
     if (!response.ok) {
       throw new Error(
         `Failed to fetch profile picture: ${response.statusText}`
       );
     }
-    const base64Image = await response.text();
-    return `data:image/jpeg;base64,${base64Image}`;
+
+    // Convert response to a Blob for image rendering
+    const blob = await response.blob();
+    const imageUrl = URL.createObjectURL(blob);
+    return imageUrl; // This can be used as the `src` for an image element
   } catch (error) {
     console.error("Error fetching profile picture:", error);
+
+    // Provide a default image URL or fallback
     return defaultProfilePicture;
   }
 }

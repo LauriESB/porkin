@@ -26,19 +26,9 @@ import { profilePictures } from "./UserData.js";
 import { getAllUsers } from "../utils/requests.js";
 import defaultPicture from "../../public/images/default-profile-picture.png";
 
-const localStorageUserKey = "currentUser";
-
-const userParticipant = JSON.parse(localStorage.getItem(localStorageUserKey));
-
 function createSelectedParticipants() {}
 
-let selectedParticipants = [
-  {
-    fullName: "Você",
-    profilePicture: profilePictures[userParticipant.username],
-    username: userParticipant.username,
-  },
-];
+let selectedParticipants = [];
 export const localStorageKey = "formattedValue";
 
 function createHome(currentUserData) {
@@ -77,6 +67,18 @@ function createHome(currentUserData) {
 export function displayHome(element, currentUserData) {
   element.innerHTML += createHome(currentUserData);
   console.log(currentUserData);
+
+  window.currentUser = currentUserData;
+
+  if (selectedParticipants.length === 0) {
+    selectedParticipants = [
+      {
+        fullName: "Você",
+        profilePicture: profilePictures[currentUser.username],
+        username: currentUser.username,
+      },
+    ];
+  }
 
   displayHomeNavBar(element, currentUserData);
   const addParticipantsButton = document.getElementById(
@@ -395,11 +397,13 @@ function displayParticipantsList(element, selectedParticipants) {
 
 async function displayFriendsList(element, array) {
   element.innerHTML = await createFriendsList(array);
+  console.log(array);
 
   const participantsContainer = document.querySelector(
     ".participants-array-pictures"
   );
   const friendsCheckboxes = document.querySelectorAll(".friend-checkbox");
+  const allUsers = await getAllUsers();
 
   friendsCheckboxes.forEach((checkbox) => {
     const friendUsername = checkbox.value;
@@ -411,13 +415,13 @@ async function displayFriendsList(element, array) {
     checkbox.addEventListener("change", (event) => {
       if (event.target.checked) {
         const friendUsername = checkbox.value;
-        const selectedFriend = friends.list.find(
+        const selectedFriend = allUsers.find(
           (friend) => friend.username === friendUsername
         );
 
         selectedParticipants.push({
-          fullName: selectedFriend.fullName,
-          profilePicture: selectedFriend.profilePicture,
+          fullName: selectedFriend.name,
+          profilePicture: profilePictures[selectedFriend.username],
           username: friendUsername,
         });
 
@@ -435,8 +439,9 @@ async function displayFriendsList(element, array) {
   });
 }
 
-function filterFriends(input) {
-  const filteredList = friends.list.filter(
+async function filterFriends(input) {
+  const friendsList = await getFriendsList(currentUserData.username);
+  const filteredList = friendsList.filter(
     (friend) =>
       friend.fullName.toLowerCase().includes(input.toLowerCase()) ||
       friend.username.toLowerCase().includes(input.toLowerCase())
