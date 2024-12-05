@@ -61,8 +61,8 @@ public class PayPalEntity {
     this.payPalKey = payPalKey;
   }
 
-  public Long getIdUser() {
-    return idUser.getId();
+  public String getIdUser() {
+    return idUser.getUsername();
   }
 
   public void setIdUser(PersonEntity idUser) {

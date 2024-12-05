@@ -24,9 +24,9 @@ public class PayPalController {
     payPalService.insert(payPalDTO);
   }
 
-  @PutMapping("/{id}")
-  public PayPalDTO update(@PathVariable("id") Long id, @RequestBody PayPalDTO payPalDTO) {
-    return payPalService.update(id, payPalDTO);
+  @PutMapping
+  public PayPalDTO update(@RequestBody PayPalDTO payPalDTO) {
+    return payPalService.update(payPalDTO);
   }
 
   @DeleteMapping("/{id}/{idUser}")

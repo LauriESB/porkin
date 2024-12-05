@@ -25,9 +25,9 @@ public class PixController {
     pixService.addPix(pixDTO);
   }
 
-  @PutMapping("/{id}")
-  public PixDTO update (@RequestBody PixDTO pixDTO, @PathVariable("id") Long id) {
-    return pixService.updatePix(id, pixDTO);
+  @PutMapping
+  public PixDTO update (@RequestBody PixDTO pixDTO) {
+    return pixService.updatePix(pixDTO);
   }
 
   @DeleteMapping("/{id}/{idUser}")

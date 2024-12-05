@@ -25,7 +25,7 @@ public class PayPalService {
   }
 
   public void insert(PayPalDTO payPalDTO) {
-    PersonEntity person = personRepository.findById(payPalDTO.getIdUser()).get();
+    PersonEntity person = personRepository.findByUsername(payPalDTO.getUsername()).get();
 
     PayPalEntity payPalEntity = new PayPalEntity(payPalDTO);
 
@@ -39,9 +39,9 @@ public class PayPalService {
 
   }
 
-  public PayPalDTO update(Long id, PayPalDTO payPalDTO) {
-    PayPalEntity payPalEntity = payPalRepository.findById(id).get();
-    PersonEntity person = personRepository.findById(payPalDTO.getIdUser()).get();
+  public PayPalDTO update(PayPalDTO payPalDTO) {
+    PersonEntity person = personRepository.findByUsername(payPalDTO.getUsername()).get();
+    PayPalEntity payPalEntity = payPalRepository.findByIdUser(person).get();
 
     if(payPalDTO.getPayPalKey() != null) {
       payPalEntity.setPayPalKey(payPalDTO.getPayPalKey());

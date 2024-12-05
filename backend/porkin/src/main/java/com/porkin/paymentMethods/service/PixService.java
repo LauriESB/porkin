@@ -25,8 +25,7 @@ public class PixService {
   }
 
   public void addPix(PixDTO pixDTO) {
-    PersonEntity person = personRepository.findById(pixDTO.getIdUser())
-        .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    PersonEntity person = personRepository.findByUsername(pixDTO.getUsername()).get();
 
     PixEntity pixEntity = new PixEntity(pixDTO);
     pixEntity.setIdUser(person);
@@ -38,9 +37,9 @@ public class PixService {
     personRepository.save(person);
   }
 
-  public PixDTO updatePix(Long id, PixDTO pixDTO) {
-    PixEntity pixEntity = pixRepository.findById(id).get();
-    PersonEntity person = personRepository.findById(pixDTO.getId()).get();
+  public PixDTO updatePix(PixDTO pixDTO) {
+    PersonEntity person = personRepository.findByUsername(pixDTO.getUsername()).get();
+    PixEntity pixEntity = pixRepository.findByIdUser(person).get();
 
     if (pixDTO.getPixKey() != null) {
       pixEntity.setPixKey(pixDTO.getPixKey());

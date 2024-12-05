@@ -9,7 +9,7 @@ public class PayPalDTO {
 
   private Long id;
 
-  private Long idUser;
+  private String username;
 
   private String payPalKey;
 
@@ -33,12 +33,12 @@ public class PayPalDTO {
     this.id = id;
   }
 
-  public Long getIdUser() {
-    return idUser;
+  public String getUsername() {
+    return username;
   }
 
-  public void setIdUser(Long idUser) {
-    this.idUser = idUser;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public String getPayPalKey() {

@@ -7,7 +7,7 @@ public class PixDTO {
 
   private Long id;
 
-  private Long idUser;
+  private String username;
 
   private String pixKey;
 
@@ -31,12 +31,12 @@ public class PixDTO {
     this.id = id;
   }
 
-  public Long getIdUser() {
-    return idUser;
+  public String getUsername() {
+    return username;
   }
 
-  public void setIdUser(Long idUser) {
-    this.idUser = idUser;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public String getPixKey() {

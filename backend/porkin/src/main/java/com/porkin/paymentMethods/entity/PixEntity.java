@@ -60,8 +60,8 @@ public class PixEntity{
     this.pixKey = pixKey;
   }
 
-  public Long getIdUser() {
-    return idUser.getId();
+  public String getIdUser() {
+    return idUser.getUsername();
   }
 
   public void setIdUser(PersonEntity idUser) {
