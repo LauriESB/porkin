@@ -2,6 +2,7 @@ package com.porkin.service;
 
 import com.porkin.dto.FriendshipDTO;
 import com.porkin.dto.NotificationsDTO;
+import com.porkin.dto.PersonDTO;
 import com.porkin.entity.NotificationsEntity;
 import com.porkin.entity.PersonEntity;
 import com.porkin.repository.NotificationsRepository;
@@ -19,6 +20,11 @@ public class NotificationsService {
 
   @Autowired
   private PersonRepository personRepository;
+
+  public List<NotificationsDTO> listAll() {
+    List<NotificationsEntity> notificationsEntities = notificationsRepository.findAll();
+    return notificationsEntities.stream().map(NotificationsDTO::new).toList();
+  }
 
   public List<NotificationsDTO> listAll(String username) {
 
