@@ -113,6 +113,7 @@ public class ExpenseService {
       personParticipant.getExpenses().add(expenseEntity);
     });
 
+    expenseEntity.setNotificationSent(false);
     expenseEntity.setExpenseDetails(split);
     expenseRepository.save(expenseEntity);
     expenseSplitRepository.saveAll(split);

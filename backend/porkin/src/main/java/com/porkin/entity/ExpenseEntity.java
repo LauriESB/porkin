@@ -40,6 +40,7 @@ public class ExpenseEntity {
   @JoinColumn(name = "idExpenseCreator")
   private PersonEntity idExpenseCreator;
 
+  @Column(nullable = true)
   private boolean notificationSent;
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
