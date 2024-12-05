@@ -84,8 +84,7 @@ public class ExpenseService {
     expenseEntity.setCreationDate(LocalDate.now());
     expenseEntity.setCompleted(false);
 
-    PersonEntity idexpensecreator = personRepository.findByUsername(expenseDTO.getIdExpenseCreator())
-        .orElseThrow(() -> new NoSuchElementException("Expense creator not found: " + expenseDTO.getIdExpenseCreator()));
+    PersonEntity idexpensecreator = personRepository.findByUsername(expenseDTO.getIdExpenseCreator()).get();
 
     expenseEntity.setIdExpenseCreator(idexpensecreator);
 
