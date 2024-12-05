@@ -41,7 +41,7 @@ public class ExpenseEntity {
   private PersonEntity idExpenseCreator;
 
   @Column(nullable = true)
-  private boolean notificationSent;
+  private Boolean notificationSent;
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "pixId")
@@ -124,11 +124,11 @@ public class ExpenseEntity {
     this.idExpenseCreator = idExpenseCreator;
   }
 
-  public boolean isNotificationSent() {
+  public Boolean getNotificationSent() {
     return notificationSent;
   }
 
-  public void setNotificationSent(boolean notificationSent) {
+  public void setNotificationSent(Boolean notificationSent) {
     this.notificationSent = notificationSent;
   }
 
