@@ -62,7 +62,7 @@ public class ExpenseService {
   }
 
   public void checkDueDateAndNotify(ExpenseEntity expenseEntity) {
-    if (!expenseEntity.isNotificationSent() && expenseEntity.getDueDate().isEqual(LocalDate.now())) {
+    if (!expenseEntity.getNotificationSent() && expenseEntity.getDueDate().isEqual(LocalDate.now())) {
       expenseEntity.getExpenseDetails().forEach(split -> {
         PersonEntity participant = personRepository.findByUsername(split.getUsername()).get();
 
@@ -113,6 +113,7 @@ public class ExpenseService {
       personParticipant.getExpenses().add(expenseEntity);
     });
 
+    //expenseEntity.setNotificationSent(expenseDTO.getNotificationSent() != null ? expenseDTO.getNotificationSent() : false);
     expenseEntity.setNotificationSent(false);
     expenseEntity.setExpenseDetails(split);
     expenseRepository.save(expenseEntity);

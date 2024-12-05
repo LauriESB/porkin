@@ -59,6 +59,7 @@ public class ExpenseEntity {
   // despesEntity constructors
 
   public ExpenseEntity(ExpenseDTO expenseDTO) {
+    this.notificationSent = false;
     BeanUtils.copyProperties(expenseDTO, this);
   }
 
