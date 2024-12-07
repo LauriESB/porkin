@@ -37,7 +37,7 @@ public class PersonService {
     }
 
     if(personDTO.getUsername() != null) {
-      personEntity.setPassword(personDTO.getUsername());
+      personEntity.setUsername(personDTO.getUsername());
     }
 
     if(personDTO.getEmail() != null) {
