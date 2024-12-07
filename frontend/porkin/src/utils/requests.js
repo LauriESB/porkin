@@ -178,3 +178,18 @@ export async function getFriendsList(username) {
     throw error;
   }
 }
+
+export async function updateUserData(username, userObject) {
+  const url = `https://porkin.onrender.com/person/${username}`;
+  try {
+    const response = await axios.put(url, userObject);
+    console.log("User data updated successfully:", response.data);
+    return response.data; // Return response data if needed
+  } catch (error) {
+    console.error(
+      "Error updating user data:",
+      error.response?.data || error.message
+    );
+    throw error; // Re-throw error to handle it in the calling code
+  }
+}

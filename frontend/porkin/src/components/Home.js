@@ -20,6 +20,7 @@ import openLock from "../../public/svg/lock-open.svg";
 import {
   createExpense,
   getFriendsList,
+  getProfilePicture,
   getUserData,
 } from "../utils/requests.js";
 import { profilePictures } from "./UserData.js";
@@ -75,7 +76,7 @@ export function displayHome(element, currentUserData) {
       {
         fullName: "Você",
         profilePicture: profilePictures[currentUser.username],
-        username: currentUser.username,
+        username: currentUserData.username,
       },
     ];
   }
@@ -165,7 +166,7 @@ export function displayHome(element, currentUserData) {
 
   addParticipantsButton.addEventListener("click", () => {
     displayAddParticipants(element, currentUserData);
-    resetParticipants();
+    resetParticipants(currentUserData);
   });
 
   homeParticipantsContainer.addEventListener("click", () => {
@@ -177,22 +178,20 @@ async function createFriendsList(array) {
   let friendsList = "";
   const allUsers = await getAllUsers();
 
-  array.forEach((friend, index) => {
-    const currentFriend = allUsers.find(
-      (user) => user.username === array[index]
+  for (const friend of array) {
+    const currentFriend = allUsers.find((user) => user.username === friend);
+    if (!currentFriend) continue; // Skip if the friend is not found
+
+    const friendProfilePicture = await getProfilePicture(
+      currentFriend.username
     );
-    console.log(currentFriend);
 
     friendsList += `
       <div class="friend">
         <div>
           <img
             class="friend-picture"
-            src="${
-              profilePictures[currentFriend.username]
-                ? profilePictures[currentFriend.username]
-                : defaultPicture
-            }"
+            src="${friendProfilePicture}"
             alt="${currentFriend.name}'s picture"
           />
           <div class="friend-name-container">
@@ -200,18 +199,23 @@ async function createFriendsList(array) {
             <p class="friend-username">@${currentFriend.username}</p>
           </div>
         </div>
-        <input type="checkbox" class="friend-checkbox" value="${
-          currentFriend.username
-        }" />
+        <input type="checkbox" class="friend-checkbox" value="${currentFriend.username}" />
       </div>
     `;
-  });
+  }
+
   return friendsList;
 }
 
-function createParticipantsList(selectedParticipants) {
+async function createParticipantsList(selectedParticipants) {
   let participantsList = "";
-  selectedParticipants.forEach((participant) => {
+  console.log(selectedParticipants);
+
+  for (const participant of selectedParticipants) {
+    const participantProfilePicture = await getProfilePicture(
+      participant.username
+    );
+
     participantsList += `
       <div class="participant">
         <div class="participant-picture">
@@ -231,14 +235,15 @@ function createParticipantsList(selectedParticipants) {
         </button>
         -->
           <img
-            src="${participant.profilePicture}"
+            src="${participantProfilePicture}"
             alt="${participant.fullName}'s profile picture"
           />
         </div>
         <p class="participant-name">${getFirstName(participant.fullName)}</p>
       </div>
     `;
-  });
+  }
+
   return participantsList;
 }
 
@@ -364,7 +369,9 @@ async function displayAddParticipants(element, currentUserData) {
     displayFriendsList(friendsListContainer, filterFriends(searchFriend.value));
   });
 
-  clearButton.addEventListener("click", () => clearParticipantsList());
+  clearButton.addEventListener("click", () =>
+    clearParticipantsList(currentUserData)
+  );
   backButton.addEventListener("click", () => {
     gsap.fromTo(
       addParticipantsScreen,
@@ -391,8 +398,8 @@ async function displayAddParticipants(element, currentUserData) {
   });
 }
 
-function displayParticipantsList(element, selectedParticipants) {
-  element.innerHTML = createParticipantsList(selectedParticipants);
+async function displayParticipantsList(element, selectedParticipants) {
+  element.innerHTML = await createParticipantsList(selectedParticipants);
 }
 
 async function displayFriendsList(element, array) {
@@ -449,13 +456,13 @@ async function filterFriends(input) {
   return filteredList;
 }
 
-function clearParticipantsList() {
+function clearParticipantsList(currentUserData) {
   const participantsContainer = document.querySelector(
     ".participants-array-pictures"
   );
   const friendsCheckboxes = document.querySelectorAll(".friend-checkbox");
   selectedParticipants = selectedParticipants.filter(
-    (friend) => friend.username === userData.username
+    (friend) => friend.username === currentUserData.username
   );
   displayParticipantsList(participantsContainer, selectedParticipants);
   friendsCheckboxes.forEach((checkbox) => {
@@ -480,12 +487,12 @@ function acceptParticipants(element, currentUserData) {
   displayHomeParticipants(homeParticipantsContainer, selectedParticipants);
 }
 
-function resetParticipants() {
+function resetParticipants(currentUserData) {
   selectedParticipants = [
     {
       fullName: "Você",
       profilePicture: userData.profilePicture,
-      username: userData.username,
+      username: currentUserData.username,
     },
   ];
 }

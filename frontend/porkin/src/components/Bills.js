@@ -9,7 +9,11 @@ import {
   insertComma,
 } from "../utils/nameHelper";
 import gsap from "gsap";
-import { getAllExpenses, getAllUsers } from "../utils/requests";
+import {
+  getAllExpenses,
+  getAllUsers,
+  getProfilePicture,
+} from "../utils/requests";
 
 function createBillsScreen() {
   return `
@@ -40,13 +44,18 @@ function createBillsScreen() {
   `;
 }
 
-export function displayBillsScreen(element, currentUserData) {
+export async function displayBillsScreen(element, currentUserData) {
   element.innerHTML = createBillsScreen();
   displayBillsNavBar(element, currentUserData);
 
   const billsContainer = document.getElementById("bills-container");
+  const historyButton = document.getElementById("history-button");
 
-  displayBillsList(billsContainer, currentUserData);
+  historyButton.addEventListener("click", () => {
+    displayBillsHistory(element, currentUserData);
+  });
+
+  await displayBillsList(billsContainer, currentUserData);
 }
 
 async function displayBillsList(element, currentUserData) {
@@ -55,29 +64,30 @@ async function displayBillsList(element, currentUserData) {
 
   console.log(allBills);
 
-  allBills.forEach((bill, index) => {
+  allBills.forEach(async (bill, index) => {
     const admin = allUsers.find(
       (user) => user.username === bill.idExpenseCreator
     );
     const parentContainer = document.getElementById("content");
 
-    const participantsPictures = [];
+    const participantsPictures = await Promise.all(
+      bill.expenseDetails.map(async (participant) => {
+        const user = allUsers.find(
+          (user) => user.username === participant.username
+        );
+        const userProfilePicture = await getProfilePicture(user.username);
+        return `<img src="${userProfilePicture}" />`;
+      })
+    );
 
-    bill.expenseDetails.forEach((participant) => {
-      const user = allUsers.find(
-        (user) => user.username === participant.username
-      );
-      participantsPictures.push(`
-        <img src="${profilePictures[user.username]}" />  
-      `);
-    });
+    const adminProfilePicture = await getProfilePicture(admin.username);
 
     element.innerHTML += `
       <div class="bill">
         <div class="admin-bill-name-value">
           <div>
             <img
-              src="${profilePictures[admin.username]}"
+              src="${adminProfilePicture}"
               alt=""
             />
             <p class="bill-name">${bill.title}</p>
@@ -94,7 +104,7 @@ async function displayBillsList(element, currentUserData) {
         <div class="pay-button-and-participants">
           <button class="pay-button" data-username="${
             currentUserData.username
-          }">
+          }" data-id="${bill.id}">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -117,7 +127,9 @@ async function displayBillsList(element, currentUserData) {
         <div class="details">
           <div class="bill-line"></div>
           <div data-value="${admin.pix}" class="details-payment">
-            <p><span>Pix:</span> ${admin.pix}</p>
+            <p><span>Pix:</span> ${
+              admin.pix ? admin.pix : "Nenhuma chave cadastrada"
+            }</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -179,17 +191,18 @@ async function displayBillsList(element, currentUserData) {
     });
     console.log(bill.expenseDetails);
 
-    bill.expenseDetails.forEach((participant) => {
+    bill.expenseDetails.forEach(async (participant) => {
       const user = allUsers.find(
         (user) => user.username === participant.username
       );
+      const userProfilePicture = await getProfilePicture(user.username);
       console.log(user);
 
       peopleWhoPayedContainers[index].innerHTML += `
       <div class="person">
         <div class="person-div-1">
           <img
-            src="${profilePictures[user.username]}"
+            src="${userProfilePicture}"
             alt=""
           />
           <p>${getFirstName(user.name)} ${
@@ -239,5 +252,71 @@ async function displayBillsList(element, currentUserData) {
         }
       });
     });
+  });
+}
+
+function createBillsHistory() {
+  return `
+    <div>
+        <header id="bills-history-header">
+          <div class="bills-history-screen-label">
+            <button class="add-friend-back-button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="32"
+                weight="32"
+                fill="#020617"
+              >
+                <path
+                  d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"
+                ></path>
+              </svg>
+            </button>
+            <p>Histórico de despesas</p>
+          </div>
+        </header>
+        <div id="bills-history-screen">
+          <select name="bill-date-select" id="bill-date-select">
+            <option value="0">Dezembro, 2024</option>
+          </select>
+          <div class="select-line"></div>
+          <div id="total-spent">
+            <p>Total gasto:</p>
+            <div>
+              <p class="total-spent-currency">R$</p>
+              <p class="total-spent-value">50,00</p>
+            </div>
+          </div>
+          <div id="history-container">
+            <div class="history-bill">
+              <div class="history-bill-left">
+                <img
+                  src="https://avatars.githubusercontent.com/u/141741516?s=400&u=5d8f4fcf45a3df114e37b01b82973d17a3356763&v=4"
+                  alt=""
+                />
+                <div>
+                  <p class="history-bill-title">Churrasco</p>
+                  <p class="history-bill-date">Criada em 19/06/2024</p>
+                </div>
+              </div>
+              <div class="history-bill-right">
+                <p class="history-bill-currency">R$</p>
+                <p class="history-bill-value">50,00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  `;
+}
+
+function displayBillsHistory(element, currentUserData) {
+  element.innerHTML = createBillsHistory();
+
+  const backToBillsButton = document.querySelector(".add-friend-back-button");
+
+  backToBillsButton.addEventListener("click", () => {
+    displayBillsScreen(element, currentUserData);
   });
 }

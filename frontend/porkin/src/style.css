@@ -1856,12 +1856,18 @@ button {
   flex: 1;
 }
 
-.full-name-input-container > svg,
-.username-input-container > svg,
-.email-input-container > svg,
-.pix-input-container > svg,
-.paypal-input-container > svg {
-  margin-right: 1rem;
+.full-name-input-container > button,
+.username-input-container > button,
+.email-input-container > button,
+.pix-input-container > button,
+.paypal-input-container > button {
+  margin-right: 0.5rem;
+  padding: 0 0.5rem;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .transparent {
@@ -2060,4 +2066,168 @@ button {
 .photo-section > div {
   align-items: flex-start;
   padding: 0.5rem 0;
+}
+
+#bills-history-header {
+  background-color: var(--slate-50);
+  padding: 1.2rem 1rem;
+  box-shadow: 0 4px 4px var(--box-shadow);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  margin-bottom: 2rem;
+  width: 100vw;
+}
+
+.add-friend-screen-label {
+  display: flex;
+  align-items: center;
+  font-family: "Outfit", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+.bills-history-screen-label {
+  display: flex;
+  align-items: center;
+  font-family: "Outfit", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  gap: 0.5rem;
+}
+
+#bill-date-select > option {
+  font-family: "Outfit", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+}
+
+#bill-date-select {
+  font-family: "Outfit", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  margin-top: 2.5rem;
+}
+
+#bill-date-select:focus {
+  outline: none;
+}
+
+.select-line {
+  height: 0.5px;
+  width: 85%;
+  background-color: var(--super-light-black);
+  margin-top: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+#bills-history-screen {
+  padding: 0 1rem;
+}
+
+#total-spent > p {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  color: var(--light-black);
+  margin-bottom: 0.5rem;
+}
+
+#total-spent > div {
+  display: flex;
+  font-family: "Poiret One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#total-spent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.total-spent-currency {
+  font-size: 32px;
+  align-self: flex-end;
+  margin-bottom: 0.35rem;
+}
+
+.total-spent-value {
+  font-size: 56px;
+}
+
+.history-bill {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--slate-50);
+  padding: 1.2rem 1.6rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 4px var(--box-shadow);
+  margin-bottom: 1rem;
+}
+
+.history-bill-left > img {
+  width: 32px;
+  border-radius: 50%;
+}
+
+.history-bill-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+}
+
+.history-bill-left > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.history-bill-right {
+  display: flex;
+  font-family: "Poiret One", serif;
+  font-weight: 400;
+  font-style: normal;
+  align-self: flex-end;
+}
+
+.history-bill-date {
+  color: var(--light-black);
+}
+
+.history-bill-value {
+  font-size: 24px;
+}
+
+.history-bill-currency {
+  align-self: flex-end;
+  margin-bottom: 0.125rem;
+  font-size: 12px;
 }

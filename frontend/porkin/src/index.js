@@ -16,5 +16,3 @@ window.addEventListener("load", () => {
 });
 
 displayLoginScreen(content);
-
-/* console.log(getProfilePicture("dsbfelipe")); */

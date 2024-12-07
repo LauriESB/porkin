@@ -1,7 +1,14 @@
 import { displaySettingsNavBar } from "./NavigationBar";
-import { getProfilePicture, uploadProfilePicture } from "../utils/requests";
+import {
+  getProfilePicture,
+  getUserData,
+  updateUserData,
+  uploadProfilePicture,
+} from "../utils/requests";
 import { displayLoginScreen } from "./AuthScreen";
 import { profilePictures } from "./UserData";
+import editIcon from "../../public/svg/edit.svg";
+import saveIcon from "../../public/svg/save.svg";
 
 async function createSettingsScreen(currentUserData) {
   const currentUserProfilePicture = await getProfilePicture(
@@ -43,106 +50,68 @@ async function createSettingsScreen(currentUserData) {
           <input
             id="username-input"
             type="text"
-            placeholder="${currentUserData.username}"
+            value="${currentUserData.username}"
             class="transparent"
+            disabled
           />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="#02061740"
-            viewBox="0 0 256 256"
-          >
-            <path
-              d="M225.91,74.79,181.22,30.1a14,14,0,0,0-19.8,0L38.1,153.41a13.94,13.94,0,0,0-4.1,9.9V208a14,14,0,0,0,14,14H216a6,6,0,0,0,0-12H110.49L225.91,94.59A14,14,0,0,0,225.91,74.79ZM93.52,210H48a2,2,0,0,1-2-2V163.31a2,2,0,0,1,.59-1.41L136,72.49,183.52,120ZM217.42,86.1,192,111.52,144.49,64,169.9,38.59a2,2,0,0,1,2.83,0l44.69,44.68A2,2,0,0,1,217.42,86.1Z"
-            ></path>
-          </svg>
+          <button id="edit-username-button">
+            <img src="${editIcon}">
+          </button>
+          
         </div>
         <label for="full-name-input"> Nome completo </label>
         <div class="full-name-input-container transparent">
           <input
             id="full-name-input"
             type="text"
-            placeholder="${currentUserData.name}"
+            value="${currentUserData.name}"
             class="transparent"
+            disabled
           />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="#02061740"
-            viewBox="0 0 256 256"
-          >
-            <path
-              d="M225.91,74.79,181.22,30.1a14,14,0,0,0-19.8,0L38.1,153.41a13.94,13.94,0,0,0-4.1,9.9V208a14,14,0,0,0,14,14H216a6,6,0,0,0,0-12H110.49L225.91,94.59A14,14,0,0,0,225.91,74.79ZM93.52,210H48a2,2,0,0,1-2-2V163.31a2,2,0,0,1,.59-1.41L136,72.49,183.52,120ZM217.42,86.1,192,111.52,144.49,64,169.9,38.59a2,2,0,0,1,2.83,0l44.69,44.68A2,2,0,0,1,217.42,86.1Z"
-            ></path>
-          </svg>
+          <button id="edit-full-name-button">
+            <img src="${editIcon}">
+          </button>
         </div>
         <label for="email-input"> Endereço de e-mail </label>
         <div class="email-input-container transparent">
           <input
             id="email-input"
             type="email"
-            placeholder="${currentUserData.email}"
+            value="${currentUserData.email}"
             class="transparent"
+            disabled
           />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="#02061740"
-            viewBox="0 0 256 256"
-          >
-            <path
-              d="M225.91,74.79,181.22,30.1a14,14,0,0,0-19.8,0L38.1,153.41a13.94,13.94,0,0,0-4.1,9.9V208a14,14,0,0,0,14,14H216a6,6,0,0,0,0-12H110.49L225.91,94.59A14,14,0,0,0,225.91,74.79ZM93.52,210H48a2,2,0,0,1-2-2V163.31a2,2,0,0,1,.59-1.41L136,72.49,183.52,120ZM217.42,86.1,192,111.52,144.49,64,169.9,38.59a2,2,0,0,1,2.83,0l44.69,44.68A2,2,0,0,1,217.42,86.1Z"
-            ></path>
-          </svg>
+          <button id="edit-email-button">
+            <img src="${editIcon}">
+          </button>
         </div>
         <label for="email-input"> Chave Pix </label>
         <div class="pix-input-container transparent">
           <input
             id="pix-input"
             type="text"
-            placeholder="${
-              currentUserData.pix ? currentUserData.pix : "Insira uma chave Pix"
-            }"
+            placeholder="Insira uma chave Pix"
+            value="${currentUserData.pix ? currentUserData.pix : ""}"
             class="transparent"
+            disabled
           />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="#02061740"
-            viewBox="0 0 256 256"
-          >
-            <path
-              d="M225.91,74.79,181.22,30.1a14,14,0,0,0-19.8,0L38.1,153.41a13.94,13.94,0,0,0-4.1,9.9V208a14,14,0,0,0,14,14H216a6,6,0,0,0,0-12H110.49L225.91,94.59A14,14,0,0,0,225.91,74.79ZM93.52,210H48a2,2,0,0,1-2-2V163.31a2,2,0,0,1,.59-1.41L136,72.49,183.52,120ZM217.42,86.1,192,111.52,144.49,64,169.9,38.59a2,2,0,0,1,2.83,0l44.69,44.68A2,2,0,0,1,217.42,86.1Z"
-            ></path>
-          </svg>
+          <button id="edit-pix-button">
+            <img src="${editIcon}">
+          </button>
         </div>
         <label for="email-input"> PayPal </label>
         <div class="paypal-input-container transparent">
           <input
             id="paypal-input"
             type="text"
-            placeholder="${
-              currentUserData.paypal
-                ? currentUserData.paypal
-                : "Insira uma chave PayPal"
-            }"
+            placeholder="Insira uma chave PayPal"
+            value="${currentUserData.paypal ? currentUserData.paypal : ""}"
             class="transparent"
+            disabled
           />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="#02061740"
-            viewBox="0 0 256 256"
-          >
-            <path
-              d="M225.91,74.79,181.22,30.1a14,14,0,0,0-19.8,0L38.1,153.41a13.94,13.94,0,0,0-4.1,9.9V208a14,14,0,0,0,14,14H216a6,6,0,0,0,0-12H110.49L225.91,94.59A14,14,0,0,0,225.91,74.79ZM93.52,210H48a2,2,0,0,1-2-2V163.31a2,2,0,0,1,.59-1.41L136,72.49,183.52,120ZM217.42,86.1,192,111.52,144.49,64,169.9,38.59a2,2,0,0,1,2.83,0l44.69,44.68A2,2,0,0,1,217.42,86.1Z"
-            ></path>
-          </svg>
+          <button id="edit-paypal-button">
+            <img src="${editIcon}">
+          </button>
         </div>
       </div>
       <button id="change-password-button">
@@ -199,6 +168,98 @@ export async function displaySettingsScreen(element, currentUserData) {
   const changePictureButton = document.querySelector(".change-picture-button");
   const imageInput = document.getElementById("picture-input");
   const logoutButton = document.getElementById("logout-button");
+
+  const editUsernameButton = document.getElementById("edit-username-button");
+  const editFullNameButton = document.getElementById("edit-full-name-button");
+  const editEmailButton = document.getElementById("edit-email-button");
+  const editPixButton = document.getElementById("edit-pix-button");
+  const editPaypalButton = document.getElementById("edit-paypal-button");
+  const editUsernameButtonImage = document.querySelector(
+    "#edit-username-button > img"
+  );
+  const editFullNameButtonImage = document.querySelector(
+    "#edit-full-name-button > img"
+  );
+  const editEmailButtonImage = document.querySelector(
+    "#edit-email-button > img"
+  );
+  const editPixButtonImage = document.querySelector("#edit-pix-button > img");
+  const editPaypalButtonImage = document.querySelector(
+    "#edit-paypal-button > img"
+  );
+  const editUsernameInput = document.getElementById("username-input");
+  const editFullNameInput = document.getElementById("full-name-input");
+  const editEmailInput = document.getElementById("email-input");
+  const editPixInput = document.getElementById("pix-input");
+  const editPaypalInput = document.getElementById("paypal-input");
+
+  editUsernameButton.addEventListener("click", async () => {
+    if (editUsernameInput.disabled) {
+      editUsernameInput.disabled = false;
+      editUsernameButtonImage.src = saveIcon;
+    } else {
+      const newUsername = editUsernameInput.value;
+      const userObject = currentUserData;
+
+      userObject.username = newUsername;
+      updateUserData(currentUserData.username, userObject);
+      currentUserData = await getUserData(newUsername);
+
+      editUsernameInput.disabled = true;
+      editUsernameButtonImage.src = editIcon;
+    }
+  });
+
+  editFullNameButton.addEventListener("click", async () => {
+    if (editFullNameInput.disabled) {
+      editFullNameInput.disabled = false;
+      editFullNameButtonImage.src = saveIcon;
+    } else {
+      const newFullname = editFullNameInput.value;
+      const userObject = currentUserData;
+
+      userObject.name = newFullname;
+      updateUserData(currentUserData.username, userObject);
+      currentUserData = await getUserData(currentUserData.username);
+
+      editFullNameInput.disabled = true;
+      editFullNameButtonImage.src = editIcon;
+    }
+  });
+
+  editEmailButton.addEventListener("click", async () => {
+    if (editEmailInput.disabled) {
+      editEmailInput.disabled = false;
+      editEmailButtonImage.src = saveIcon;
+    } else {
+      const newEmail = editEmailInput.value;
+      const userObject = currentUserData;
+
+      userObject.email = newEmail;
+      updateUserData(currentUserData.username, userObject);
+      currentUserData = await getUserData(currentUserData.username);
+
+      editEmailInput.disabled = true;
+      editEmailButtonImage.src = editIcon;
+    }
+  });
+
+  editPixButton.addEventListener("click", async () => {
+    if (editPixInput.disabled) {
+      editPixInput.disabled = false;
+      editPixButtonImage.src = saveIcon;
+    } else {
+      const newPix = editPixInput.value;
+      const userObject = currentUserData;
+
+      userObject.pix = newPix;
+      updateUserData(currentUserData.username, userObject);
+      currentUserData = await getUserData(currentUserData.username);
+
+      editPixInput.disabled = true;
+      editPixButtonImage.src = editIcon;
+    }
+  });
 
   changePictureButton.addEventListener("click", () => {
     if (imageInput.files.length === 0) {
