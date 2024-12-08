@@ -66,6 +66,8 @@ public class FriendRequestService {
     personUser.getFriendsUsernames().add(personFriend.getUsername());
     personFriend.getFriendsUsernames().add(personUser.getUsername());
 
+    personUser.getFriendships().add(friendshipEntity);
+
     // salvo tudo
     personRepository.save(personUser);
     personRepository.save(personFriend);

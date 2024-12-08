@@ -33,23 +33,17 @@ public class FriendshipService { // service chama o repository
 
   @Transactional
   public void delete(String user, String friend) {
-    friendshipRepository.deleteByUserAndFriend(user, friend);
-    friendshipRepository.deleteByUserAndFriend(friend, user);
 
     PersonEntity personUser = personRepository.findByUsername(user).get();
     PersonEntity personFriend = personRepository.findByUsername(friend).get();
 
-    personUser.getFriendsUsernames().remove(personFriend);
-    personUser.getFriendships().remove(personFriend);
-
-    personFriend.getFriendsUsernames().remove(personUser);
-    personFriend.getFriendships().remove(personUser);
+    personUser.getFriendsUsernames().remove(friend);
+    personFriend.getFriendsUsernames().remove(user);
 
     personRepository.save(personUser);
     personRepository.save(personFriend);
 
-    personRepository.flush();
-
+    friendshipRepository.deleteByUserAndFriend(user, friend);
   }
 
   public FriendshipDTO findById(Long id) {

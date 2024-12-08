@@ -10,9 +10,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface FriendshipRepository extends JpaRepository<FriendshipEntity, Long> {
+
   @Modifying
   @Transactional
-  @Query("DELETE FROM FriendshipEntity f WHERE f.fkPersonUser.username = :user AND f.fkPersonFriend.username = :friend")
+  @Query("DELETE FROM FriendshipEntity f WHERE (f.fkPersonUser.username = :user AND f.fkPersonFriend.username = :friend) OR (f.fkPersonUser.username = :friend AND f.fkPersonFriend.username = :user)")
   void deleteByUserAndFriend(@Param("user") String user, @Param("friend") String friend);
 
 }
