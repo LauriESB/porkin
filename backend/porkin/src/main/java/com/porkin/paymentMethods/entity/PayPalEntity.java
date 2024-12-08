@@ -22,8 +22,8 @@ public class PayPalEntity {
   private String payPalKey;
 
   @OneToOne
-  @JoinColumn(name = "idUser")
-  private PersonEntity idUser;
+  @JoinColumn(name = "username")
+  private PersonEntity username;
 
   // constructors
 
@@ -61,12 +61,12 @@ public class PayPalEntity {
     this.payPalKey = payPalKey;
   }
 
-  public String getIdUser() {
-    return idUser.getUsername();
+  public String getUsername() {
+    return username.getUsername();
   }
 
-  public void setIdUser(PersonEntity idUser) {
-    this.idUser = idUser;
+  public void setUsername(PersonEntity username) {
+    this.username = username;
   }
 
   // equals and hashCode

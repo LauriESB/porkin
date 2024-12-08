@@ -17,7 +17,7 @@ public class PersonDTO {
 
   private String password;
 
-  private PixDTO pix;
+  private String pix;
 
   private PayPalDTO payPal;
 
@@ -73,11 +73,11 @@ public class PersonDTO {
     this.password = password;
   }
 
-  public PixDTO getPix() {
+  public String getPix() {
     return pix;
   }
 
-  public void setPix(PixDTO pix) {
+  public void setPix(String pix) {
     this.pix = pix;
   }
 

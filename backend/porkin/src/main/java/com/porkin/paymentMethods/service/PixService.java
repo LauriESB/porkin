@@ -28,7 +28,8 @@ public class PixService {
     PersonEntity person = personRepository.findByUsername(pixDTO.getUsername()).get();
 
     PixEntity pixEntity = new PixEntity(pixDTO);
-    pixEntity.setIdUser(person);
+    //pixEntity.setPixKey(pixDTO.getPix());
+    pixEntity.setUsername(person);
     pixEntity.setType("Chave Pix");
 
     person.setPix(pixEntity);
@@ -39,10 +40,10 @@ public class PixService {
 
   public PixDTO updatePix(PixDTO pixDTO) {
     PersonEntity person = personRepository.findByUsername(pixDTO.getUsername()).get();
-    PixEntity pixEntity = pixRepository.findByIdUser(person).get();
+    PixEntity pixEntity = pixRepository.findByUsername(person).get();
 
-    if (pixDTO.getPixKey() != null) {
-      pixEntity.setPixKey(pixDTO.getPixKey());
+    if (pixDTO.getPix() != null) {
+      pixEntity.setPix(pixDTO.getPix());
       person.setPix(pixEntity);
     }
 
@@ -55,7 +56,7 @@ public class PixService {
     PixEntity pixEntity = pixRepository.findById(id).get();
     PersonEntity person = personRepository.findById(idUser).get();
 
-    if (!pixEntity.getIdUser().equals(idUser)) {
+    if (!pixEntity.getUsername().equals(idUser)) {
       throw new RuntimeException("PayPal does not belong to the specified user");
     }
 

@@ -7,9 +7,11 @@ public class PixDTO {
 
   private Long id;
 
+  private String type;
+
   private String username;
 
-  private String pixKey;
+  private String pix;
 
     // constructors
 
@@ -31,6 +33,14 @@ public class PixDTO {
     this.id = id;
   }
 
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
   public String getUsername() {
     return username;
   }
@@ -39,12 +49,11 @@ public class PixDTO {
     this.username = username;
   }
 
-  public String getPixKey() {
-    return pixKey;
+  public String getPix() {
+    return pix;
   }
 
-  public void setPixKey(String pixKey) {
-    this.pixKey = pixKey;
+  public void setPix(String pix) {
+    this.pix = pix;
   }
-
 }

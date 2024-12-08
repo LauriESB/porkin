@@ -19,12 +19,12 @@ public class PixEntity{
   @Column(nullable = false)
   private String type;
 
-  @Column(unique = true)
-  private String pixKey;
+  @Column
+  private String pix;
 
   @OneToOne
-  @JoinColumn(name = "idUser")
-  private PersonEntity idUser;
+  @JoinColumn(name = "username")
+  private PersonEntity username;
 
   public PixEntity(PixDTO pixDTO) {
     BeanUtils.copyProperties(pixDTO, this);
@@ -35,6 +35,7 @@ public class PixEntity{
   }
 
   // getters and setters
+
 
   public Long getId() {
     return id;
@@ -52,20 +53,20 @@ public class PixEntity{
     this.type = type;
   }
 
-  public String getPixKey() {
-    return pixKey;
+  public String getPix() {
+    return pix;
   }
 
-  public void setPixKey(String pixKey) {
-    this.pixKey = pixKey;
+  public void setPix(String pix) {
+    this.pix = pix;
   }
 
-  public String getIdUser() {
-    return idUser.getUsername();
+  public String getUsername() {
+    return username.getUsername();
   }
 
-  public void setIdUser(PersonEntity idUser) {
-    this.idUser = idUser;
+  public void setUsername(PersonEntity username) {
+    this.username = username;
   }
 
   // equals and hashCode

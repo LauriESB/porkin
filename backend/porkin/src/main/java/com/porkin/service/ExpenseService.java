@@ -151,7 +151,7 @@ public class ExpenseService {
       PersonEntity person = new PersonEntity();
       person = personRepository.findByUsername(expenseDTO.getIdExpenseCreator()).get();
 
-      paypal.setIdUser(person);
+      paypal.setUsername(person);
 
       expenseEntity.setPaypal(paypal);
     }
@@ -159,12 +159,12 @@ public class ExpenseService {
     if(expenseDTO.getPix() != null) {
       PixEntity pix = new PixEntity();
       pix.setType("PayPal");
-      pix.setPixKey(expenseDTO.getPix());
+      pix.setPix(expenseDTO.getPix());
 
       PersonEntity person = new PersonEntity();
       person = personRepository.findByUsername(expenseDTO.getIdExpenseCreator()).get();
 
-      pix.setIdUser(person);
+      pix.setUsername(person);
 
       expenseEntity.setPix(pix);
     }

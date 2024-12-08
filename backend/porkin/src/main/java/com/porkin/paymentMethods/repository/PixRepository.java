@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface PixRepository extends JpaRepository<PixEntity, Long> {
-  Optional<PixEntity> findByIdUser(PersonEntity person);
+  Optional<PixEntity> findByUsername(PersonEntity username);
 }

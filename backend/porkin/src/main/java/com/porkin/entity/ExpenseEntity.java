@@ -49,7 +49,7 @@ public class ExpenseEntity {
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "paypalId")
-  private PayPalEntity paypal;
+  private PayPalEntity payPal;
 
   @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL)
   private List<ExpenseSplitEntity> expenseDetails;
@@ -134,7 +134,7 @@ public class ExpenseEntity {
   }
 
   public String getPix() {
-    return pix != null ? pix.getPixKey() : null;
+    return pix != null ? pix.getPix() : null;
   }
 
   public void setPix(PixEntity pix) {
@@ -142,11 +142,11 @@ public class ExpenseEntity {
   }
 
   public String getPaypal() {
-    return paypal != null ? paypal.getPayPalKey() : null;
+    return payPal != null ? payPal.getPayPalKey() : null;
   }
 
   public void setPaypal(PayPalEntity paypal) {
-    this.paypal = paypal;
+    this.payPal = paypal;
   }
 
   public List<ExpenseSplitDTO> getExpenseDetails() {
