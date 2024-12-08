@@ -184,12 +184,55 @@ export async function updateUserData(username, userObject) {
   try {
     const response = await axios.put(url, userObject);
     console.log("User data updated successfully:", response.data);
-    return response.data; // Return response data if needed
+    return response.data;
   } catch (error) {
     console.error(
       "Error updating user data:",
       error.response?.data || error.message
     );
-    throw error; // Re-throw error to handle it in the calling code
+    throw error;
+  }
+}
+
+export async function addPix(username, pix) {
+  const url = "https://porkin.onrender.com/pix";
+  const payload = { username: username, pix: pix };
+
+  try {
+    const response = await axios.post(url, payload);
+    console.log("Pix added successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding Pix:", error.response?.data || error.message);
+    throw error;
+  }
+}
+
+export async function updatePix(username, pix) {
+  const url = "https://porkin.onrender.com/pix";
+  const payload = { username: username, pix: pix };
+
+  try {
+    const response = await axios.put(url, payload);
+    console.log("Pix updated successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating Pix:", error.response?.data || error.message);
+    throw error;
+  }
+}
+
+export async function payBill(bill, id) {
+  const url = `https://porkin.onrender.com/expense/${id}`;
+  try {
+    const response = await axios.put(url, bill);
+    console.log(`Bill ${id} updated:`, response.data);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error updating bill:",
+      error.response?.data || error.message
+    );
+    throw error;
   }
 }

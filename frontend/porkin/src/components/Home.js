@@ -1337,3 +1337,54 @@ function createParticipantsSplits(
 
   return participantList;
 }
+
+function createNotificationScreen() {
+  return `
+    <div>
+        <header id="bills-history-header">
+          <div class="bills-history-screen-label">
+            <button class="add-friend-back-button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="32"
+                weight="32"
+                fill="#020617"
+              >
+                <path
+                  d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"
+                ></path>
+              </svg>
+            </button>
+            <p>Notificações</p>
+          </div>
+        </header>
+        <div id="notifications-container">
+          <div class="notification">
+            <div class="notification-left">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                fill="#3b82f6"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"
+                ></path>
+              </svg>
+              <div>
+                <p class="notification-title">Lembrete</p>
+                <p class="notification-message">
+                  A despesa
+                  <span class="notification-bill-name">Churrasco</span> vence
+                  hoje!
+                </p>
+              </div>
+            </div>
+            <div class="notification-circle"></div>
+          </div>
+        </div>
+      </div>
+  `;
+}

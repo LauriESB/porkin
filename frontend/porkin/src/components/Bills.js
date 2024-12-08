@@ -13,7 +13,9 @@ import {
   getAllExpenses,
   getAllUsers,
   getProfilePicture,
+  payBill,
 } from "../utils/requests";
+import { all } from "axios";
 
 function createBillsScreen() {
   return `
@@ -64,7 +66,8 @@ async function displayBillsList(element, currentUserData) {
 
   console.log(allBills);
 
-  allBills.forEach(async (bill, index) => {
+  for (let index = 0; index < allBills.length; index++) {
+    const bill = allBills[index];
     const admin = allUsers.find(
       (user) => user.username === bill.idExpenseCreator
     );
@@ -104,7 +107,7 @@ async function displayBillsList(element, currentUserData) {
         <div class="pay-button-and-participants">
           <button class="pay-button" data-username="${
             currentUserData.username
-          }" data-id="${bill.id}">
+          }" data-id="${bill.id}" data-index="${index}">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -119,6 +122,22 @@ async function displayBillsList(element, currentUserData) {
               ></path>
             </svg>
             Quitar dívida
+          </button>
+          <button class="pay-button-finished hidden" data-username="${
+            currentUserData.username
+          }" data-id="${bill.id}" data-index="${index}">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="#0ea5e9"
+              viewBox="0 0 256 256"
+            >
+              <path
+                d="M228.24,76.24l-128,128a6,6,0,0,1-8.48,0l-56-56a6,6,0,0,1,8.48-8.48L96,191.51,219.76,67.76a6,6,0,0,1,8.48,8.48Z"
+              ></path>
+            </svg>
+            Dívida Paga
           </button>
           <div class="bill-participant-pictures">
             
@@ -167,6 +186,7 @@ async function displayBillsList(element, currentUserData) {
     const peopleWhoPayedContainers =
       document.querySelectorAll(".people-who-payed");
     const payBillButtons = document.querySelectorAll(".pay-button");
+    const paidBillButtons = document.querySelectorAll(".pay-button-finished");
     const paymentDetails = document.querySelectorAll(".details-payment");
 
     paymentDetails.forEach((pix, index) => {
@@ -184,7 +204,14 @@ async function displayBillsList(element, currentUserData) {
       });
     });
 
-    payBillButtons.forEach((button) => {});
+    const participant = bill.expenseDetails.find(
+      (participant) => participant.username === currentUserData.username
+    );
+
+    if (participant.paid) {
+      payBillButtons[index].classList.add("hidden");
+      paidBillButtons[index].classList.remove("hidden");
+    }
 
     participantsPictures.forEach((picture) => {
       billParticipantPictures[index].innerHTML += picture;
@@ -252,6 +279,22 @@ async function displayBillsList(element, currentUserData) {
         }
       });
     });
+  }
+
+  element.addEventListener("click", async (event) => {
+    if (event.target.classList.contains("pay-button")) {
+      const buttonIndex = event.target.dataset.index;
+      const billId = event.target.dataset.id;
+
+      const updatedBill = allBills[buttonIndex];
+      const participant = updatedBill.expenseDetails.find(
+        (participant) => participant.username === currentUserData.username
+      );
+
+      participant.paid = true;
+
+      await payBill(updatedBill, billId);
+    }
   });
 }
 
@@ -278,45 +321,141 @@ function createBillsHistory() {
         </header>
         <div id="bills-history-screen">
           <select name="bill-date-select" id="bill-date-select">
-            <option value="0">Dezembro, 2024</option>
           </select>
           <div class="select-line"></div>
           <div id="total-spent">
             <p>Total gasto:</p>
             <div>
               <p class="total-spent-currency">R$</p>
-              <p class="total-spent-value">50,00</p>
+              <p class="total-spent-value">00,00</p>
             </div>
           </div>
           <div id="history-container">
-            <div class="history-bill">
-              <div class="history-bill-left">
-                <img
-                  src="https://avatars.githubusercontent.com/u/141741516?s=400&u=5d8f4fcf45a3df114e37b01b82973d17a3356763&v=4"
-                  alt=""
-                />
-                <div>
-                  <p class="history-bill-title">Churrasco</p>
-                  <p class="history-bill-date">Criada em 19/06/2024</p>
-                </div>
-              </div>
-              <div class="history-bill-right">
-                <p class="history-bill-currency">R$</p>
-                <p class="history-bill-value">50,00</p>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>
   `;
 }
 
-function displayBillsHistory(element, currentUserData) {
+async function displayBillsHistory(element, currentUserData) {
   element.innerHTML = createBillsHistory();
+  const bills = await getAllExpenses(currentUserData.username);
 
   const backToBillsButton = document.querySelector(".add-friend-back-button");
 
   backToBillsButton.addEventListener("click", () => {
     displayBillsScreen(element, currentUserData);
   });
+
+  displayMonthsOptions(bills, currentUserData);
+}
+
+async function displayMonthsOptions(bills, currentUserData) {
+  const monthSelect = document.getElementById("bill-date-select");
+  const totalSpent = document.querySelector(".total-spent-value");
+  const historyContainer = document.getElementById("history-container");
+
+  // Clear history container and select options before repopulating
+  historyContainer.innerHTML = "";
+  monthSelect.innerHTML = '<option value="0">Desde sempre</option>';
+
+  // Create a Set to store unique months
+  const uniqueMonths = new Set();
+
+  // Extract and format months from bills
+  bills.forEach((bill) => {
+    const creationDate = new Date(bill.creationDate);
+    const monthYear = creationDate.toLocaleString("pt-BR", {
+      month: "long",
+      year: "numeric",
+    });
+    uniqueMonths.add(monthYear);
+  });
+
+  // Sort the months in chronological order
+  const sortedMonths = [...uniqueMonths].sort(
+    (a, b) => new Date(`1 ${a}`) - new Date(`1 ${b}`)
+  );
+
+  // Populate the select element with months
+  sortedMonths.forEach((monthYear) => {
+    const option = document.createElement("option");
+    option.value = monthYear;
+    option.textContent = monthYear.charAt(0).toUpperCase() + monthYear.slice(1); // Capitalize first letter
+    monthSelect.appendChild(option);
+  });
+
+  // Update total spent and populate history container
+  function updateTotalSpent() {
+    const selectedMonth = monthSelect.value;
+
+    // Clear previous history container content
+    historyContainer.innerHTML = "";
+
+    let total = 0;
+
+    // Filter and display bills for the selected month
+    bills.forEach(async (bill) => {
+      const billDate = new Date(bill.creationDate);
+      const billMonthYear = billDate.toLocaleString("pt-BR", {
+        month: "long",
+        year: "numeric",
+      });
+
+      // Check if the bill matches the selected month or "Todos"
+      if (selectedMonth === "0" || billMonthYear === selectedMonth) {
+        // Sum the user's portion of the bill
+        const userPortion = bill.expenseDetails
+          .filter((detail) => detail.username === currentUserData.username)
+          .reduce((subSum, detail) => subSum + detail.valueToPay, 0);
+
+        // Add to the total
+        total += userPortion;
+
+        // Create bill HTML element
+        const billElement = document.createElement("div");
+        billElement.classList.add("history-bill");
+
+        const allUsers = await getAllUsers();
+        console.log(allUsers);
+        const admin = allUsers.find(
+          (user) => user.username === bill.idExpenseCreator
+        );
+        console.log(admin);
+
+        const adminProfilePicture = await getProfilePicture(admin.username);
+
+        billElement.innerHTML = `
+                  <div class="history-bill-left">
+                      <img src="${adminProfilePicture}" alt=""/>
+                      <div>
+                          <p class="history-bill-title">${bill.title}</p>
+                          <p class="history-bill-date">Criada em ${billDate.toLocaleDateString(
+                            "pt-BR"
+                          )}</p>
+                      </div>
+                  </div>
+                  <div class="history-bill-right">
+                      <p class="history-bill-currency">R$</p>
+                      <p class="history-bill-value">${userPortion
+                        .toFixed(2)
+                        .replace(".", ",")}</p>
+                  </div>
+              `;
+
+        // Append the bill element to the history container
+        historyContainer.appendChild(billElement);
+      }
+    });
+
+    // Update the total spent element
+    totalSpent.textContent = `${total.toFixed(2).replace(".", ",")}`;
+  }
+
+  // Add event listener to the select element
+  monthSelect.addEventListener("change", updateTotalSpent);
+
+  // Set initial total spent for "Todos" and populate bills
+  updateTotalSpent();
 }

@@ -2,6 +2,8 @@ import { displaySettingsNavBar } from "./NavigationBar";
 import {
   getProfilePicture,
   getUserData,
+  updatePix,
+  addPix,
   updateUserData,
   uploadProfilePicture,
 } from "../utils/requests";
@@ -192,6 +194,7 @@ export async function displaySettingsScreen(element, currentUserData) {
   const editEmailInput = document.getElementById("email-input");
   const editPixInput = document.getElementById("pix-input");
   const editPaypalInput = document.getElementById("paypal-input");
+  console.log(currentUserData.pix);
 
   editUsernameButton.addEventListener("click", async () => {
     if (editUsernameInput.disabled) {
@@ -202,7 +205,7 @@ export async function displaySettingsScreen(element, currentUserData) {
       const userObject = currentUserData;
 
       userObject.username = newUsername;
-      updateUserData(currentUserData.username, userObject);
+      await updateUserData(currentUserData.username, userObject);
       currentUserData = await getUserData(newUsername);
 
       editUsernameInput.disabled = true;
@@ -244,22 +247,50 @@ export async function displaySettingsScreen(element, currentUserData) {
     }
   });
 
-  editPixButton.addEventListener("click", async () => {
-    if (editPixInput.disabled) {
-      editPixInput.disabled = false;
-      editPixButtonImage.src = saveIcon;
+  function updatePixEventListener() {
+    const newEditPixButton = editPixButton.cloneNode(true);
+    editPixButton.replaceWith(newEditPixButton);
+
+    const updatedEditPixButton = document.getElementById("edit-pix-button");
+
+    if (currentUserData.pix !== "Chave pix não cadastrada") {
+      updatedEditPixButton.addEventListener("click", async () => {
+        if (editPixInput.disabled) {
+          editPixInput.disabled = false;
+          editPixButtonImage.src = saveIcon;
+        } else {
+          const newPix = editPixInput.value;
+
+          await updatePix(currentUserData.username, newPix);
+
+          currentUserData = await getUserData(currentUserData.username);
+          editPixInput.disabled = true;
+          editPixButtonImage.src = editIcon;
+
+          updatePixEventListener();
+        }
+      });
     } else {
-      const newPix = editPixInput.value;
-      const userObject = currentUserData;
+      updatedEditPixButton.addEventListener("click", async () => {
+        if (editPixInput.disabled) {
+          editPixInput.disabled = false;
+          editPixButtonImage.src = saveIcon;
+        } else {
+          const newPix = editPixInput.value;
 
-      userObject.pix = newPix;
-      updateUserData(currentUserData.username, userObject);
-      currentUserData = await getUserData(currentUserData.username);
+          await addPix(currentUserData.username, newPix);
 
-      editPixInput.disabled = true;
-      editPixButtonImage.src = editIcon;
+          currentUserData = await getUserData(currentUserData.username);
+          editPixInput.disabled = true;
+          editPixButtonImage.src = editIcon;
+
+          updatePixEventListener();
+        }
+      });
     }
-  });
+  }
+
+  updatePixEventListener();
 
   changePictureButton.addEventListener("click", () => {
     if (imageInput.files.length === 0) {

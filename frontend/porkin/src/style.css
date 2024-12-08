@@ -1665,7 +1665,7 @@ button {
   font-size: 14px;
   color: var(--light-black);
   margin-top: 0.25rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   line-height: 1.6;
 }
 
@@ -1681,6 +1681,23 @@ button {
   width: 50%;
   min-height: 32px;
   border-radius: 8px;
+}
+
+.pay-button-finished {
+  background-color: var(--slate-50);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  gap: 0.5rem;
+  min-height: 32px;
+  border-radius: 8px;
+  color: #0ea5e9;
+}
+
+.hidden {
+  display: none;
 }
 
 .bill-participant-pictures {
@@ -2230,4 +2247,60 @@ button {
   align-self: flex-end;
   margin-bottom: 0.125rem;
   font-size: 12px;
+}
+
+.notification {
+  display: flex;
+  background-color: var(--slate-50);
+  padding: 1rem 1.2rem 1rem 1rem;
+  border-radius: 8px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  box-shadow: 0 4px 4px var(--box-shadow);
+  border-left: 4px solid #3b82f6;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.notification-left {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex: 1;
+}
+
+.notification-title {
+  font-family: "Outfit", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.notification-message {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  color: var(--medium-black);
+}
+
+#notifications-container {
+  padding: 0rem 1.2rem;
+}
+
+.notification-circle {
+  width: 12px;
+  height: 12px;
+  background-color: #3b82f6;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.notification-bill-name {
+  color: black;
+  font-weight: 500;
 }

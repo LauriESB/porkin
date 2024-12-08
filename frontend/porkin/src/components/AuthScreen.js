@@ -47,12 +47,12 @@ function createLoginScreen() {
         <div class="or-line"></div>
       </div>
       <div id="login-info-container">
-        <label for="email-input"> Endereço de e-mail </label>
+        <label for="email-input"> Nome de usuário </label>
         <div class="email-input-container">
           <input
             id="email-input"
-            type="email"
-            placeholder="Insira seu e-mail"
+            type="text"
+            placeholder="Insira seu nome de usuário"
           />
         </div>
         <label for="password-input"> Senha </label>
