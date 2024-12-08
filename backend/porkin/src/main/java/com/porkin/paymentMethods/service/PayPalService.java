@@ -31,7 +31,7 @@ public class PayPalService {
     payPalEntity.setUsername(person);
     payPalEntity.setType("Chave PayPal");
 
-    person.setPaypal(payPalEntity);
+    person.setPayPal(payPalEntity);
 
     payPalRepository.save(payPalEntity);
     personRepository.save(person);
@@ -44,7 +44,7 @@ public class PayPalService {
 
     if(payPalDTO.getPayPal() != null) {
       payPalEntity.setPayPal(payPalDTO.getPayPal());
-      person.setPaypal(payPalEntity);
+      person.setPayPal(payPalEntity);
     }
 
     personRepository.save(person);
@@ -60,7 +60,7 @@ public class PayPalService {
       throw new RuntimeException("PayPal does not belong to the specified user");
     }
 
-    person.setPaypal(null);
+    person.setPayPal(null);
 
     personRepository.save(person);
 

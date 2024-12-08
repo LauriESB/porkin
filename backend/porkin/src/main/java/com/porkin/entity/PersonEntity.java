@@ -153,11 +153,11 @@ public class PersonEntity {
     this.pix = pix;
   }
 
-  public String getPaypal() {
+  public String getPayPal() {
     return payPal != null ? payPal.getPayPal() : "PayPal não cadastrado";
   }
 
-  public void setPaypal(PayPalEntity payPal) {
+  public void setPayPal(PayPalEntity payPal) {
     this.payPal = payPal;
   }
 
