@@ -19,7 +19,7 @@ public class PersonDTO {
 
   private String pix;
 
-  private PayPalDTO payPal;
+  private String payPal;
 
   // constructors
 
@@ -81,11 +81,11 @@ public class PersonDTO {
     this.pix = pix;
   }
 
-  public PayPalDTO getPayPal() {
+  public String getPayPal() {
     return payPal;
   }
 
-  public void setPayPal(PayPalDTO payPal) {
+  public void setPayPal(String payPal) {
     this.payPal = payPal;
   }
 

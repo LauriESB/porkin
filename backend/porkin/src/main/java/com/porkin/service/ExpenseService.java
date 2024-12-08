@@ -146,7 +146,7 @@ public class ExpenseService {
     if(expenseDTO.getPaypal() != null) {
       PayPalEntity paypal = new PayPalEntity();
       paypal.setType("PayPal");
-      paypal.setPayPalKey(expenseDTO.getPaypal());
+      paypal.setPayPal(expenseDTO.getPaypal());
 
       PersonEntity person = new PersonEntity();
       person = personRepository.findByUsername(expenseDTO.getIdExpenseCreator()).get();

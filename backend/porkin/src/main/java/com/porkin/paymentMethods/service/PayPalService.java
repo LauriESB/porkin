@@ -42,8 +42,8 @@ public class PayPalService {
     PersonEntity person = personRepository.findByUsername(payPalDTO.getUsername()).get();
     PayPalEntity payPalEntity = payPalRepository.findByUsername(person).get();
 
-    if(payPalDTO.getPayPalKey() != null) {
-      payPalEntity.setPayPalKey(payPalDTO.getPayPalKey());
+    if(payPalDTO.getPayPal() != null) {
+      payPalEntity.setPayPal(payPalDTO.getPayPal());
       person.setPaypal(payPalEntity);
     }
 

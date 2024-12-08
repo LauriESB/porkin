@@ -13,7 +13,7 @@ public class PayPalDTO {
 
   private String username;
 
-  private String payPalKey;
+  private String payPal;
 
   // constructors
 
@@ -51,12 +51,12 @@ public class PayPalDTO {
     this.username = username;
   }
 
-  public String getPayPalKey() {
-    return payPalKey;
+  public String getPayPal() {
+    return payPal;
   }
 
-  public void setPayPalKey(String payPalKey) {
-    this.payPalKey = payPalKey;
+  public void setPayPal(String payPal) {
+    this.payPal = payPal;
   }
 
 }

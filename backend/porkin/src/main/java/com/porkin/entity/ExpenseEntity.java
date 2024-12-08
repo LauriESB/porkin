@@ -142,7 +142,7 @@ public class ExpenseEntity {
   }
 
   public String getPaypal() {
-    return payPal != null ? payPal.getPayPalKey() : null;
+    return payPal != null ? payPal.getPayPal() : null;
   }
 
   public void setPaypal(PayPalEntity paypal) {

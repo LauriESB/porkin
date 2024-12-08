@@ -50,7 +50,7 @@ public class PersonEntity {
   private PixEntity pix;
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "paypalId")
+  @JoinColumn(name = "payPalId")
   private PayPalEntity payPal;
 
   @OneToOne
@@ -154,11 +154,11 @@ public class PersonEntity {
   }
 
   public String getPaypal() {
-    return payPal != null ? payPal.getPayPalKey() : "PayPal não cadastrado";
+    return payPal != null ? payPal.getPayPal() : "PayPal não cadastrado";
   }
 
-  public void setPaypal(PayPalEntity paypal) {
-    this.payPal = paypal;
+  public void setPaypal(PayPalEntity payPal) {
+    this.payPal = payPal;
   }
 
   public ImageData getUserProfilePicture() {

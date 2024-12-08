@@ -18,8 +18,8 @@ public class PayPalEntity {
   @Column(nullable = false)
   private String type;
 
-  @Column(nullable = false)
-  private String payPalKey;
+  @Column
+  private String payPal;
 
   @OneToOne
   @JoinColumn(name = "username")
@@ -53,12 +53,12 @@ public class PayPalEntity {
     this.type = type;
   }
 
-  public String getPayPalKey() {
-    return payPalKey;
+  public String getPayPal() {
+    return payPal;
   }
 
-  public void setPayPalKey(String payPalKey) {
-    this.payPalKey = payPalKey;
+  public void setPayPal(String payPal) {
+    this.payPal = payPal;
   }
 
   public String getUsername() {
