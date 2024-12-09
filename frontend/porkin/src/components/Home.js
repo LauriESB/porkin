@@ -19,6 +19,7 @@ import closedLock from "../../public/svg/lock-closed.svg";
 import openLock from "../../public/svg/lock-open.svg";
 import {
   createExpense,
+  getAllExpenses,
   getFriendsList,
   getProfilePicture,
   getUserData,
@@ -36,9 +37,12 @@ function createHome(currentUserData) {
   return `<main id="home-main">
       <header id="home-header">
         <h3>Bem vindo(a), ${getFirstName(currentUserData.name)}</h3>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32">
-          <path d="M5 18H19V11.0314C19 7.14806 15.866 4 12 4C8.13401 4 5 7.14806 5 11.0314V18ZM12 2C16.9706 2 21 6.04348 21 11.0314V20H3V11.0314C3 6.04348 7.02944 2 12 2ZM9.5 21H14.5C14.5 22.3807 13.3807 23.5 12 23.5C10.6193 23.5 9.5 22.3807 9.5 21Z"></path>
-        </svg>
+        <button id="notification-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32">
+            <path d="M5 18H19V11.0314C19 7.14806 15.866 4 12 4C8.13401 4 5 7.14806 5 11.0314V18ZM12 2C16.9706 2 21 6.04348 21 11.0314V20H3V11.0314C3 6.04348 7.02944 2 12 2ZM9.5 21H14.5C14.5 22.3807 13.3807 23.5 12 23.5C10.6193 23.5 9.5 22.3807 9.5 21Z"></path>
+          </svg>
+          <div class="new-notification hidden"></div>
+        </button>
       </header>
       <div id="new-value">
         <label for="input-value">Nova despesa</label>
@@ -65,7 +69,7 @@ function createHome(currentUserData) {
     </main>`;
 }
 
-export function displayHome(element, currentUserData) {
+export async function displayHome(element, currentUserData) {
   element.innerHTML += createHome(currentUserData);
   console.log(currentUserData);
 
@@ -89,10 +93,22 @@ export function displayHome(element, currentUserData) {
   const homeParticipantsContainer = document.getElementById("participants");
   const divideButton = document.getElementById("home-divide-button");
   const inputContainer = document.getElementById("input-value");
+  const notificationButton = document.getElementById("notification-button");
+  const newNotification = document.querySelector(".new-notification");
+
+  const notificationBills = await getExpireTodayBills(currentUserData);
 
   const savedValue = localStorage.getItem(localStorageKey);
   if (savedValue) {
     valueInput.value = savedValue;
+  }
+
+  notificationButton.addEventListener("click", () => {
+    displayNotificationScreen(element, currentUserData, notificationBills);
+  });
+
+  if (notificationBills.length > 0) {
+    newNotification.classList.remove("hidden");
   }
 
   valueInput.addEventListener("input", (event) => {
@@ -1360,31 +1376,65 @@ function createNotificationScreen() {
           </div>
         </header>
         <div id="notifications-container">
-          <div class="notification">
-            <div class="notification-left">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                fill="#3b82f6"
-                viewBox="0 0 256 256"
-              >
-                <path
-                  d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"
-                ></path>
-              </svg>
-              <div>
-                <p class="notification-title">Lembrete</p>
-                <p class="notification-message">
-                  A despesa
-                  <span class="notification-bill-name">Churrasco</span> vence
-                  hoje!
-                </p>
-              </div>
-            </div>
-            <div class="notification-circle"></div>
-          </div>
+          
         </div>
       </div>
   `;
+}
+
+async function displayNotificationScreen(
+  element,
+  currentUserData,
+  notificationBills
+) {
+  element.innerHTML = createNotificationScreen();
+
+  const backToHomeButton = document.querySelector(".add-friend-back-button");
+  const notificationsContainer = document.getElementById(
+    "notifications-container"
+  );
+
+  backToHomeButton.addEventListener("click", () => {
+    goBackToHome(element, currentUserData);
+  });
+  console.log(notificationBills);
+
+  notificationBills.forEach((bill) => {
+    notificationsContainer.innerHTML += `
+      <div class="notification">
+        <div class="notification-left">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            fill="#3b82f6"
+            viewBox="0 0 256 256"
+          >
+            <path
+              d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"
+            ></path>
+          </svg>
+          <div>
+            <p class="notification-title">Lembrete</p>
+            <p class="notification-message">
+              A despesa
+              <span class="notification-bill-name">${bill.title}</span> vence
+              hoje!
+            </p>
+          </div>
+        </div>
+        <div class="notification-circle"></div>
+      </div>
+    `;
+  });
+}
+
+async function getExpireTodayBills(currentUserData) {
+  const userBills = await getAllExpenses(currentUserData.username);
+
+  const today = new Date().toISOString().split("T")[0];
+
+  const dueTodayBills = userBills.filter((bill) => bill.dueDate === today);
+
+  return dueTodayBills;
 }

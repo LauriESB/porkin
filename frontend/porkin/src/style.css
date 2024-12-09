@@ -80,8 +80,22 @@
   font-style: normal;
 }
 
-#home-header > svg {
+#home-header > button > svg {
   fill: var(--light-black);
+}
+
+#notification-button {
+  position: relative;
+}
+
+.new-notification {
+  height: 12px;
+  width: 12px;
+  background-color: #3b82f6;
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  border-radius: 50%;
 }
 
 #new-value {
@@ -2303,4 +2317,9 @@ button {
 .notification-bill-name {
   color: black;
   font-weight: 500;
+}
+
+#notification-button {
+  background-color: transparent;
+  border: none;
 }
