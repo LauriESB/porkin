@@ -51,7 +51,7 @@ public class FriendRequestService {
 
   @Transactional
   public void acceptRequest(String user, String friend) {
-    FriendRequestEntity friendRequestEntity = friendRequestRepository.findRequestByPersonReceiverAndPersonRequester(user, friend).get();
+    FriendRequestEntity friendRequestEntity = friendRequestRepository.findByPersonReceiverAndPersonRequester(user, friend).get();
 
     PersonEntity personUser = personRepository.findByUsername(friendRequestEntity.getPersonReceiver()).get();
     PersonEntity personFriend = personRepository.findByUsername(friendRequestEntity.getPersonRequester()).get();
@@ -76,7 +76,10 @@ public class FriendRequestService {
   }
 
   public void rejectRequest(String user, String friend) {
-    FriendRequestEntity friendRequestEntity = friendRequestRepository.findRequestByPersonReceiverAndPersonRequester(user, friend).get();
+
+    System.out.println("Rejecting friend request for user: " + user + ", friend: " + friend);
+
+    FriendRequestEntity friendRequestEntity = friendRequestRepository.findByPersonReceiverAndPersonRequester(user, friend).get();
     friendRequestRepository.delete(friendRequestEntity);
   }
 
