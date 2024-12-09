@@ -15,4 +15,15 @@ window.addEventListener("load", () => {
   }
 });
 
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) =>
+        console.log("ServiceWorker registered:", registration)
+      )
+      .catch((err) => console.error("ServiceWorker registration failed:", err));
+  });
+}
+
 displayLoginScreen(content);
