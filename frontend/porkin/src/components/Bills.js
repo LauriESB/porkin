@@ -14,6 +14,7 @@ import {
   getAllUsers,
   getProfilePicture,
   payBill,
+  deleteBill,
 } from "../utils/requests";
 import { all } from "axios";
 
@@ -83,10 +84,33 @@ async function displayBillsList(element, currentUserData) {
       })
     );
 
+    const isCurrentUserAdmin = admin.username === currentUserData.username;
+
     const adminProfilePicture = await getProfilePicture(admin.username);
 
     element.innerHTML += `
+    <div class="delete-container">
+          <button class="delete-bill-button" style="${
+            isCurrentUserAdmin ? "color: var(--slate-950);" : ""
+          }">
+        <p class="hide-name" style="${
+          isCurrentUserAdmin ? "color: var(--slate-950);" : ""
+        }">Deletar ${bill.title}</p>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="${isCurrentUserAdmin ? "var(--slate-950)" : "#02061726"}"
+          viewBox="0 0 256 256"
+        >
+          <path
+            d="M204.24,195.76a6,6,0,1,1-8.48,8.48L128,136.49,60.24,204.24a6,6,0,0,1-8.48-8.48L119.51,128,51.76,60.24a6,6,0,0,1,8.48-8.48L128,119.51l67.76-67.75a6,6,0,0,1,8.48,8.48L136.49,128Z"
+          ></path>
+        </svg>
+      </button>
+        </div>
       <div class="bill">
+        
         <div class="admin-bill-name-value">
           <div>
             <img
@@ -172,7 +196,7 @@ async function displayBillsList(element, currentUserData) {
         <button class="see-details">
           <img src="${plus}" alt="" /><p>Ver mais detalhes</p>
         </button>
-      </div>
+      </>
     `;
 
     const billParticipantPictures = document.querySelectorAll(
@@ -188,6 +212,44 @@ async function displayBillsList(element, currentUserData) {
     const payBillButtons = document.querySelectorAll(".pay-button");
     const paidBillButtons = document.querySelectorAll(".pay-button-finished");
     const paymentDetails = document.querySelectorAll(".details-payment");
+
+    const deleteBillButtons = document.querySelectorAll(".delete-bill-button");
+
+    // Add event listeners to each button
+    deleteBillButtons.forEach((button, index) => {
+      const bill = allBills[index];
+      const hideNameElement = button
+        .closest(".delete-container")
+        .querySelector(".hide-name"); // Adjust selector if necessary
+
+      button.addEventListener("mouseenter", () => {
+        hideNameElement.style.display = "block";
+      });
+
+      button.addEventListener("mouseleave", () => {
+        hideNameElement.style.display = "none";
+      });
+
+      button.addEventListener("click", async () => {
+        if (bill.idExpenseCreator === currentUserData.username) {
+          const confirmation = confirm(
+            `Are you sure you want to delete ${bill.title}?`
+          );
+          if (confirmation) {
+            try {
+              await deleteBill(bill.id);
+              alert(`${bill.title} has been successfully deleted.`);
+              button.closest(".bill").remove();
+            } catch (error) {
+              console.error("Error deleting bill:", error);
+              alert("Failed to delete the bill. Please try again.");
+            }
+          }
+        } else {
+          alert("You do not have permission to delete this bill.");
+        }
+      });
+    });
 
     paymentDetails.forEach((pix, index) => {
       pix.addEventListener("click", () => {
@@ -356,14 +418,11 @@ async function displayMonthsOptions(bills, currentUserData) {
   const totalSpent = document.querySelector(".total-spent-value");
   const historyContainer = document.getElementById("history-container");
 
-  // Clear history container and select options before repopulating
   historyContainer.innerHTML = "";
   monthSelect.innerHTML = '<option value="0">Desde sempre</option>';
 
-  // Create a Set to store unique months
   const uniqueMonths = new Set();
 
-  // Extract and format months from bills
   bills.forEach((bill) => {
     const creationDate = new Date(bill.creationDate);
     const monthYear = creationDate.toLocaleString("pt-BR", {
@@ -373,12 +432,10 @@ async function displayMonthsOptions(bills, currentUserData) {
     uniqueMonths.add(monthYear);
   });
 
-  // Sort the months in chronological order
   const sortedMonths = [...uniqueMonths].sort(
     (a, b) => new Date(`1 ${a}`) - new Date(`1 ${b}`)
   );
 
-  // Populate the select element with months
   sortedMonths.forEach((monthYear) => {
     const option = document.createElement("option");
     option.value = monthYear;
@@ -386,16 +443,13 @@ async function displayMonthsOptions(bills, currentUserData) {
     monthSelect.appendChild(option);
   });
 
-  // Update total spent and populate history container
   function updateTotalSpent() {
     const selectedMonth = monthSelect.value;
 
-    // Clear previous history container content
     historyContainer.innerHTML = "";
 
     let total = 0;
 
-    // Filter and display bills for the selected month
     bills.forEach(async (bill) => {
       const billDate = new Date(bill.creationDate);
       const billMonthYear = billDate.toLocaleString("pt-BR", {
@@ -403,17 +457,13 @@ async function displayMonthsOptions(bills, currentUserData) {
         year: "numeric",
       });
 
-      // Check if the bill matches the selected month or "Todos"
       if (selectedMonth === "0" || billMonthYear === selectedMonth) {
-        // Sum the user's portion of the bill
         const userPortion = bill.expenseDetails
           .filter((detail) => detail.username === currentUserData.username)
           .reduce((subSum, detail) => subSum + detail.valueToPay, 0);
 
-        // Add to the total
         total += userPortion;
 
-        // Create bill HTML element
         const billElement = document.createElement("div");
         billElement.classList.add("history-bill");
 
@@ -444,18 +494,14 @@ async function displayMonthsOptions(bills, currentUserData) {
                   </div>
               `;
 
-        // Append the bill element to the history container
         historyContainer.appendChild(billElement);
       }
     });
 
-    // Update the total spent element
     totalSpent.textContent = `${total.toFixed(2).replace(".", ",")}`;
   }
 
-  // Add event listener to the select element
   monthSelect.addEventListener("change", updateTotalSpent);
 
-  // Set initial total spent for "Todos" and populate bills
   updateTotalSpent();
 }

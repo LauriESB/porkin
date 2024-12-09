@@ -236,3 +236,25 @@ export async function payBill(bill, id) {
     throw error;
   }
 }
+
+export async function deleteFriend(username, friend) {
+  const url = `https://porkin.onrender.com/friendship/${username}/${friend}`;
+  try {
+    const response = await axios.delete(url);
+    console.log(`Deleted ${friend} from your friends`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error deleting ${friend} from your friends`);
+  }
+}
+
+export async function deleteBill(billId) {
+  const url = `https://porkin.onrender.com/expense/${billId}`;
+  try {
+    const response = await axios.delete(url);
+    console.log(`Deleted bill ${billId}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error deleting bill ${billId}`);
+  }
+}

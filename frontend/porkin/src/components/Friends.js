@@ -10,6 +10,7 @@ import gsap from "gsap";
 import { getFirstAndLastName } from "../utils/nameHelper.js";
 import {
   acceptFriendRequest,
+  deleteFriend,
   getAllUsers,
   getFriendRequests,
   getFriendsList,
@@ -148,15 +149,17 @@ function displayFriendsScreenList(
   );
 
   deleteFriendButtons.forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       const friendToRemove = button.dataset.username;
-      const removalRequest = {
-        user: userData.username,
-        friendToRemove: friendToRemove,
-      };
-      console.log(removalRequest);
+      await deleteFriend(currentUserData.username, friendToRemove);
+      const newFriendsList = await getFriendsList(currentUserData.username);
       element.innerHTML = "";
-      displayFriendsScreenList(element, currentUserData);
+      displayFriendsScreenList(
+        element,
+        currentUserData,
+        newFriendsList,
+        allUsers
+      );
     });
   });
 }
@@ -394,6 +397,7 @@ function displayFriendRequests(element, currentUserData) {
 }
 
 async function displayFriendRequestsList(element, currentUserData) {
+  element.innerHTML = "";
   const noRequestsWarning = document.querySelector(".no-requests");
   const allFriendRequests = await getFriendRequests();
   const allUsers = await getAllUsers();
@@ -471,18 +475,18 @@ async function displayFriendRequestsList(element, currentUserData) {
   const acceptRequestButtons = document.querySelectorAll(".accept-request");
   const rejectRequestButtons = document.querySelectorAll(".refuse-request");
 
-  acceptRequestButtons.forEach((button) => {
-    button.addEventListener("click", () => {
+  acceptRequestButtons.forEach(async (button) => {
+    button.addEventListener("click", async () => {
       const friend = button.dataset.username;
-      acceptFriendRequest(currentUserData.username, friend);
+      await acceptFriendRequest(currentUserData.username, friend);
       displayFriendRequestsList(element, currentUserData);
     });
   });
 
-  rejectRequestButtons.forEach((button) => {
-    button.addEventListener("click", () => {
+  rejectRequestButtons.forEach(async (button) => {
+    button.addEventListener("click", async () => {
       const friend = button.dataset.username;
-      rejectFriendRequest(currentUserData.username, friend);
+      await rejectFriendRequest(currentUserData.username, friend);
       displayFriendRequestsList(element, currentUserData);
     });
   });
