@@ -6,6 +6,7 @@ import {
   addPix,
   updateUserData,
   uploadProfilePicture,
+  deleteUser,
 } from "../utils/requests";
 import { displayLoginScreen } from "./AuthScreen";
 import { profilePictures } from "./UserData";

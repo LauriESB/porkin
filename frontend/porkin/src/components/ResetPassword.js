@@ -1,4 +1,9 @@
 import porkinIcon from "../../public/images/porkin-icon.svg";
+import {
+  changePassword,
+  getAllUsers,
+  sendEmailToBack,
+} from "../utils/requests";
 import { displayLoginScreen } from "./AuthScreen";
 
 function createResetPasswordStepOne() {
@@ -238,30 +243,38 @@ export function displayResetPasswordStepOne(element) {
   element.innerHTML = createResetPasswordStepOne();
 
   const resetButton = document.querySelector(".reset-password");
+  const emailInput = document.getElementById("email-input");
 
-  resetButton.addEventListener("click", () => {
-    displayResetPasswordStepTwo(element);
+  resetButton.addEventListener("click", async () => {
+    const userEmail = emailInput.value;
+    await sendEmailToBack(userEmail);
+    displayResetPasswordStepTwo(element, userEmail);
   });
 }
 
-function displayResetPasswordStepTwo(element) {
+async function displayResetPasswordStepTwo(element, email) {
   element.innerHTML = "";
   element.innerHTML = createResetPasswordStepTwo();
+  const codeInput = document.getElementById("email-input");
 
   const verifyButton = document.querySelector(".reset-password");
 
   verifyButton.addEventListener("click", () => {
-    displayResetPasswordStepThree(element);
+    const code = codeInput.value;
+    displayResetPasswordStepThree(element, email, code);
   });
 }
 
-function displayResetPasswordStepThree(element) {
+function displayResetPasswordStepThree(element, email, code) {
   element.innerHTML = "";
   element.innerHTML = createResetPasswordStepThree();
 
   const changePasswordButton = document.querySelector(".reset-password");
+  const passwordInput = document.getElementById("password-input");
 
-  changePasswordButton.addEventListener("click", () => {
+  changePasswordButton.addEventListener("click", async () => {
+    const password = passwordInput.value;
+    await changePassword(email, code, password);
     displayResetPasswordStepFour(element);
   });
 }

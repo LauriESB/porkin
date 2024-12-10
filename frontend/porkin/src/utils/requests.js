@@ -258,3 +258,43 @@ export async function deleteBill(billId) {
     console.error(`Error deleting bill ${billId}`);
   }
 }
+
+export async function sendEmailToBack(email) {
+  const url = `https://porkin.onrender.com/person/recovery`;
+
+  try {
+    const response = await axios.post(
+      url,
+      { email }, // Wrap the email in an object
+      {
+        headers: {
+          "Content-Type": "application/json", // Ensure Content-Type is JSON
+        },
+      }
+    );
+    console.log(`sent ${email} to backend`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error sending ${email} to backend:`, error);
+  }
+}
+
+export async function changePassword(email, recoveryCode, newPassword) {
+  const url = `https://porkin.onrender.com/person/reset`;
+
+  try {
+    const response = await axios.post(
+      url,
+      { email, recoveryCode, newPassword },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(`sent ${email} to backend`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error sending ${email} to backend:`, error);
+  }
+}
