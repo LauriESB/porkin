@@ -36,6 +36,9 @@ public class ExpenseEntity {
   @Column(nullable = false)
   private boolean completed;
 
+  @Column(nullable = false)
+  private String message;
+
   @ManyToOne
   @JoinColumn(name = "idExpenseCreator")
   private PersonEntity idExpenseCreator;
@@ -117,6 +120,14 @@ public class ExpenseEntity {
     this.completed = completed;
   }
 
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
   public String getIdExpenseCreator() {
     return idExpenseCreator.getUsername();
   }
@@ -161,6 +172,8 @@ public class ExpenseEntity {
   public void setExpenseDetails(List<ExpenseSplitEntity> expenseDetails) {
     this.expenseDetails = expenseDetails;
   }
+
+
 
   // hashCode and equals
 

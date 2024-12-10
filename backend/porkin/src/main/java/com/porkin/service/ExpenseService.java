@@ -92,6 +92,8 @@ public class ExpenseService {
 
     //expenseRepository.save(expenseEntity);
 
+    expenseEntity.setMessage("Despesa em aberto");
+
     expenseDTO.getExpenseDetails().forEach(expenseSplitDTO -> {
 
       ExpenseSplitEntity splitParticipants = new ExpenseSplitEntity();
@@ -187,6 +189,11 @@ public class ExpenseService {
       }).collect(Collectors.toList());
 
       expenseSplitRepository.saveAll(newSplits);
+
+      if (newSplits.stream().allMatch(ExpenseSplitEntity::isPaid)) {
+        expenseEntity.setCompleted(true);
+        expenseEntity.setMessage("Despesa finalizada");
+      }
 
       expenseEntity.setExpenseDetails(newSplits);
 

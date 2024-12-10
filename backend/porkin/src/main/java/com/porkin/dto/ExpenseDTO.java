@@ -21,6 +21,8 @@ public class ExpenseDTO {
 
   private boolean completed;
 
+  private String message;
+
   private String idExpenseCreator;
 
   private boolean notificationSend;
@@ -89,6 +91,14 @@ public class ExpenseDTO {
 
   public void setCompleted(boolean completed) {
     this.completed = completed;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
   }
 
   public String getIdExpenseCreator() {
