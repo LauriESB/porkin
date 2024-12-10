@@ -92,7 +92,7 @@ public class ExpenseService {
 
     //expenseRepository.save(expenseEntity);
 
-    expenseEntity.setMessage("Despesa em aberto");
+    //expenseEntity.setMessage("Despesa em aberto");
 
     expenseDTO.getExpenseDetails().forEach(expenseSplitDTO -> {
 
