@@ -116,14 +116,6 @@ function createSignupScreen() {
         <div class="or-line"></div>
       </div>
       <div id="signup-info-container">
-        <label for="username-input"> Nome de usuário </label>
-        <div class="username-input-container">
-          <input
-            id="username-input"
-            type="text"
-            placeholder="Insira um nome de usuário"
-          />
-        </div>
         <label for="full-name-input"> Nome completo </label>
         <div class="full-name-input-container">
           <input
@@ -138,6 +130,14 @@ function createSignupScreen() {
             id="email-input"
             type="email"
             placeholder="Insira seu e-mail"
+          />
+        </div>
+        <label for="username-input"> Nome de usuário </label>
+        <div class="username-input-container">
+          <input
+            id="username-input"
+            type="text"
+            placeholder="Insira um nome de usuário"
           />
         </div>
         <label for="password-input"> Senha </label>

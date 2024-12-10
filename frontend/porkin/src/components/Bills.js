@@ -423,25 +423,31 @@ async function displayMonthsOptions(bills, currentUserData) {
   historyContainer.innerHTML = "";
   monthSelect.innerHTML = '<option value="0">Desde sempre</option>';
 
-  const uniqueMonths = new Set();
+  // Extract unique month-year pairs as objects containing both the raw date and the formatted string
+  const uniqueMonths = new Map();
 
   bills.forEach((bill) => {
     const creationDate = new Date(bill.creationDate);
-    const monthYear = creationDate.toLocaleString("pt-BR", {
+    const formattedDate = creationDate.toLocaleString("pt-BR", {
       month: "long",
       year: "numeric",
     });
-    uniqueMonths.add(monthYear);
+
+    // Use the timestamp as a key to ensure uniqueness
+    uniqueMonths.set(creationDate.getTime(), { creationDate, formattedDate });
   });
 
-  const sortedMonths = [...uniqueMonths].sort(
-    (a, b) => new Date(`1 ${a}`) - new Date(`1 ${b}`)
+  // Sort by the raw creationDate value
+  const sortedMonths = Array.from(uniqueMonths.values()).sort(
+    (a, b) => a.creationDate - b.creationDate
   );
 
-  sortedMonths.forEach((monthYear) => {
+  // Populate the dropdown
+  sortedMonths.forEach(({ formattedDate }) => {
     const option = document.createElement("option");
-    option.value = monthYear;
-    option.textContent = monthYear.charAt(0).toUpperCase() + monthYear.slice(1); // Capitalize first letter
+    option.value = formattedDate;
+    option.textContent =
+      formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1); // Capitalize first letter
     monthSelect.appendChild(option);
   });
 
@@ -470,11 +476,9 @@ async function displayMonthsOptions(bills, currentUserData) {
         billElement.classList.add("history-bill");
 
         const allUsers = await getAllUsers();
-        console.log(allUsers);
         const admin = allUsers.find(
           (user) => user.username === bill.idExpenseCreator
         );
-        console.log(admin);
 
         const adminProfilePicture = await getProfilePicture(admin.username);
 

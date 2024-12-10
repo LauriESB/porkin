@@ -12,6 +12,7 @@ import { displayLoginScreen } from "./AuthScreen";
 import { profilePictures } from "./UserData";
 import editIcon from "../../public/svg/edit.svg";
 import saveIcon from "../../public/svg/save.svg";
+import { displayResetPasswordStepOne } from "./ResetPassword";
 
 async function createSettingsScreen(currentUserData) {
   const currentUserProfilePicture = await getProfilePicture(
