@@ -6,6 +6,7 @@ import com.porkin.paymentMethods.entity.PixEntity;
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -30,6 +31,9 @@ public class PersonEntity {
 
   @Column(nullable = false, unique = true)
   private String username;
+
+  private String recoveryCode;
+  private LocalDateTime recoveryCodeExpiration;
 
   @OneToMany(mappedBy = "fkPersonUser", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<FriendshipEntity> friendships = new HashSet<>();
@@ -167,6 +171,22 @@ public class PersonEntity {
 
   public void setUserProfilePicture(ImageData userProfilePicture) {
     this.userProfilePicture = userProfilePicture;
+  }
+
+  public String getRecoveryCode() {
+    return recoveryCode;
+  }
+
+  public void setRecoveryCode(String recoveryCode) {
+    this.recoveryCode = recoveryCode;
+  }
+
+  public LocalDateTime getRecoveryCodeExpiration() {
+    return recoveryCodeExpiration;
+  }
+
+  public void setRecoveryCodeExpiration(LocalDateTime recoveryCodeExpiration) {
+    this.recoveryCodeExpiration = recoveryCodeExpiration;
   }
 
   // hashCode and equals

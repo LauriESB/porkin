@@ -1,6 +1,8 @@
 package com.porkin.controller;
 
 import com.porkin.dto.PersonDTO;
+import com.porkin.email.PasswordResetDTO;
+import com.porkin.email.PasswordValidateDTO;
 import com.porkin.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,20 @@ public class PersonController {
 
   @Autowired
   private PersonService personService;
+
+
+  @PostMapping("/recovery")
+  public ResponseEntity<String> sendRecoveryCode(@RequestBody PasswordResetDTO request) {
+    personService.sendRecoveryCode(request.getEmail());
+    return ResponseEntity.ok("Código de recuperação enviado");
+  }
+
+  @PostMapping("/reset")
+  public ResponseEntity<String> resetPassword(@RequestBody PasswordValidateDTO request) {
+    personService.resetPassword(request.getEmail(), request.getRecoveryCode(), request.getNewPassword());
+    return ResponseEntity.ok("Senha alterada com sucesso");
+  }
+
 
   @GetMapping
   public List<PersonDTO> listAll() {

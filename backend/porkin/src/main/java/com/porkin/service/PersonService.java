@@ -1,18 +1,57 @@
 package com.porkin.service;
 
 import com.porkin.dto.PersonDTO;
+import com.porkin.email.EmailService;
 import com.porkin.entity.PersonEntity;
 import com.porkin.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PersonService {
 
   @Autowired
   public PersonRepository personRepository;
+
+  @Autowired
+  private EmailService emailService;
+
+  public void sendRecoveryCode(String email) {
+    PersonEntity user = personRepository.findByEmail(email)
+        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+    String recoveryCode = generateRecoveryCode();
+    user.setRecoveryCode(recoveryCode);
+    user.setRecoveryCodeExpiration(LocalDateTime.now().plusMinutes(15));
+    personRepository.save(user);
+
+    emailService.sendEmail(user.getEmail(), "Código de Recuperação", "Seu código de recuperação é: " + recoveryCode);
+  }
+
+  public void resetPassword(String email, String recoveryCode, String newPassword) {
+    PersonEntity user = personRepository.findByEmail(email)
+        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+    if (!recoveryCode.equals(user.getRecoveryCode()) || LocalDateTime.now().isAfter(user.getRecoveryCodeExpiration())) {
+      throw new RuntimeException("Código de recuperação inválido ou expirado");
+    }
+
+    user.setPassword(newPassword);
+    user.setRecoveryCode(null);
+    user.setRecoveryCodeExpiration(null);
+    personRepository.save(user);
+  }
+
+  private String generateRecoveryCode() {
+    return UUID.randomUUID().toString().substring(0, 6).toUpperCase();
+  }
+
+
+
 
   public List<PersonDTO> listAll() {
     List<PersonEntity> personEntities = personRepository.findAll();
