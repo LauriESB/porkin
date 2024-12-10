@@ -36,8 +36,11 @@ public class ExpenseEntity {
   @Column(nullable = false)
   private boolean completed;
 
+  /*
   @Column(nullable = false)
   private String message;
+
+   */
 
   @ManyToOne
   @JoinColumn(name = "idExpenseCreator")
@@ -118,14 +121,6 @@ public class ExpenseEntity {
 
   public void setCompleted(boolean completed) {
     this.completed = completed;
-  }
-
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
   }
 
   public String getIdExpenseCreator() {

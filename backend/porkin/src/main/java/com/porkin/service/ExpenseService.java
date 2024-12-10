@@ -190,10 +190,12 @@ public class ExpenseService {
 
       expenseSplitRepository.saveAll(newSplits);
 
+      /*
       if (newSplits.stream().allMatch(ExpenseSplitEntity::isPaid)) {
         expenseEntity.setCompleted(true);
         expenseEntity.setMessage("Despesa finalizada");
       }
+       */
 
       expenseEntity.setExpenseDetails(newSplits);
 
