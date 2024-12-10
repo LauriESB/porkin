@@ -30,7 +30,7 @@ module.exports = {
       display: "standalone",
       icons: [
         {
-          src: path.resolve("./public/favicon/favicon.svg"),
+          src: path.resolve("./public/images/pwa-icon.png"),
           sizes: [96, 128, 192, 256, 384, 512],
         },
       ],
