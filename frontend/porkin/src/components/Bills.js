@@ -65,10 +65,12 @@ async function displayBillsList(element, currentUserData) {
   const allBills = await getAllExpenses(currentUserData.username);
   const allUsers = await getAllUsers();
 
-  console.log(allBills);
+  // Filter bills to only include those where completed is false
+  const incompleteBills = allBills.filter((bill) => !bill.completed);
+  console.log(incompleteBills);
 
-  for (let index = 0; index < allBills.length; index++) {
-    const bill = allBills[index];
+  for (let index = 0; index < incompleteBills.length; index++) {
+    const bill = incompleteBills[index];
     const admin = allUsers.find(
       (user) => user.username === bill.idExpenseCreator
     );
