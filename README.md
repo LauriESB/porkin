@@ -96,7 +96,7 @@ Utilizamos para subir o front.
 - A cobrança permanece pendente, exibindo o valor que cada pessoa deve pagar e a data limite para pagamento.
 - No dia do vencimento, uma notificação é enviada como lembrete para aqueles que ainda não quitaram suas partes.
 
-#### Pagamento
+### Pagamento
 
 - Usuários podem marcar suas partes individuais como pagas a qualquer momento.
 - Assim que todos efetuarem o pagamento, um check é adicionado ao registro, indicando que a despesa foi totalmente quitada.
