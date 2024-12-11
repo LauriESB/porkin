@@ -16,7 +16,7 @@
   --slate-900: #0f172a;
   --slate-950: #020617;
   --box-shadow: rgba(148, 163, 184, 0.25);
-  --light-black: rgba(2, 6, 23, 0.251);
+  --light-black: #02061740;
   --super-light-black: #02061726;
   --medium-black: rgba(2, 6, 23, 0.75);
   --button-light: rgba(2, 6, 23, 0.75);
@@ -2276,7 +2276,13 @@ button {
 .history-bill-left > div {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.3rem;
+}
+
+.history-bill-left > div > div {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
 }
 
 .history-bill-right {
