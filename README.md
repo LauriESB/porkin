@@ -54,7 +54,7 @@
 
 ## 📦 Deploy
 
-A aplicação foi implantada utilizando uma combinação de **Neon** **Docker**, **Render** e **Vercel**.
+A aplicação foi implantada utilizando uma combinação de **Neon**, **Docker**, **Render** e **Vercel**. Devido às limitações dos planos gratuitos, a aplicação pode apresentar lentidão ao responder às solicitações dos usuários. 
 
 ### [Neon](https://neon.tech/)
 
@@ -79,19 +79,19 @@ Utilizamos para subir o front.
 ## 📱 Como usar
 
 
-#### Criação da rede de contatos
+### Criação da rede de contatos
 
 - Permite a criação de uma rede de contatos.
 - Caso o usuário deseje compartilhar um valor com outras pessoas, os contatos devem ser adicionados antes da inserção de uma nova despesa.
 
-#### Inserção e divisão
+### Inserção e divisão
 
 - Na página inicial, o valor a ser dividido pode ser definido e vinculado a uma ou mais pessoas da rede.
 - O custo total é inicialmente dividido de forma igual entre todos os participantes.
 - Os valores podem ser ajustados posteriormente, de acordo com as necessidades do grupo.
 - O usuário criador tem a opção de adicionar seu Pix ou PayPal à despesa criada.
 
-#### Gestão de cobranças
+### Gestão de cobranças
 
 - A cobrança permanece pendente, exibindo o valor que cada pessoa deve pagar e a data limite para pagamento.
 - No dia do vencimento, uma notificação é enviada como lembrete para aqueles que ainda não quitaram suas partes.
@@ -99,10 +99,19 @@ Utilizamos para subir o front.
 #### Pagamento
 
 - Usuários podem marcar suas partes individuais como pagas a qualquer momento.
+- Assim que todos efetuarem o pagamento, um check é adicionado ao registro, indicando que a despesa foi totalmente quitada.
 
-#### Exclusão de despesas
+### Histórico
+
+- A aplicação conta com um histórico detalhado que exibe despesas pagas e pendentes, permitindo ao usuário navegar pelos meses para visualizar despesas anteriores. Além disso, oferece a opção de visualizar todos os registros em conjunto e consultar o total gasto por mês.
+
+### Exclusão
 
 - A exclusão permanente da despesa só pode ser realizada pela pessoa que a criou.
+
+### Recuperação de senha
+
+- O usuário pode redefinir sua senha a qualquer momento, um código de verificação será enviado por email para confirmar a identidade do usuário. Após a confirmação do código, o usuário poderá criar uma nova senha.
 
 
 ## 📖 Licença
