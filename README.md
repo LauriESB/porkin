@@ -29,13 +29,19 @@
 &nbsp;
     <img width="32%" src="misc/2.png"/>
 &nbsp;
-    <img width="32%" src="misc/3.png"/>
+    <img width="32%" src="misc/9.png"/>
 <br>
+    <img width="32%" src="misc/6.png"/>
+&nbsp;
+    <img width="32%" src="misc/3.png"/>
+&nbsp;
     <img width="32%" src="misc/4.png"/>
 &nbsp;
-    <img width="32%" src="misc/5 .png"/>
+    <img width="32%" src="misc/5.png"/>
 &nbsp;
-    <img width="32%" src="misc/6.png"/>
+    <img width="32%" src="misc/7.png"/>
+&nbsp;
+    <img width="32%" src="misc/8.png"/>
 
 </details>
 
