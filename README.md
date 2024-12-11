@@ -125,3 +125,9 @@ Utilizamos para subir o front.
 Este projeto está sob a licença GNU GENERAL PUBLIC LICENSE Version 3 (GPLv3) - veja o arquivo [LICENSE.md](https://github.com/LauriESB/porkin/blob/main/LICENSE) para mais detalhes.
 
 [De volta ao topo do README](#top)
+
+<br>
+
+<div align="center">
+ <img align="center" src="https://static.wikia.nocookie.net/terraria_gamepedia/images/9/95/Baby_Imp_%28flying%29.gif/revision/latest?cb=20211224155014&format=original" alt="baby imp">
+</div>
