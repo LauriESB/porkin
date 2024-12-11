@@ -36,7 +36,7 @@
     <img width="32%" src="misc/3.png"/>
 &nbsp;
     <img width="32%" src="misc/4.png"/>
-&nbsp;
+<br>
     <img width="32%" src="misc/5.png"/>
 &nbsp;
     <img width="32%" src="misc/7.png"/>
