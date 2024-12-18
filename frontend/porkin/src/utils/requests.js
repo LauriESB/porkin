@@ -16,7 +16,7 @@ export async function getUserData(username) {
 }
 
 export async function createUser(newUserData) {
-  const url = "https://porkin.onrender.com/person";
+  const url = "https://porkin.onrender.com/auth/register";
   try {
     const response = await axios.post(url, newUserData);
     return response.data;
