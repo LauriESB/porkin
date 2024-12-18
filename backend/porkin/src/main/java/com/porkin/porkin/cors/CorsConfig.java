@@ -11,7 +11,8 @@ public class CorsConfig implements WebMvcConfigurer {
     registry.addMapping("/**")
         .allowedOrigins("https://porkin-lime.vercel.app", "http://localhost:8080")
         .allowedMethods("GET", "POST","PUT", "DELETE")
-        .allowedHeaders("*");
+        .allowedHeaders("*")
+        .allowCredentials(true);
   }
 
 }
