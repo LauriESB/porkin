@@ -14,7 +14,7 @@ services:
   db:
     image: postgres:latest
     environment:
-      POSTGRES_DB: porkin
+      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 12122002
     ports:
