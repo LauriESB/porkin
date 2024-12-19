@@ -105,6 +105,7 @@ public class PersonService {
 
   }
 
+  
   public void delete(String username) {
     PersonEntity personEntity = (PersonEntity) personRepository.findByUsername(username);
     //personRepository.delete(personEntity);
