@@ -3,7 +3,7 @@
 
 <br>
 
-🌟 Nos dê uma estrela!
+🌟 NOS DÊ UMA ESTRELA!
 
 <!-- <img align="right" src="https://img.shields.io/badge/status%20do%20projeto:-em%20desenvolvimento-purple"> -->
 
