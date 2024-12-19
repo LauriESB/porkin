@@ -7,7 +7,7 @@ import porkinIcon from "../../public/images/porkin-icon.svg";
 import gsap from "gsap";
 import { displayHome } from "./Home";
 import { displayResetPasswordStepOne } from "./ResetPassword";
-import { getUserData } from "../utils/requests";
+import { getUserData, login } from "../utils/requests";
 import { createUser } from "../utils/requests";
 
 function createLoginScreen() {
@@ -205,25 +205,41 @@ export function displayLoginScreen(element) {
     if (emailInput.value === "") {
       return;
     }
+    if (passwordInput.value === "") {
+      return;
+    }
+
+    const userObject = {
+      username: emailInput.value,
+      password: passwordInput.value,
+    };
 
     try {
-      const currentUserData = await getUserData(emailInput.value);
-      localStorage.setItem("currentUser", JSON.stringify(currentUserData));
-      gsap.fromTo(
-        mainContainer,
-        { right: 0 },
-        {
-          right: window.innerWidth,
-          duration: 0.2,
-          ease: "power1.inOut",
-        }
-      );
-      setTimeout(() => {
-        element.innerHTML = "";
-        displayHome(element, currentUserData);
-      }, 200);
+      const response = await login(userObject); // Assuming `login` returns a response with a token
+      const token = response?.token; // Adjust this if the token key differs
+
+      if (token) {
+        localStorage.setItem("authToken", token); // Store the token in localStorage
+        console.log("Token saved to localStorage:", token);
+        const currentUserData = await getUserData(emailInput.value);
+        gsap.fromTo(
+          mainContainer,
+          { right: 0 },
+          {
+            right: window.innerWidth,
+            duration: 0.2,
+            ease: "power1.inOut",
+          }
+        );
+        setTimeout(() => {
+          element.innerHTML = "";
+          displayHome(element, currentUserData);
+        }, 200);
+      } else {
+        console.error("Token not found in login response");
+      }
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      console.error("Login failed:", error);
     }
   });
 }

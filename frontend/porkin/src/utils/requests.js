@@ -3,14 +3,18 @@ import defaultProfilePicture from "../../public/images/default-profile-picture.p
 
 axios;
 
-export async function getUserData(username) {
+function getAuthToken() {
+  return localStorage.getItem("authToken") || ""; // Ajuste conforme necessário
+}
+
+export async function login(userObject) {
+  const url = "https://porkin.onrender.com/auth/login";
+
   try {
-    const response = await axios.get(
-      `https://porkin.onrender.com/person/${username}`
-    );
+    const response = await axios.post(url, userObject);
     return response.data;
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error("Error creating user:", error);
     throw error;
   }
 }
@@ -26,11 +30,32 @@ export async function createUser(newUserData) {
   }
 }
 
+export async function getUserData(username) {
+  try {
+    const response = await axios.get(
+      `https://porkin.onrender.com/person/${username}`,
+      {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+}
+
 export async function createExpense(expenseData) {
   const url = "https://porkin.onrender.com/expense";
 
   try {
-    const response = await axios.post(url, expenseData);
+    const response = await axios.post(url, expenseData, {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error creating expense:", error);
@@ -41,7 +66,12 @@ export async function createExpense(expenseData) {
 export async function getAllExpenses(username) {
   try {
     const response = await axios.get(
-      `https://porkin.onrender.com/expense/${username}`
+      `https://porkin.onrender.com/expense/${username}`,
+      {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+        },
+      }
     );
     return response.data;
   } catch (error) {
@@ -52,7 +82,11 @@ export async function getAllExpenses(username) {
 
 export async function getAllUsers() {
   try {
-    const response = await axios.get("https://porkin.onrender.com/person");
+    const response = await axios.get("https://porkin.onrender.com/person", {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -64,10 +98,15 @@ export async function sendFriendRequest(personRequester, personReceiver) {
   const url = "https://porkin.onrender.com/friendRequest";
 
   try {
-    const response = await axios.post(url, {
-      personRequester,
-      personReceiver,
-    });
+    const response = await axios.post(
+      url,
+      { personRequester, personReceiver },
+      {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+        },
+      }
+    );
 
     console.log("Friend request sent successfully:", response.data);
     return response.data;
@@ -83,7 +122,12 @@ export async function sendFriendRequest(personRequester, personReceiver) {
 export async function getFriendRequests() {
   try {
     const response = await axios.get(
-      "https://porkin.onrender.com/friendRequest"
+      "https://porkin.onrender.com/friendRequest",
+      {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+        },
+      }
     );
     return response.data;
   } catch (error) {
@@ -95,13 +139,21 @@ export async function getFriendRequests() {
 export async function acceptFriendRequest(user, friend) {
   const url = `https://porkin.onrender.com/friendRequest/accept/${user}/${friend}`;
   try {
-    const response = await axios.post(url);
+    const response = await axios.post(
+      url,
+      {}, // Empty body since no data is being sent
+      {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`, // Correctly set headers here
+        },
+      }
+    );
 
     console.log("Friend Added:", response.data);
     return response.data;
   } catch (error) {
     console.error(
-      "Error sending friend request:",
+      "Error accepting friend request:",
       error.response?.data || error.message
     );
     throw error;
@@ -111,7 +163,15 @@ export async function acceptFriendRequest(user, friend) {
 export async function rejectFriendRequest(user, friend) {
   const url = `https://porkin.onrender.com/friendRequest/reject/${user}/${friend}`;
   try {
-    const response = await axios.post(url);
+    const response = await axios.post(
+      url,
+      {}, // Empty body since no data is being sent
+      {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`, // Correctly set headers here
+        },
+      }
+    );
 
     console.log("Friend Added:", response.data);
     return response.data;
@@ -135,6 +195,7 @@ export async function uploadProfilePicture(user, fileInput) {
       {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getAuthToken()}`,
         },
       }
     );
@@ -147,7 +208,12 @@ export async function uploadProfilePicture(user, fileInput) {
 export async function getProfilePicture(username) {
   try {
     const response = await fetch(
-      `https://porkin.onrender.com/image/${username}`
+      `https://porkin.onrender.com/image/${username}`,
+      {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+        },
+      }
     );
     if (!response.ok) {
       throw new Error(
@@ -170,7 +236,12 @@ export async function getProfilePicture(username) {
 export async function getFriendsList(username) {
   try {
     const response = await axios.get(
-      `https://porkin.onrender.com/friendship/${username}`
+      `https://porkin.onrender.com/friendship/${username}`,
+      {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+        },
+      }
     );
     return response.data;
   } catch (error) {
@@ -182,7 +253,11 @@ export async function getFriendsList(username) {
 export async function updateUserData(username, userObject) {
   const url = `https://porkin.onrender.com/person/${username}`;
   try {
-    const response = await axios.put(url, userObject);
+    const response = await axios.put(url, userObject, {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
     console.log("User data updated successfully:", response.data);
     return response.data;
   } catch (error) {
@@ -199,7 +274,12 @@ export async function addPix(username, pix) {
   const payload = { username: username, pix: pix };
 
   try {
-    const response = await axios.post(url, payload);
+    const response = await axios.post(url, payload, {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+
     console.log("Pix added successfully:", response.data);
     return response.data;
   } catch (error) {
@@ -213,7 +293,11 @@ export async function updatePix(username, pix) {
   const payload = { username: username, pix: pix };
 
   try {
-    const response = await axios.put(url, payload);
+    const response = await axios.put(url, payload, {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
     console.log("Pix updated successfully:", response.data);
     return response.data;
   } catch (error) {
@@ -225,7 +309,11 @@ export async function updatePix(username, pix) {
 export async function payBill(bill, id) {
   const url = `https://porkin.onrender.com/expense/${id}`;
   try {
-    const response = await axios.put(url, bill);
+    const response = await axios.put(url, bill, {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
     console.log(`Bill ${id} updated:`, response.data);
     return response.data;
   } catch (error) {
@@ -240,7 +328,11 @@ export async function payBill(bill, id) {
 export async function deleteFriend(username, friend) {
   const url = `https://porkin.onrender.com/friendship/${username}/${friend}`;
   try {
-    const response = await axios.delete(url);
+    const response = await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
     console.log(`Deleted ${friend} from your friends`);
     return response.data;
   } catch (error) {
@@ -251,7 +343,11 @@ export async function deleteFriend(username, friend) {
 export async function deleteBill(billId) {
   const url = `https://porkin.onrender.com/expense/${billId}`;
   try {
-    const response = await axios.delete(url);
+    const response = await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
     console.log(`Deleted bill ${billId}`);
     return response.data;
   } catch (error) {
@@ -269,6 +365,7 @@ export async function sendEmailToBack(email) {
       {
         headers: {
           "Content-Type": "application/json", // Ensure Content-Type is JSON
+          Authorization: `Bearer ${getAuthToken()}`,
         },
       }
     );
@@ -289,6 +386,7 @@ export async function changePassword(email, recoveryCode, newPassword) {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${getAuthToken()}`,
         },
       }
     );
@@ -296,5 +394,24 @@ export async function changePassword(email, recoveryCode, newPassword) {
     return response.data;
   } catch (error) {
     console.error(`Error sending ${email} to backend:`, error);
+  }
+}
+
+export async function deleteUser(username) {
+  const url = `https://porkin.onrender.com/person/${username}`;
+
+  try {
+    const response = await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`, // Correctly set headers
+      },
+    });
+    console.log(`Sent to backend`);
+    return response.data;
+  } catch (error) {
+    console.error(
+      `Error sending to backend:`,
+      error.response?.data || error.message
+    );
   }
 }

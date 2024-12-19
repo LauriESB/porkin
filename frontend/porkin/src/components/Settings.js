@@ -197,6 +197,16 @@ export async function displaySettingsScreen(element, currentUserData) {
   const editPixInput = document.getElementById("pix-input");
   const editPaypalInput = document.getElementById("paypal-input");
   console.log(currentUserData.pix);
+  const deleteAccountButton = document.getElementById("delete-account-button");
+
+  deleteAccountButton.addEventListener("click", () => {
+    deleteUser(currentUserData.username);
+    const localStorageKey = "currentUser";
+
+    localStorage.removeItem(localStorageKey);
+
+    displayLoginScreen(element);
+  });
 
   editUsernameButton.addEventListener("click", async () => {
     if (editUsernameInput.disabled) {

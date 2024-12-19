@@ -334,12 +334,13 @@ function createAddParticipants() {
   `;
 }
 
-function createHomeParticipantsIcons(selectedParticipants) {
+function createHomeParticipantsIcons(selectedParticipants, currentUserData) {
   const participantsWithoutUser = selectedParticipants.filter(
-    (participant) => participant.username !== userData.username
+    (participant) => participant.username !== currentUserData.username
   );
   let homeParticipantsIcons = "";
-  participantsWithoutUser.forEach((participant) => {
+  participantsWithoutUser.forEach(async (participant) => {
+    const participantPicture = await getProfilePicture(participant.username);
     homeParticipantsIcons += `
       <img class="participant-photo" src="${participant.profilePicture}">
     `;
@@ -347,8 +348,15 @@ function createHomeParticipantsIcons(selectedParticipants) {
   return homeParticipantsIcons;
 }
 
-function displayHomeParticipants(element, selectedParticipants) {
-  element.innerHTML += createHomeParticipantsIcons(selectedParticipants);
+function displayHomeParticipants(
+  element,
+  selectedParticipants,
+  currentUserData
+) {
+  element.innerHTML += createHomeParticipantsIcons(
+    selectedParticipants,
+    currentUserData
+  );
 }
 
 async function displayAddParticipants(element, currentUserData) {
@@ -435,16 +443,19 @@ async function displayFriendsList(element, array) {
     );
     checkbox.checked = isSelected;
 
-    checkbox.addEventListener("change", (event) => {
+    checkbox.addEventListener("change", async (event) => {
       if (event.target.checked) {
         const friendUsername = checkbox.value;
         const selectedFriend = allUsers.find(
           (friend) => friend.username === friendUsername
         );
+        const selectedFriendPicture = await getProfilePicture(
+          selectedFriend.username
+        );
 
         selectedParticipants.push({
           fullName: selectedFriend.name,
-          profilePicture: profilePictures[selectedFriend.username],
+          profilePicture: selectedFriendPicture,
           username: friendUsername,
         });
 
@@ -500,14 +511,19 @@ function acceptParticipants(element, currentUserData) {
   goBackToHome(element, currentUserData);
 
   const homeParticipantsContainer = document.getElementById("participants");
-  displayHomeParticipants(homeParticipantsContainer, selectedParticipants);
+  displayHomeParticipants(
+    homeParticipantsContainer,
+    selectedParticipants,
+    currentUserData
+  );
 }
 
-function resetParticipants(currentUserData) {
+async function resetParticipants(currentUserData) {
+  const userPicture = await getProfilePicture(currentUserData.username);
   selectedParticipants = [
     {
       fullName: "Você",
-      profilePicture: userData.profilePicture,
+      profilePicture: userPicture,
       username: currentUserData.username,
     },
   ];
@@ -835,10 +851,13 @@ async function displaySplitBill(
     );
   });
 
-  selectedParticipants.forEach((participant) => {
+  selectedParticipants.forEach(async (participant) => {
+    const participantProfilePicture = await getProfilePicture(
+      participant.username
+    );
     const participantPicture = `
       <img
-        src="${participant.profilePicture}
+        src="${participantProfilePicture}
       "
         alt="${participant.fullName}'s picture"
         class="participant-picture-split-page"
