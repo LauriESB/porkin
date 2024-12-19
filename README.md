@@ -60,7 +60,11 @@
 
 ## 📦 Deploy
 
-A aplicação foi implantada utilizando uma combinação de **Neon**, **Docker**, **Render** e **Vercel**. Devido às limitações dos planos gratuitos, a aplicação pode apresentar lentidão ao responder às solicitações dos usuários. 
+A aplicação foi implantada utilizando uma combinação de **Neon**, **Docker**, **Render** e **Vercel**.
+
+> [!IMPORTANT]
+> Devido às limitações dos planos gratuitos, a aplicação pode apresentar lentidão ao responder às solicitações dos usuários.
+
 
 ### [Neon](https://neon.tech/)
 
