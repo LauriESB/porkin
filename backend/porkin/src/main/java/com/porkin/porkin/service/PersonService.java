@@ -56,12 +56,22 @@ public class PersonService {
 
   public List<PersonDTO> listAll() {
     List<PersonEntity> personEntities = personRepository.findAll();
-    return personEntities.stream().map(PersonDTO::new).toList();
+
+    return personEntities.stream()
+        .filter(person -> person.getPassword() != null)
+        .map(PersonDTO::new)
+        .toList();
+
+    //return personEntities.stream().map(PersonDTO::new).toList();
   }
 
   public PersonDTO findByUsername(String username) {
     PersonEntity person = (PersonEntity) personRepository.findByUsername(username);
-    return new PersonDTO(person);
+
+    if(person.getPassword() != null) {
+      return new PersonDTO(person);
+    }
+    return null;
   }
 
   /*
@@ -97,7 +107,9 @@ public class PersonService {
 
   public void delete(String username) {
     PersonEntity personEntity = (PersonEntity) personRepository.findByUsername(username);
-    personRepository.delete(personEntity);
+    //personRepository.delete(personEntity);
+    personEntity.setPassword(null);
+    personRepository.save(personEntity);
   }
 
   public PersonDTO findById(Long id) {
