@@ -13,6 +13,7 @@
 - [Tecnologias utilizadas](#-tecnologias-utilizadas)
 - [Deploy](#-deploy)
 - [Como usar](#-como-usar)
+- [Planejamentos futuros](#-planejamentos-futuros)
 - [Licença](#-licença)
 
 ## 🐷 Sobre
@@ -69,7 +70,7 @@ A aplicação foi implantada utilizando uma combinação de **Neon**, **Docker**
 <details>
 
 <summary>
- deploy info
+ 🟣 deploy info
 </summary>
 
 ### [Neon](https://neon.tech/)
