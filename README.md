@@ -66,6 +66,12 @@ A aplicação foi implantada utilizando uma combinação de **Neon**, **Docker**
 > Devido às limitações dos planos gratuitos, a aplicação pode apresentar lentidão ao responder às solicitações dos usuários.
 
 
+<details>
+
+<summary>
+ deploy info
+</summary>
+
 ### [Neon](https://neon.tech/)
 
 Neon é um banco de dados PostgreSQL serverless que oferece armazenamento escalável e execução sob demanda.
@@ -85,6 +91,7 @@ Utilizamos para subir o back.
 Vercel é uma plataforma de hospedagem em nuvem frontend que facilita o desenvolvimento, pré-visualização e implantação de sites e aplicações web.
 Utilizamos para subir o front.
 
+</details>
 
 ## 📱 Como usar
 
@@ -124,9 +131,16 @@ Utilizamos para subir o front.
 - O usuário pode redefinir sua senha a qualquer momento, através da tela de login. Um código de verificação será enviado por e-mail para confirmar a identidade do usuário. Após a confirmação do código, o usuário poderá criar uma nova senha.
 
 
+## 🔮 Planejamentos futuros
+
+- Permitir que o usuário faça login com conta Google.
+- Adicionar TED como opção de pagamento nas configurações do perfil.
+- Gerar feedbacks de ações realizadas na conta.
+
 ## 📖 Licença
 
 Este projeto está sob a licença GNU GENERAL PUBLIC LICENSE Version 3 (GPLv3) - veja o arquivo [LICENSE.md](https://github.com/LauriESB/porkin/blob/main/LICENSE) para mais detalhes.
+
 
 [De volta ao topo do README](#top)
 
