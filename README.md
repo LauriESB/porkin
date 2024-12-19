@@ -17,7 +17,7 @@
 
 ## 🐷 Sobre
 
-**porkin!** é um PWA desenvolvido para quem precisa organizar as despesas de um evento com os amigos de maneira simples, rápida e sem complicações. Sabemos que, na correria, é fácil perder o controle de quem pagou o quê e quem deve para quem, especialmente quando as dívidas são quitadas após algum tempo. **porkin!** facilita esse processo, permitindo que todos acompanhem as despesas em tempo real, garantindo transparência e evitando mal-entendidos. Com uma interface intuitiva e funcionalidades pensadas para o dia a dia, ele é a solução perfeita para manter as contas em ordem e focar no que realmente importa: aproveitar os momentos com os amigos.
+**porkin!** é uma aplicação web desenvolvida para quem precisa organizar as despesas de um evento com os amigos de maneira simples, rápida e sem complicações. Sabemos que, na correria, é fácil perder o controle de quem pagou o quê e quem deve para quem, especialmente quando as dívidas são quitadas após algum tempo. **porkin!** facilita esse processo, permitindo que todos acompanhem as despesas em tempo real, garantindo transparência e evitando mal-entendidos. Com uma interface intuitiva e funcionalidades pensadas para o dia a dia, ele é a solução perfeita para manter as contas em ordem e focar no que realmente importa: aproveitar os momentos com os amigos.
 
 <details open>
 <summary>
