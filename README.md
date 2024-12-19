@@ -121,7 +121,7 @@ Utilizamos para subir o front.
 
 ### Recuperação de senha
 
-- O usuário pode redefinir sua senha a qualquer momento, um código de verificação será enviado por e-mail para confirmar a identidade do usuário. Após a confirmação do código, o usuário poderá criar uma nova senha.
+- O usuário pode redefinir sua senha a qualquer momento, através da tela de login. Um código de verificação será enviado por e-mail para confirmar a identidade do usuário. Após a confirmação do código, o usuário poderá criar uma nova senha.
 
 
 ## 📖 Licença
