@@ -30,7 +30,7 @@ public class PersonEntity implements UserDetails {
   @Column(nullable = false)
   private String email;
 
-  @Column(nullable = false)
+  //@Column(nullable = false)
   private String password;
 
   private String recoveryCode;
